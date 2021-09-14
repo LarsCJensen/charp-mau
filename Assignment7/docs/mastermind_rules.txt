@@ -1,0 +1,15 @@
+Mastermind - How to play
+
+Game modes:
+
+Easy (Not yet implemented)
+
+Medium:
+
+Choose on of 6 clors
+
+
+read more her https://en.wikipedia.org/wiki/Mastermind_(board_game)
+
+
+

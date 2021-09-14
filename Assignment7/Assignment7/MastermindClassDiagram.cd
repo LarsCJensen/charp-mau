@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Colors&#xD;&#xA;GuessResult&#xD;&#xA;">
+    <Position X="11.333" Y="2.375" Height="0.416" Width="0.877" />
+  </Comment>
+  <Comment CommentText="Attributes:&#xD;&#xA;Position&#xD;&#xA;Color (enum)&#xD;&#xA;">
+    <Position X="7.646" Y="3.385" Height="0.802" Width="1.231" />
+  </Comment>
+  <Comment CommentText="Attributes:&#xD;&#xA;Array[4]&lt;MastermindItem&gt;&#xD;&#xA;">
+    <Position X="4.615" Y="3.375" Height="0.448" Width="1.877" />
+  </Comment>
+  <Comment CommentText="Attributes:&#xD;&#xA;Array[10]&lt;MastermindRow&gt;&#xD;&#xA;Array[10]&lt;MastermindResult&gt;&#xD;&#xA;&#xD;&#xA;Methods:&#xD;&#xA;AddMasterMindRow&#xD;&#xA;CorrectRow(private)&#xD;&#xA;&#xD;&#xA;">
+    <Position X="2.573" Y="1.01" Height="1.323" Width="1.898" />
+  </Comment>
+  <Comment CommentText="Attributes:&#xD;&#xA;Array[4](enum)&#xD;&#xA;">
+    <Position X="7.385" Y="1.656" Height="0.656" Width="1.106" />
+  </Comment>
+  <Class Name="Assignment7.MastermindManager" Collapsed="true">
+    <Position X="4.5" Y="1" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAgAAAABAAAAAAAAAAAAABA=</HashCode>
+      <FileName>MastermindManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MastermindResult" />
+      <Property Name="MastermindRow" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Assignment7.MastermindItem" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MastermindItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment7.MastermindRow" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MastermindRow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assignment7.MastermindResult" Collapsed="true">
+    <Position X="7.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MastermindResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Assignment7.Colors" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAQIAAAAAAAABAAgAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
