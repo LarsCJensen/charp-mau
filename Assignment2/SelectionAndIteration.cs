@@ -20,41 +20,42 @@ namespace Assignment2
             Console.WriteLine();
             Console.WriteLine("My name is: Lars Jensen I am a student of the HT21 semester!");
             Console.WriteLine();
-            
-            //Console.WriteLine("Let me calculate the length of strings for you!");
-            //// I chose to keep this code in the public method and not moving it into ShowStringLength as that has a single purpose.
-            //// I would probably not clutter the public method in a real case this much though. It should be small.
-            //do
-            //{                
-            //    Console.WriteLine("Give me a text of any length, or press Enter to exit!");
-            //    string inputStr = Console.ReadLine();
-            //    if(inputStr.Length > 0 )
-            //    {
-            //        ShowStringLength(inputStr);
-            //    } else
-            //    {
-            //        break;
-            //    }               
 
-            //} while (true);
-           
-            
-            //Console.WriteLine();
+            Console.WriteLine("Let me calculate the length of strings for you!");
+            // I chose to keep this code in the public method and not moving it into ShowStringLength as that has a single purpose.
+            // I would probably not clutter the public method in a real case this much though. It should be small.
+            do
+            {
+                Console.WriteLine("Give me a text of any length, or press Enter to exit!");
+                string inputStr = Console.ReadLine();
+                if (inputStr.Length > 0)
+                {
+                    ShowStringLength(inputStr);
+                }
+                else
+                {
+                    break;
+                }
 
-            //// Looping until the user has input a value that is betweek 1 and 7
-            //do
-            //{
-            //    Console.WriteLine("Please enter a number between 1 and 7:");
-            //    string numberOfDay = Console.ReadLine();
+            } while (true);
 
-            //    if (validDays.Any(numberOfDay.Contains))
-            //    {
-            //        MakeMyDay(numberOfDay);
-            //        Console.WriteLine();
-            //        //Break the loop
-            //        break;
-            //    }
-            //} while (true);
+
+            Console.WriteLine();
+
+            // Looping until the user has input a value that is betweek 1 and 7
+            do
+            {
+                Console.WriteLine("Please enter a number between 1 and 7:");
+                string numberOfDay = Console.ReadLine();
+
+                if (validDays.Any(numberOfDay.Contains))
+                {
+                    MakeMyDay(numberOfDay);
+                    Console.WriteLine();
+                    //Break the loop
+                    break;
+                }
+            } while (true);
 
             int x;
             int y;

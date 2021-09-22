@@ -11,18 +11,23 @@ namespace Assignment2
     {
         static void Main(string[] args)
         {
-            Console.Title = "Selection and iteration in C#";
-            SelectionAndIteration selectAndIt = new SelectionAndIteration();
-            
+            //Console.Title = "Selection and iteration in C#";
+            //SelectionAndIteration selectAndIt = new SelectionAndIteration();
+
+            //Console.WriteLine("Press any key to continue");
+            //Console.ReadLine();
+
+            Console.Title = "Fahrenheit and Celcius Converter";
+            TemperatureConverter converter = new TemperatureConverter();
 
             Console.WriteLine("Press any key to continue");
             Console.ReadLine();
 
-            //Console.Title = "Fahrenheit and Celcius Converter";
-            //TemperatureConverter converter = new TEmperatureConverter();
+            Console.Title = "Working Schedule";
+            WorkingSchedule workingSchedule = new WorkingSchedule();
 
-            //Console.WriteLine("Press any key to Exit!");
-            //Console.ReadLine();
+            Console.WriteLine("Press any key to Exit!");
+            Console.ReadLine();
         }
     }
 }
