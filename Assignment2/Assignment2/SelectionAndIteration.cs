@@ -23,7 +23,7 @@ namespace Assignment2
 
             Console.WriteLine("Let me calculate the length of strings for you!");
             // I chose to keep this code in the public method and not moving it into ShowStringLength as that has a single purpose.
-            // I would probably not clutter the public method in a real case this much though. It should be small.
+            // I would probably not clutter the public method in a real case this much though. It should be kept short.
             do
             {
                 Console.WriteLine("Give me a text of any length, or press Enter to exit!");
@@ -42,12 +42,13 @@ namespace Assignment2
 
             Console.WriteLine();
 
+            Console.WriteLine("Let me tell you the week day!");
             // Looping until the user has input a value that is betweek 1 and 7
             do
             {
                 Console.WriteLine("Please enter a number between 1 and 7:");
                 string numberOfDay = Console.ReadLine();
-
+                // Using the read only list to validate the accepted input
                 if (validDays.Any(numberOfDay.Contains))
                 {
                     MakeMyDay(numberOfDay);
@@ -57,15 +58,19 @@ namespace Assignment2
                 }
             } while (true);
 
+
+            Console.WriteLine("Let me calculate sum between numbers!");
             int x;
             int y;
             string input; 
+            // Loop until the user input is able to be converted to int
             do
             {
                 Console.WriteLine("Give start number: ");
                 do
                 {                    
                     input = Console.ReadLine();
+                    // If it is not parsable then we loop until it is.
                     if (Int32.TryParse(input, out x))
                     {
                         break;
@@ -76,6 +81,8 @@ namespace Assignment2
                 } while (true);
                 Console.WriteLine("Give end number: ");
                 input = Console.ReadLine();
+                // Using TryParse here to make sure we get a number as input, or rather a string which can be parsed as int as input.
+                // If too big then it will ask again.
                 if (Int32.TryParse(input, out y))
                 {
                     break;
@@ -132,9 +139,20 @@ namespace Assignment2
         {
             int count;
             int sum = 0; 
-            if(x < y)
+            // If the start is less and or equal to
+            if(x <= y)
             {
-                for(count = x; count < y+1; count++)
+                // We need to add y + 1 to make sure we iterate over the y value
+                for(count = x; count < y + 1; count++)
+                {
+                    sum += count;
+                }
+            }
+            else
+            {
+                // If you put in a lower number as y we switch them
+                // We need to add x + 1 to make sure we iterate over the x value
+                for (count = y; count < x + 1; count++)
                 {
                     sum += count;
                 }

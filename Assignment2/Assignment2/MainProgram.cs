@@ -11,11 +11,11 @@ namespace Assignment2
     {
         static void Main(string[] args)
         {
-            //Console.Title = "Selection and iteration in C#";
-            //SelectionAndIteration selectAndIt = new SelectionAndIteration();
+            Console.Title = "Selection and iteration in C#";
+            SelectionAndIteration warmupObj = new SelectionAndIteration();
 
-            //Console.WriteLine("Press any key to continue");
-            //Console.ReadLine();
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
 
             Console.Title = "Fahrenheit and Celcius Converter";
             TemperatureConverter converter = new TemperatureConverter();
