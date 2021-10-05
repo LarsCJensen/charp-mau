@@ -122,9 +122,9 @@ namespace Assignment3
             this.lblWeightResult.AutoSize = true;
             this.lblWeightResult.Location = new System.Drawing.Point(98, 127);
             this.lblWeightResult.Name = "lblWeightResult";
-            this.lblWeightResult.Size = new System.Drawing.Size(179, 13);
+            this.lblWeightResult.Size = new System.Drawing.Size(233, 13);
             this.lblWeightResult.TabIndex = 14;
-            this.lblWeightResult.Text = "Normal weight should be between ...";
+            this.lblWeightResult.Text = "Normal weight should be between 50 and 68 kg";
             // 
             // lblBMI
             // 
@@ -132,9 +132,9 @@ namespace Assignment3
             this.lblBMI.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.lblBMI.Location = new System.Drawing.Point(98, 98);
             this.lblBMI.Name = "lblBMI";
-            this.lblBMI.Size = new System.Drawing.Size(125, 13);
+            this.lblBMI.Size = new System.Drawing.Size(191, 13);
             this.lblBMI.TabIndex = 13;
-            this.lblBMI.Text = "Normal BMI is between...";
+            this.lblBMI.Text = "Normal BMI is between 18.50 and 24.9";
             // 
             // label4
             // 
@@ -251,7 +251,7 @@ namespace Assignment3
             // lblBMIResult
             // 
             this.lblBMIResult.AutoSize = true;
-            this.lblBMIResult.Location = new System.Drawing.Point(99, 31);
+            this.lblBMIResult.Location = new System.Drawing.Point(101, 31);
             this.lblBMIResult.Name = "lblBMIResult";
             this.lblBMIResult.Size = new System.Drawing.Size(34, 13);
             this.lblBMIResult.TabIndex = 15;

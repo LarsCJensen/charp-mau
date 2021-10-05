@@ -17,6 +17,7 @@ namespace Assignment3
         //    set { name = value; }
         //}
         private double height = 0;
+        // I like this newer for of getters and setters
         public double Height
         {
             get { return height; }
@@ -40,21 +41,29 @@ namespace Assignment3
             //BMI = weight in kg / (height * heightin m2)  (Metric Units) BMI = 703.0 *·weight in lb / (height * heightin inch2) (Imperial(U.S.) Units) 
             if (unit == UnitTypes.Metric)
             {
-                return 14.14;
+                return weight / (height * height);
             }
-            return 15.00;
+            return 703 * weight / (height * height);
         }
-        public string GetBMIWeightCategory()
-        {
-            //BMI
-            //Nutritional status
-            //Below 18.5 Underweight
-            //18.5–24.9 Normal weight
-            //25.0–29.9 Overweight(Pre - obesity)
-            //30.0–34.9 Overweight(Obesity class I)
-            //35.0–39.9 Overweight(Obesity class II)
-            //Above 40 Overweight(Obesity class III) 
-            return "FAT";
+        public string GetBMIWeightCategory(double bmi)
+        {            
+            switch (bmi)
+            {   
+                // As of C# 7 switch with between can be used, so I'll use it
+                case double n when (n < 18.5):
+                    return "Underweight";
+                case double n when (n <= 24.9 && n >= 18.5):
+                    return "Normal weight";
+                case double n when (n <= 29.9 && n >= 25.0):
+                    return "Overweight(Pre - obesity)";
+                case double n when (n <= 34.9 && n >= 30.0):
+                    return "Overweight(Obesity class I)";
+                case double n when (n <= 39.9 && n >= 35.0):
+                    return "Overweight(Obesity class II)";
+                case double n when (n > 40):
+                    return "Overweight(Obesity class III)";                
+            }
+            return "";
         }
     }
 }

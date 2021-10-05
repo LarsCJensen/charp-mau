@@ -33,6 +33,8 @@ namespace Assignment3
             optImperial.Checked = false;
             lblBMIResult.Text = "";
             lblBMICategory.Text= "";
+            lblBMI.Visible = false;
+            lblWeightResult.Visible = false;
         }
 
         private void btnCalculateBMI_Click(object sender, EventArgs e)
@@ -40,35 +42,40 @@ namespace Assignment3
             // If all I'm checking is if a string is empty, then this is what I prefer instead of a validating method.
             name = !string.IsNullOrEmpty(txtName.Text) ? txtName.Text : "No name";
             //1.MainForm saves input given on the GUI and saves them in bmiCalc, using its set-methods. 
-            bool valueIsValid = false;
-            double height = ReadDouble(txtHeightMetric.Text, out valueIsValid);
-            if(valueIsValid)
+            double height = GetHeight();
+            if(height > 0)
             {
                 bmiCalc.Height = height;
             } else
             {
-                MessageBox.Show("Value for height is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            double weight = ReadDouble(txtWeightMetric.Text, out valueIsValid);
-            if (valueIsValid)
+            double weight = GetWeight();
+            if (weight > 0)
             {
                 bmiCalc.Weight = weight;
             }
             else
             {
-                MessageBox.Show("Value for weight is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             bmiCalc.Unit = optMetric.Checked ? UnitTypes.Metric : UnitTypes.Imperial;
 
             //2.MainForm calls methods of bmiCalc to perform calculations and receive output 
-            grpResult.Text = "Results for: " + name;
-            lblBMIResult.Text = bmiCalc.CalculateBMI().ToString();
-            lblBMIResult.Text = bmiCalc.GetBMIWeightCategory();
+            double calculatedBMI = bmiCalc.CalculateBMI();
+            lblBMIResult.Text = calculatedBMI.ToString();
+            lblBMICategory.Text = bmiCalc.GetBMIWeightCategory(calculatedBMI);
             //3.MainForm displays the output on the GUI
+            grpResult.Text = "Results for: " + name;
+            if (calculatedBMI < 18.5 || calculatedBMI >24.9)
+            {
+                lblBMI.Visible = true;
+                lblWeightResult.Text = GetWeightResultText(weight);
+                lblWeightResult.Visible = true;
+            }
+
         }
         private double ReadDouble(string inputValue, out bool success)
         {
@@ -105,5 +112,74 @@ namespace Assignment3
             txtHeightImperialIn.Visible = true;
             txtWeightImperial.Visible = true;
         }
+
+        private double GetHeight()
+        {
+            bool valueIsValid = false;
+            double height = 0;
+            double heightFt = 0;
+            double heightIn = 0;
+            // Since imperial has two different fields for height, the if-statement is set around the ReadDouble
+            if (optMetric.Checked)
+            {
+                height = ReadDouble(txtHeightMetric.Text, out valueIsValid);
+            }
+            else
+            {
+                heightFt = ReadDouble(txtHeightImperialFt.Text, out valueIsValid);
+                heightIn = ReadDouble(txtHeightImperialIn.Text, out valueIsValid);
+            }
+
+            if (valueIsValid)
+            {
+                if (optMetric.Checked)
+                {
+                    return height / 100;
+                }
+                else
+                {
+                    return (heightFt * 12) + heightIn;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Value for height is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
+            }
+        }
+        private double GetWeight()
+        {
+            bool valueIsValid = false;
+            double weight = 0;
+            if (optMetric.Checked)
+            {
+                weight = ReadDouble(txtWeightMetric.Text, out valueIsValid);
+            }
+            else
+            {
+                weight = ReadDouble(txtWeightImperial.Text, out valueIsValid);
+            }            
+
+            if (valueIsValid)
+            {
+                return weight;                
+            }
+            else
+            {
+                MessageBox.Show("Value for weight is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
+            }
+
+        }
+        private string GetWeightResultText(double weight)
+        {
+            // TODO TA HÄNSYN TILL IMPERIAL ETC
+            //weight1 = weight * 18.50; //low limit weight2  = weight * 24.9; // high limit 
+            double weightMin = weight * 18.50;
+            double weightMax = weight * 24.90;
+
+            return "Normal weight should be between " + weightMin.ToString() + " and " + weightMax.ToString();
+        }
     }
 }
+
