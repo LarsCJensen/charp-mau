@@ -65,16 +65,14 @@ namespace Assignment3
 
             //2.MainForm calls methods of bmiCalc to perform calculations and receive output 
             double calculatedBMI = bmiCalc.CalculateBMI();
-            lblBMIResult.Text = calculatedBMI.ToString();
+            lblBMIResult.Text = calculatedBMI.ToString("0.##");
             lblBMICategory.Text = bmiCalc.GetBMIWeightCategory(calculatedBMI);
             //3.MainForm displays the output on the GUI
             grpResult.Text = "Results for: " + name;
-            if (calculatedBMI < 18.5 || calculatedBMI >24.9)
-            {
-                lblBMI.Visible = true;
-                lblWeightResult.Text = GetWeightResultText(weight);
-                lblWeightResult.Visible = true;
-            }
+            
+            lblBMI.Visible = true;
+            lblWeightResult.Text = GetWeightResultText(height, optMetric.Checked);
+            lblWeightResult.Visible = true;
 
         }
         private double ReadDouble(string inputValue, out bool success)
@@ -171,14 +169,24 @@ namespace Assignment3
             }
 
         }
-        private string GetWeightResultText(double weight)
+        private string GetWeightResultText(double height, bool metric)
         {
             // TODO TA HÄNSYN TILL IMPERIAL ETC
-            //weight1 = weight * 18.50; //low limit weight2  = weight * 24.9; // high limit 
-            double weightMin = weight * 18.50;
-            double weightMax = weight * 24.90;
-
-            return "Normal weight should be between " + weightMin.ToString() + " and " + weightMax.ToString();
+            //weight1 = weight * 18.50; //low limit weight2  = weight * 24.9; // high limit
+            double weightMin = 0;
+            double weightMax = 0;
+            if (metric)
+            {
+                weightMin = height * 18.50;
+                weightMax = height * 24.90;
+            } else
+            {
+                weightMin = (height * height/ 703) * 18.50;
+                weightMax = (height * height/ 703) * 24.90;
+            }
+            
+            string strUnit = metric ? "kg" : "lbs";
+            return "Normal weight should be between " + ((int)weightMin).ToString() + " " + strUnit + " and " + ((int)weightMax).ToString() + " " + strUnit;
         }
     }
 }

@@ -32,7 +32,12 @@ namespace Assignment3
             this.calculator = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtHeightImperialIn = new System.Windows.Forms.TextBox();
+            this.txtWeightImperial = new System.Windows.Forms.TextBox();
+            this.txtHeightImperialFt = new System.Windows.Forms.TextBox();
             this.grpResult = new System.Windows.Forms.GroupBox();
+            this.lblBMICategory = new System.Windows.Forms.Label();
+            this.lblBMIResult = new System.Windows.Forms.Label();
             this.lblWeightResult = new System.Windows.Forms.Label();
             this.lblBMI = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,23 +46,32 @@ namespace Assignment3
             this.txtHeightMetric = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblHeight = new System.Windows.Forms.Label();
+            this.lblWeight = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.optImperial = new System.Windows.Forms.RadioButton();
             this.optMetric = new System.Windows.Forms.RadioButton();
             this.btnCalculateBMI = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblBMIResult = new System.Windows.Forms.Label();
-            this.lblBMICategory = new System.Windows.Forms.Label();
-            this.txtWeightImperial = new System.Windows.Forms.TextBox();
-            this.txtHeightImperialFt = new System.Windows.Forms.TextBox();
-            this.txtHeightImperialIn = new System.Windows.Forms.TextBox();
-            this.lblWeight = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDeposit = new System.Windows.Forms.TextBox();
+            this.txtYears = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblFinalBalance = new System.Windows.Forms.Label();
+            this.lblAmountPaid = new System.Windows.Forms.Label();
+            this.btnCalculateSaving = new System.Windows.Forms.Button();
             this.calculator.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpResult.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // calculator
@@ -102,6 +116,27 @@ namespace Assignment3
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "BMI Calculator";
             // 
+            // txtHeightImperialIn
+            // 
+            this.txtHeightImperialIn.Location = new System.Drawing.Point(135, 53);
+            this.txtHeightImperialIn.Name = "txtHeightImperialIn";
+            this.txtHeightImperialIn.Size = new System.Drawing.Size(35, 20);
+            this.txtHeightImperialIn.TabIndex = 11;
+            // 
+            // txtWeightImperial
+            // 
+            this.txtWeightImperial.Location = new System.Drawing.Point(92, 79);
+            this.txtWeightImperial.Name = "txtWeightImperial";
+            this.txtWeightImperial.Size = new System.Drawing.Size(35, 20);
+            this.txtWeightImperial.TabIndex = 10;
+            // 
+            // txtHeightImperialFt
+            // 
+            this.txtHeightImperialFt.Location = new System.Drawing.Point(92, 53);
+            this.txtHeightImperialFt.Name = "txtHeightImperialFt";
+            this.txtHeightImperialFt.Size = new System.Drawing.Size(35, 20);
+            this.txtHeightImperialFt.TabIndex = 9;
+            // 
             // grpResult
             // 
             this.grpResult.Controls.Add(this.lblBMICategory);
@@ -116,6 +151,24 @@ namespace Assignment3
             this.grpResult.TabIndex = 8;
             this.grpResult.TabStop = false;
             this.grpResult.Text = "Results for: ";
+            // 
+            // lblBMICategory
+            // 
+            this.lblBMICategory.AutoSize = true;
+            this.lblBMICategory.Location = new System.Drawing.Point(101, 60);
+            this.lblBMICategory.Name = "lblBMICategory";
+            this.lblBMICategory.Size = new System.Drawing.Size(96, 13);
+            this.lblBMICategory.TabIndex = 16;
+            this.lblBMICategory.Text = "This will be result...";
+            // 
+            // lblBMIResult
+            // 
+            this.lblBMIResult.AutoSize = true;
+            this.lblBMIResult.Location = new System.Drawing.Point(101, 31);
+            this.lblBMIResult.Name = "lblBMIResult";
+            this.lblBMIResult.Size = new System.Drawing.Size(34, 13);
+            this.lblBMIResult.TabIndex = 15;
+            this.lblBMIResult.Text = "25.00";
             // 
             // lblWeightResult
             // 
@@ -184,6 +237,15 @@ namespace Assignment3
             this.lblHeight.TabIndex = 4;
             this.lblHeight.Text = "Height (cm)";
             // 
+            // lblWeight
+            // 
+            this.lblWeight.AutoSize = true;
+            this.lblWeight.Location = new System.Drawing.Point(20, 86);
+            this.lblWeight.Name = "lblWeight";
+            this.lblWeight.Size = new System.Drawing.Size(62, 13);
+            this.lblWeight.TabIndex = 3;
+            this.lblWeight.Text = "Weight (kg)";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -240,6 +302,9 @@ namespace Assignment3
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnCalculateSaving);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -248,53 +313,108 @@ namespace Assignment3
             this.tabPage2.Text = "Savings Calculator";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // lblBMIResult
+            // groupBox3
             // 
-            this.lblBMIResult.AutoSize = true;
-            this.lblBMIResult.Location = new System.Drawing.Point(101, 31);
-            this.lblBMIResult.Name = "lblBMIResult";
-            this.lblBMIResult.Size = new System.Drawing.Size(34, 13);
-            this.lblBMIResult.TabIndex = 15;
-            this.lblBMIResult.Text = "25.00";
+            this.groupBox3.Controls.Add(this.txtYears);
+            this.groupBox3.Controls.Add(this.txtDeposit);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Location = new System.Drawing.Point(12, 10);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(378, 175);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Saving plan";
             // 
-            // lblBMICategory
+            // label2
             // 
-            this.lblBMICategory.AutoSize = true;
-            this.lblBMICategory.Location = new System.Drawing.Point(101, 60);
-            this.lblBMICategory.Name = "lblBMICategory";
-            this.lblBMICategory.Size = new System.Drawing.Size(96, 13);
-            this.lblBMICategory.TabIndex = 16;
-            this.lblBMICategory.Text = "This will be result...";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Monthly deposit";
             // 
-            // txtWeightImperial
+            // label3
             // 
-            this.txtWeightImperial.Location = new System.Drawing.Point(92, 79);
-            this.txtWeightImperial.Name = "txtWeightImperial";
-            this.txtWeightImperial.Size = new System.Drawing.Size(35, 20);
-            this.txtWeightImperial.TabIndex = 10;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Period (years)";
             // 
-            // txtHeightImperialFt
+            // txtDeposit
             // 
-            this.txtHeightImperialFt.Location = new System.Drawing.Point(92, 53);
-            this.txtHeightImperialFt.Name = "txtHeightImperialFt";
-            this.txtHeightImperialFt.Size = new System.Drawing.Size(35, 20);
-            this.txtHeightImperialFt.TabIndex = 9;
+            this.txtDeposit.Location = new System.Drawing.Point(119, 21);
+            this.txtDeposit.Name = "txtDeposit";
+            this.txtDeposit.Size = new System.Drawing.Size(87, 20);
+            this.txtDeposit.TabIndex = 2;
             // 
-            // txtHeightImperialIn
+            // txtYears
             // 
-            this.txtHeightImperialIn.Location = new System.Drawing.Point(135, 53);
-            this.txtHeightImperialIn.Name = "txtHeightImperialIn";
-            this.txtHeightImperialIn.Size = new System.Drawing.Size(35, 20);
-            this.txtHeightImperialIn.TabIndex = 11;
+            this.txtYears.Location = new System.Drawing.Point(119, 50);
+            this.txtYears.Name = "txtYears";
+            this.txtYears.Size = new System.Drawing.Size(87, 20);
+            this.txtYears.TabIndex = 3;
             // 
-            // lblWeight
+            // groupBox4
             // 
-            this.lblWeight.AutoSize = true;
-            this.lblWeight.Location = new System.Drawing.Point(20, 86);
-            this.lblWeight.Name = "lblWeight";
-            this.lblWeight.Size = new System.Drawing.Size(62, 13);
-            this.lblWeight.TabIndex = 3;
-            this.lblWeight.Text = "Weight (kg)";
+            this.groupBox4.Controls.Add(this.lblAmountPaid);
+            this.groupBox4.Controls.Add(this.lblFinalBalance);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Location = new System.Drawing.Point(16, 230);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(374, 157);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Future value";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 61);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Final balance";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 29);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Amount paid";
+            // 
+            // lblFinalBalance
+            // 
+            this.lblFinalBalance.AutoSize = true;
+            this.lblFinalBalance.Location = new System.Drawing.Point(112, 61);
+            this.lblFinalBalance.Name = "lblFinalBalance";
+            this.lblFinalBalance.Size = new System.Drawing.Size(66, 13);
+            this.lblFinalBalance.TabIndex = 3;
+            this.lblFinalBalance.Text = "Amount paid";
+            // 
+            // lblAmountPaid
+            // 
+            this.lblAmountPaid.AutoSize = true;
+            this.lblAmountPaid.Location = new System.Drawing.Point(112, 29);
+            this.lblAmountPaid.Name = "lblAmountPaid";
+            this.lblAmountPaid.Size = new System.Drawing.Size(66, 13);
+            this.lblAmountPaid.TabIndex = 4;
+            this.lblAmountPaid.Text = "Amount paid";
+            // 
+            // btnCalculateSaving
+            // 
+            this.btnCalculateSaving.Location = new System.Drawing.Point(78, 194);
+            this.btnCalculateSaving.Name = "btnCalculateSaving";
+            this.btnCalculateSaving.Size = new System.Drawing.Size(182, 22);
+            this.btnCalculateSaving.TabIndex = 2;
+            this.btnCalculateSaving.Text = "Calculate saving";
+            this.btnCalculateSaving.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -315,6 +435,11 @@ namespace Assignment3
             this.grpResult.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -345,6 +470,17 @@ namespace Assignment3
         private System.Windows.Forms.TextBox txtHeightImperialFt;
         private System.Windows.Forms.TextBox txtHeightImperialIn;
         private System.Windows.Forms.Label lblWeight;
+        private System.Windows.Forms.Button btnCalculateSaving;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label lblAmountPaid;
+        private System.Windows.Forms.Label lblFinalBalance;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtYears;
+        private System.Windows.Forms.TextBox txtDeposit;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
