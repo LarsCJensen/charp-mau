@@ -5,6 +5,9 @@
 
 namespace Assignment3
 {
+    /// <summary>
+    ///  Class <c>BMICalculatorc</c> calculates BMI based on user input
+    /// </summary>
     class BMICalculator
     {
         // According to the structural requirements this should not be in the calculator class, which I agree.
@@ -34,18 +37,28 @@ namespace Assignment3
             get { return unit; }
             set { unit = value; }
         }
-        public double CalculateBMI()
-        {
+        /// <summary>
+        /// method <c>CalculateBMI</c> calculates the API based on user input and chosen UnitType 
+        /// </summary>
+        /// <returns></returns>
+        public double CalculateBMI()        {
 
-            //BMI = weight in kg / (height * heightin m2)  (Metric Units) BMI = 703.0 *·weight in lb / (height * heightin inch2) (Imperial(U.S.) Units) 
+            // CalculateBMI BMI depending on UnitType and returning the value
             if (unit == UnitTypes.Metric)
             {
                 return weight / (height * height);
             }
             return 703 * weight / (height * height);
         }
+        // 
+        /// <summary>
+        /// method <c>GetBMIWeightCategory</c> returns the category text based on the given BMI input
+        /// </summary>
+        /// <param name="bmi">bmi value as double</param>
+        /// <returns></returns>
         public string GetBMIWeightCategory(double bmi)
         {            
+            // Method to get the weight category based on table
             switch (bmi)
             {   
                 // As of C# 7 switch with between can be used, so I'll use it

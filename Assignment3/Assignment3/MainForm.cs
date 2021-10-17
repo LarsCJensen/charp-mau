@@ -1,6 +1,8 @@
 ﻿/*
  * Lars Jensen
- * 2021-10-21
+ * 2021-10-15
+ * I chose to use a tab form, as it was more nice looking than having everything on the same interface.
+ * I feel that MainForm grew to much. It could use a refactor, but time spent on other stuff made it not possible
  * */
 
 using System;
@@ -25,6 +27,7 @@ namespace Assignment3
         {            
             InitializeComponent();
             InitializeGUI();
+            // Adding an eventhandler for when changing tabs
             calculator.SelectedIndexChanged += new EventHandler(calculator_SelectIndexChanged);
         }
 
@@ -34,6 +37,7 @@ namespace Assignment3
             txtName.Text = "";
             txtHeightMetric.Text = "";
             txtWeightMetric.Text = "";
+            // I think it's clearer to set the default value through code and not the designer
             optMetric.Checked = true;
             optImperial.Checked = false;
             lblBMIResult.Text = "";
@@ -48,21 +52,23 @@ namespace Assignment3
             lblTotalFees.Text = "";
 
             //BMR Calculator
+            // I think it's clearer to set the default value through code and not the designer
             optFemale.Checked = true;
             optMale.Checked = false;
             txtAge.Text = "";
 
         }
-
+        // Calculate BMI ---------->
         private void btnCalculateBMI_Click(object sender, EventArgs e)
         {
             // If all I'm checking is if a string is empty, then this is what I prefer instead of a validating method.
-            name = !string.IsNullOrEmpty(txtName.Text) ? txtName.Text : "No name";
-            //1.MainForm saves input given on the GUI and saves them in bmiCalc, using its set-methods. 
-            double height = GetHeight();
+            // Setting control to No name to show user that there is a default value
+            txtName.Text = !string.IsNullOrEmpty(txtName.Text) ? txtName.Text : "No name";
+            name = txtName.Text;
+            double height = GetHeight(true);
             if(height > 0)
             {
-                bmiCalc.Height = height;
+                bmiCalc.Height = height; 
             } else
             {
                 return;
@@ -81,6 +87,7 @@ namespace Assignment3
             bmiCalc.Unit = optMetric.Checked ? UnitTypes.Metric : UnitTypes.Imperial;
 
             double calculatedBMI = bmiCalc.CalculateBMI();
+            // Using only two decimals
             lblBMIResult.Text = calculatedBMI.ToString("0.##");
             lblBMICategory.Text = bmiCalc.GetBMIWeightCategory(calculatedBMI);
             
@@ -141,8 +148,8 @@ namespace Assignment3
             txtWeightImperial.Visible = true;
         }
 
-        // Helper function to get height
-        private double GetHeight()
+        // Helper function to get height. Added an optional bool to reuse with bmi/bmr calculations
+        private double GetHeight(bool bMeters = false)
         {
             bool valueIsValid = false;
             double height = 0;
@@ -164,7 +171,11 @@ namespace Assignment3
             {
                 if (optMetric.Checked)
                 {
-                    return height / 100;
+                    if(bMeters)
+                    {
+                        height = height / 100; 
+                    }
+                    return height;
                 }
                 else
                 {
@@ -173,7 +184,8 @@ namespace Assignment3
             }
             else
             {
-                MessageBox.Show("Value for height is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Helper funtion to avoid repeating error message in case i want it changed
+                ShowErrorMessageForNumerical("height");
                 return -1;
             }
         }
@@ -196,7 +208,7 @@ namespace Assignment3
             }
             else
             {
-                MessageBox.Show("Value for weight is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessageForNumerical("weight");
                 return -1;
             }
 
@@ -223,10 +235,12 @@ namespace Assignment3
             return "Normal weight should be between " + weightMin.ToString("#") + " " + strUnit + " and " + weightMax.ToString("#") + " " + strUnit;
         }
 
+        // ------ Calculate Savings
         private void btnCalculateSaving_Click(object sender, EventArgs e)
         {
             
             bool valueIsValid = false;
+            // Re-using the helper methods
             double monthlyDeposit = ReadDouble(txtDeposit.Text, out valueIsValid);
             if (valueIsValid)
             {
@@ -234,7 +248,7 @@ namespace Assignment3
             }
             else
             {
-                ShowErrorMessage("monthly deposit");
+                ShowErrorMessageForNumerical("monthly deposit");
                 return;
             }
 
@@ -245,7 +259,7 @@ namespace Assignment3
             }
             else
             {
-                ShowErrorMessage("period");
+                ShowErrorMessageForNumerical("period");
                 return;
             }
 
@@ -256,49 +270,50 @@ namespace Assignment3
             }
             else
             {
-                ShowErrorMessage("initial deposit");
+                ShowErrorMessageForNumerical("initial deposit");
                 return;
             }
 
             double growth = ReadDouble(txtGrowth.Text, out valueIsValid);
-            // Since we have default 10% it will be reflected in the control.
             if (txtGrowth.Text != "" && valueIsValid)
-            {
-                // Since it says "in percent" I want the user to add percent, which I then divide by 100
-                savingCalc.Growth = growth / 100;
+            {                
+                savingCalc.Growth = growth;
             }
             else
             {
+                // Since we have default 10% it will be reflected in the control.
                 txtGrowth.Text = "10";               
             }
 
             double fees = ReadDouble(txtFees.Text, out valueIsValid);
             if (valueIsValid)
             {
-                savingCalc.Fees = fees / 100;
+                savingCalc.Fees = fees;
             }
             else
             {
-                ShowErrorMessage("fees");
+                ShowErrorMessageForNumerical("fees");
                 return;
             }
 
             // Reset TotalFees
             savingCalc.TotalFees = 0;
             // Only want the two last fractions to show
-            lblAmountPaid.Text = savingCalc.calculateAmountPaid().ToString("0.##");
-            lblFinalBalance.Text = savingCalc.calculateFinalBalance().ToString("0.##");
+            double amountPaid = savingCalc.calculateAmountPaid();
+            lblAmountPaid.Text = amountPaid.ToString("0.##");
+            double finalBalance = savingCalc.calculateFinalBalance();
+            lblFinalBalance.Text = finalBalance.ToString("0.##");
 
-            lblAmountEarned.Text = savingCalc.calculateAmountEarned().ToString("0.##");
+            lblAmountEarned.Text = savingCalc.calculateAmountEarned(amountPaid, finalBalance).ToString("0.##");
             lblTotalFees.Text = savingCalc.TotalFees.ToString("0.##");
 
         }
         // Helper method to avoid duplication of code. 
-        private void ShowErrorMessage(string value)
+        private void ShowErrorMessageForNumerical(string value)
         {
             MessageBox.Show("Value for " + value + " is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error); 
         }
-
+        // Calculate BMR ---------->
         private void btnCalculateBMR_Click(object sender, EventArgs e)
         {
             // When I do a new calculation I want the listbox to be cleared
@@ -308,7 +323,7 @@ namespace Assignment3
             if (height > 0)
             {
                 if(optImperial.Checked)
-                    height = (height * 2.54)/100; // inches to cm and then to m
+                    height = (height * 2.54); // inches to cm and then to m
                 bmrCalc.Height = height;
             }
             else
@@ -366,16 +381,18 @@ namespace Assignment3
 
             lbBMRResults.Items.Add("BMR RESULTS FOR " + txtName.Text.ToUpper() + ":");
             lbBMRResults.Items.Add("");
-            lbBMRResults.Items.Add("Your BMR (calories/day)\t\t" + bmrCalc.calculateBMR().ToString("0.##"));
-            lbBMRResults.Items.Add("Calories to maintain your weight\t" + bmrCalc.calculateMaintainWeight().ToString("0.##"));
-            lbBMRResults.Items.Add("Calories to loose 0,5 kg per week\t" + bmrCalc.calculateGainOrLossWeight(-500).ToString("0.##"));
-            lbBMRResults.Items.Add("Calories to loose 1 kg per week \t" + bmrCalc.calculateGainOrLossWeight(-1000).ToString("0.##"));
-            lbBMRResults.Items.Add("Calories to gain 0,5 kg per week \t" + bmrCalc.calculateGainOrLossWeight(500).ToString("0.##"));
-            lbBMRResults.Items.Add("Calories to gain 1 kg per week \t" + bmrCalc.calculateGainOrLossWeight(1000).ToString("0.##"));
+            double bmr = bmrCalc.calculateBMR();
+            lbBMRResults.Items.Add("Your BMR (calories/day)\t\t" + bmr.ToString("0.##"));
+            double maintainWeight = bmrCalc.calculateMaintainWeight(bmr);
+            lbBMRResults.Items.Add("Calories to maintain your weight\t" + maintainWeight.ToString("0.##"));
+            lbBMRResults.Items.Add("Calories to loose 0,5 kg per week\t" + bmrCalc.calculateGainOrLossWeight(maintainWeight, -500).ToString("0.##"));
+            lbBMRResults.Items.Add("Calories to loose 1 kg per week \t" + bmrCalc.calculateGainOrLossWeight(maintainWeight, -1000).ToString("0.##"));
+            lbBMRResults.Items.Add("Calories to gain 0,5 kg per week \t" + bmrCalc.calculateGainOrLossWeight(maintainWeight, 500).ToString("0.##"));
+            lbBMRResults.Items.Add("Calories to gain 1 kg per week \t" + bmrCalc.calculateGainOrLossWeight(maintainWeight, 1000).ToString("0.##"));
             lbBMRResults.Items.Add("");
             lbBMRResults.Items.Add("Losing more than 1000 calories per day is to be avoided!");
         }
-
+        // Helper method to get age
         private int GetAge()
         {
             bool valueIsValid = false;
@@ -388,7 +405,7 @@ namespace Assignment3
             }
             else
             {
-                MessageBox.Show("Value for age is invalid. Expected numerical!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessageForNumerical("age");
                 return -1;
             }
 

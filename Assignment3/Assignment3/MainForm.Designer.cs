@@ -646,7 +646,7 @@ namespace Assignment3
             // 
             // txtFees
             // 
-            this.txtFees.Location = new System.Drawing.Point(116, 123);
+            this.txtFees.Location = new System.Drawing.Point(147, 123);
             this.txtFees.Name = "txtFees";
             this.txtFees.Size = new System.Drawing.Size(100, 20);
             this.txtFees.TabIndex = 5;
@@ -663,7 +663,7 @@ namespace Assignment3
             // 
             // txtGrowth
             // 
-            this.txtGrowth.Location = new System.Drawing.Point(116, 97);
+            this.txtGrowth.Location = new System.Drawing.Point(147, 97);
             this.txtGrowth.Name = "txtGrowth";
             this.txtGrowth.Size = new System.Drawing.Size(100, 20);
             this.txtGrowth.TabIndex = 4;
@@ -674,13 +674,13 @@ namespace Assignment3
             this.lblGrowth.AutoSize = true;
             this.lblGrowth.Location = new System.Drawing.Point(9, 100);
             this.lblGrowth.Name = "lblGrowth";
-            this.lblGrowth.Size = new System.Drawing.Size(102, 13);
+            this.lblGrowth.Size = new System.Drawing.Size(132, 13);
             this.lblGrowth.TabIndex = 6;
-            this.lblGrowth.Text = "Growth/interest in %";
+            this.lblGrowth.Text = "Yearly growth/interest in %";
             // 
             // txtInitialDeposit
             // 
-            this.txtInitialDeposit.Location = new System.Drawing.Point(116, 19);
+            this.txtInitialDeposit.Location = new System.Drawing.Point(147, 19);
             this.txtInitialDeposit.Name = "txtInitialDeposit";
             this.txtInitialDeposit.Size = new System.Drawing.Size(100, 20);
             this.txtInitialDeposit.TabIndex = 1;
@@ -697,7 +697,7 @@ namespace Assignment3
             // 
             // txtPeriod
             // 
-            this.txtPeriod.Location = new System.Drawing.Point(116, 71);
+            this.txtPeriod.Location = new System.Drawing.Point(147, 71);
             this.txtPeriod.Name = "txtPeriod";
             this.txtPeriod.Size = new System.Drawing.Size(100, 20);
             this.txtPeriod.TabIndex = 3;
@@ -705,7 +705,7 @@ namespace Assignment3
             // 
             // txtDeposit
             // 
-            this.txtDeposit.Location = new System.Drawing.Point(116, 45);
+            this.txtDeposit.Location = new System.Drawing.Point(147, 45);
             this.txtDeposit.Name = "txtDeposit";
             this.txtDeposit.Size = new System.Drawing.Size(100, 20);
             this.txtDeposit.TabIndex = 2;

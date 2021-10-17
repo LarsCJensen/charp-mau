@@ -5,6 +5,9 @@
 
 namespace Assignment3
 {
+    /// <summary>
+    /// class <c>BMRCalculator</c> calculates BMR from user input. Inherits properties from BMICalculator.
+    /// </summary>
     class BMRCalculator : BMICalculator
     {
         private int age = 0;
@@ -36,25 +39,38 @@ namespace Assignment3
             get { return bmrFactor; }
             set { bmrFactor = value; }
         }
+        /// <summary>
+        /// method <c>calculateBMR</c> calculates BMR from user input
+        /// </summary>
+        /// <returns></returns>
         public double calculateBMR()
         {            
-            // Have to make Height into cm and not m as BMI            
-            double bmr = 10 * Weight + 6.25 * (Height * 100) - (5 * Age);
+            double bmr = 10 * Weight + 6.25 * Height - (5 * Age);
             if (gender == Gender.Female)
             {
                 return bmr - 161;
             }
             return bmr + 5; 
         }
-        public double calculateMaintainWeight()
-        {
-            // Thought it should perhaps not be calculated over and over, but to just be set as a class property
-            return calculateBMR() * bmrFactor;
+        /// <summary>
+        /// method <c>calculateMaintainWeight</c> calculates amount of calories to maintain weight
+        /// </summary>
+        /// <param name="bmr">BMR to caclulate amount of calories to maintain weight for</param>
+        /// <returns></returns>
+        public double calculateMaintainWeight(double bmr)
+        {            
+            return bmr * bmrFactor;
         }
-        public double calculateGainOrLossWeight(int factor)
+        /// <summary>
+        /// method <c>calculateGainOrLossWeight</c> calculates amount of calories to gain or lose weight
+        /// </summary>
+        /// <param name="maintainWeight">Amount of calories for maintaining weight</param>
+        /// <param name="factor">Amount of calories to calculate weight gain or loss for</param>
+        /// <returns></returns>
+        public double calculateGainOrLossWeight(double maintainWeight, int factor)
         {
             // If the factor is negative, this will still work.
-            return calculateMaintainWeight() + factor;
+            return maintainWeight + factor;
         }        
     }
 }
