@@ -20,6 +20,9 @@ namespace Assignment4
                 //Add recipe to RecipeManager
             }
         }
-        //public GetRecipeBasedOnIndex??
+        public Add()
+        {
+
+        }
     }
 }

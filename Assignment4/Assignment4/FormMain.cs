@@ -12,6 +12,9 @@ namespace Assignment4
 {
     public partial class FormMain : Form
     {
+        const int maxNumOfRecipes = 200;
+        const int maxNumOfIngredients = 50;
+        private RecipeManager recipeManager = new RecipeManager();
         public FormMain()
         {
             InitializeComponent();
@@ -29,6 +32,7 @@ namespace Assignment4
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
+            recipeManager.Add(txtNameOfRecipe.Text);
             // 1. Create recipe with name, category + description.
             // 2. Add it to listView
             // ?? Implement delete button
