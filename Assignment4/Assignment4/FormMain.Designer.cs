@@ -124,13 +124,14 @@ namespace Assignment4
             // 
             // lvRecipes
             // 
+            this.lvRecipes.FullRowSelect = true;
             this.lvRecipes.HideSelection = false;
             this.lvRecipes.Location = new System.Drawing.Point(372, 22);
+            this.lvRecipes.MultiSelect = false;
             this.lvRecipes.Name = "lvRecipes";
             this.lvRecipes.Size = new System.Drawing.Size(398, 295);
             this.lvRecipes.TabIndex = 2;
             this.lvRecipes.UseCompatibleStateImageBehavior = false;
-            this.lvRecipes.SelectedIndexChanged += new System.EventHandler(this.lvRecipes_SelectedIndexChanged);
             // 
             // btnEditBegin
             // 
@@ -140,6 +141,7 @@ namespace Assignment4
             this.btnEditBegin.TabIndex = 3;
             this.btnEditBegin.Text = "Edit Begin";
             this.btnEditBegin.UseVisualStyleBackColor = true;
+            this.btnEditBegin.Click += new System.EventHandler(this.btnEditBegin_Click);
             // 
             // btnDelete
             // 
