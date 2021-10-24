@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
-    enum FoodCategory
+    public enum FoodCategory
     {
         Meats,
         Pasta,

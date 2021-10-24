@@ -30,11 +30,11 @@ namespace Assignment4
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbIngredients = new System.Windows.Forms.ListBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtIngredientName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -43,11 +43,11 @@ namespace Assignment4
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.lbIngredients);
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnEdit);
             this.groupBox1.Controls.Add(this.btnAdd);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtIngredientName);
             this.groupBox1.Location = new System.Drawing.Point(24, 41);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(315, 305);
@@ -55,14 +55,14 @@ namespace Assignment4
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingredient";
             // 
-            // listBox1
+            // lbIngredients
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(5, 52);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(230, 229);
-            this.listBox1.TabIndex = 5;
+            this.lbIngredients.FormattingEnabled = true;
+            this.lbIngredients.ItemHeight = 15;
+            this.lbIngredients.Location = new System.Drawing.Point(5, 52);
+            this.lbIngredients.Name = "lbIngredients";
+            this.lbIngredients.Size = new System.Drawing.Size(230, 229);
+            this.lbIngredients.TabIndex = 5;
             // 
             // btnDelete
             // 
@@ -72,6 +72,7 @@ namespace Assignment4
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -81,6 +82,7 @@ namespace Assignment4
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -90,13 +92,14 @@ namespace Assignment4
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // textBox1
+            // txtIngredientName
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 23);
-            this.textBox1.TabIndex = 0;
+            this.txtIngredientName.Location = new System.Drawing.Point(6, 22);
+            this.txtIngredientName.Name = "txtIngredientName";
+            this.txtIngredientName.Size = new System.Drawing.Size(230, 23);
+            this.txtIngredientName.TabIndex = 0;
             // 
             // label1
             // 
@@ -109,6 +112,7 @@ namespace Assignment4
             // 
             // btnOk
             // 
+            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Location = new System.Drawing.Point(71, 352);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(80, 26);
@@ -119,6 +123,7 @@ namespace Assignment4
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(168, 352);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 26);
@@ -149,10 +154,10 @@ namespace Assignment4
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtIngredientName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbIngredients;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
     }

@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 namespace Assignment4
 {   
 
-    class Recipe
+    public class Recipe
     {
+        public Recipe(int maxNumOfIngredients)
+        {
+            ingredients = new string[maxNumOfIngredients];
+        } 
         private string name = "";
         public string Name
         {
@@ -46,7 +50,7 @@ namespace Assignment4
             }
             set
             {
-                if(ingredients.Length > 0)
+                if(value.Length > 0)
                 {
                     ingredients = value;
                 }                
@@ -67,9 +71,17 @@ namespace Assignment4
                 }
             }
         }
-        public void WHATSHOULDITDO()
+        public int GetNumberOfIngredients()
         {
-            // WHADAPPP!
+            int noOfIngredients = 0;
+            for (int i = 0; i < ingredients.Length; i++)
+            {
+                if (ingredients[0] != null)
+                {
+                    noOfIngredients++;
+                }
+            }
+            return noOfIngredients;
         }
 
     }

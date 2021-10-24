@@ -77,6 +77,7 @@ namespace Assignment4
             this.btnAddIngredients.TabIndex = 4;
             this.btnAddIngredients.Text = "Add ingredients";
             this.btnAddIngredients.UseVisualStyleBackColor = true;
+            this.btnAddIngredients.Click += new System.EventHandler(this.btnAddIngredients_Click);
             // 
             // cboCategory
             // 
@@ -132,6 +133,7 @@ namespace Assignment4
             this.lvRecipes.Size = new System.Drawing.Size(398, 295);
             this.lvRecipes.TabIndex = 2;
             this.lvRecipes.UseCompatibleStateImageBehavior = false;
+            this.lvRecipes.DoubleClick += new System.EventHandler(this.lvRecipes_DoubleClick);
             // 
             // btnEditBegin
             // 

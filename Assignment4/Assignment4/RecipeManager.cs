@@ -6,14 +6,28 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
-    class RecipeManager
+    public class RecipeManager
     {
         
         private Recipe[] recipes;
-        public void AddRecipe()
+        public RecipeManager(int maxNumOfRecipes)
         {
-            // FindEmptyPos
-            // ?? Return if it succeeded?
+            recipes = new Recipe[maxNumOfRecipes];
+        }
+        public bool AddRecipe(Recipe newRecipe)
+        {
+            if(newRecipe==null)
+            {
+                return false;
+            }
+
+            int emptyIndex = GetEmptyIndex();
+            if(emptyIndex == -1)
+            {
+                return false;
+            }
+            recipes[emptyIndex] = newRecipe;
+            return true;
         }
         public void DeleteRecipe()
         {
@@ -27,34 +41,36 @@ namespace Assignment4
 
         public int GetNumberOfRecipes()
         {
-            return 5;
+            int noOfRecipes = 0;
+            for(int i = 0; i < recipes.Length; i++)
+            {
+                if(recipes[i]!=null)
+                {
+                    noOfRecipes++;
+                }                
+            }
+            return noOfRecipes;
         }
 
         public Recipe GetRecipe(int index)
         {
-            Recipe recipe = new Recipe();
-            recipe.Name = "New REEEEC";
-            recipe.FoodCategory = FoodCategory.Meats;
-            string[] ings = { "ing", "ing2", "ing3" };
-            recipe.Ingredients = ings;
-            return recipe;
+            
+            return recipes[index];
         }
 
-        public RecipeManager(int maxNumOfRecipes)
-        {
-            recipes = new Recipe[maxNumOfRecipes];
-        }
-        private int FindEmptyPosition()
+        
+
+        private int GetEmptyIndex()
         {
             int index = -1;
-            //for (int i = 0; i < recipes.Length; i++)
-            //{
-            //    if (recipes[i] == -1)
-            //    {
-            //        index = i;
-            //        break;
-            //    }
-            //}
+            for (int i = 0; i < recipes.Length; i++)
+            {
+                if (recipes[i] == null)
+                {
+                    index = i;
+                    break;
+                }
+            }
             return index;
         }
         
