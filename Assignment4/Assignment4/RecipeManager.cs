@@ -29,14 +29,15 @@ namespace Assignment4
             recipes[emptyIndex] = newRecipe;
             return true;
         }
-        public void DeleteRecipe()
+        public void DeleteRecipe(int recipeIndex)
         {
-
+            recipes[recipeIndex] = null;
+            ArrangeRecipes(recipeIndex);
         }
 
-        public void EditRecipe()
+        public void EditRecipe(int index, Recipe recipe)
         {
-
+            recipes[index] = recipe;
         }
 
         public int GetNumberOfRecipes()
@@ -74,5 +75,16 @@ namespace Assignment4
             return index;
         }
         
+        private void ArrangeRecipes(int removedIndex)
+        {
+            // If this is run each time a recipe is deleted and because you only can select one item
+            // then it shouldn't need to loop over all items and setting them to null. But this solution will be 
+            // future proff if multi-select is introduced.
+            for (int i = removedIndex+1; i < recipes.Length; i++)
+            {
+                recipes[i - 1] = recipes[i];
+                recipes[i] = null;
+            }
+        }
     }
 }

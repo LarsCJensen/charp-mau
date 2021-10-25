@@ -37,40 +37,14 @@ namespace Assignment4
         }
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
-        {   
-            // TODO Validate all input fields
-            if(string.IsNullOrEmpty(txtNameOfRecipe.Text)) {
-                MessageBox.Show("You must provide a name for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            currentRecipe.Name = txtNameOfRecipe.Text;
-            // I don't need to validate this since it will have a value set at start
-            currentRecipe.FoodCategory = (FoodCategory)cboCategory.SelectedValue;
-            if (string.IsNullOrEmpty(txtDescription.Text)) {
-                MessageBox.Show("You must provide a description for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            currentRecipe.Description = txtDescription.Text;
-            
-            if(currentRecipe.GetNumberOfIngredients() == 0)
+        {
+            if (ValidateInput())
             {
-                MessageBox.Show("You must provide at least one ingredient for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                recipeManager.AddRecipe(currentRecipe);
+                AddRecipeToListView();
+                UpdateGUI();
+                currentRecipe = new Recipe(maxNumOfIngredients);
             }
-
-            recipeManager.AddRecipe(currentRecipe);
-            // Create helper method
-            AddRecipeToListView();
-            UpdateGUI();
-            // ?? Implement delete button
-            // ??. Implement Edit buttons
-            // ?? Implement double click to view recipe
-
-            // ?? Implement Add ingredients
-
-            // ?. If no ingredients is not present 
-            // ???Recreate currentRecipe as it else would be a reference to the already created object???
-            currentRecipe = new Recipe(maxNumOfIngredients);
         }
 
         private void btnEditBegin_Click(object sender, EventArgs e)
@@ -78,22 +52,64 @@ namespace Assignment4
             // Since I set multiselect to disabled it should be 0 or 1
             if(lvRecipes.SelectedItems.Count == 1)
             {
-                MessageBox.Show("HEJ");
-                //recipeManager.EditRecipe()
+                // Don't want the user to be able to add while editing
+                btnAddRecipe.Enabled = false;
+                btnEditBegin.Enabled = false;
+                btnEditFinish.Enabled = true;
+                currentRecipe = recipeManager.GetRecipe(lvRecipes.SelectedItems[0].Index);
+                txtNameOfRecipe.Text = currentRecipe.Name;
+                cboCategory.SelectedItem = currentRecipe.FoodCategory;
+                txtDescription.Text = currentRecipe.Description;
             }
         }
+        private void btnEditFinish_Click(object sender, EventArgs e)
+        {
+            if (lvRecipes.SelectedItems.Count == 1 && ValidateInput())
+            {                
+                recipeManager.EditRecipe(lvRecipes.SelectedItems[0].Index, currentRecipe);
+                string[] row = { currentRecipe.Name, currentRecipe.FoodCategory.ToString(), currentRecipe.Ingredients.Length.ToString() };
+                var listViewItem = new ListViewItem(row);
+                lvRecipes.Items[lvRecipes.SelectedItems[0].Index] = listViewItem;
+                UpdateGUI();
+                currentRecipe = new Recipe(maxNumOfIngredients);
+                btnAddRecipe.Enabled = true;
+                btnEditBegin.Enabled = true;
+                btnEditFinish.Enabled = false;
+            }            
+        }
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lvRecipes.SelectedIndices.Clear();
+            currentRecipe = new Recipe(maxNumOfIngredients);
+            UpdateGUI();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lvRecipes.SelectedItems.Count == 1)
+            {
+                // Get the index from the GUI
+                int index = lvRecipes.SelectedItems[0].Index;
+                // Delete the row from the listview (instead of reloading all recipes each time)
+                lvRecipes.Items.RemoveAt(index);
+                // Delete the actual recipe
+                recipeManager.DeleteRecipe(index);                
+            }
+        }
+
         private void UpdateGUI()
         {
             txtNameOfRecipe.Text = "";
             cboCategory.SelectedIndex = 0;
             txtDescription.Text = "";
-            //ReloadRecipes();
+            btnAddRecipe.Enabled = true;
+            btnEditBegin.Enabled = true;
+            btnEditFinish.Enabled = false;
         }
 
         private void btnAddIngredients_Click(object sender, EventArgs e)
         {
-            FormIngredients formIngredients = new FormIngredients();
-            formIngredients.Recipe = currentRecipe;
+            FormIngredients formIngredients = new FormIngredients(currentRecipe);
             DialogResult dlgResult = formIngredients.ShowDialog();
             if (dlgResult == DialogResult.OK)
             {
@@ -103,11 +119,7 @@ namespace Assignment4
                 }
             }
         }        
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            lvRecipes.SelectedIndices.Clear();
-        }
-
+        
         private void AddRecipeToListView()
         {
             string[] row = { currentRecipe.Name, currentRecipe.FoodCategory.ToString(), currentRecipe.Ingredients.Length.ToString() };
@@ -118,14 +130,42 @@ namespace Assignment4
         private void lvRecipes_DoubleClick(object sender, EventArgs e)
         {
             Recipe recipe = recipeManager.GetRecipe(lvRecipes.SelectedItems[0].Index);
-            string messageText = "INGREDIENTS \n";
+            string messageText = "INGREDIENTS\n";
             for(int i=0; i < recipe.GetNumberOfIngredients(); i++)
             {
                 messageText += recipe.Ingredients[i] + "\n";
             }
-            messageText += "\n DESCRIPTION \n";
-            messageText += "\n" + recipe.Description;
+            messageText += "\nDESCRIPTION\n";
+            messageText += recipe.Description;
             MessageBox.Show(messageText, "Cooking instructions", MessageBoxButtons.OK);
         }
+
+        // Helper function for validating input
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrEmpty(txtNameOfRecipe.Text))
+            {
+                MessageBox.Show("You must provide a name for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            currentRecipe.Name = txtNameOfRecipe.Text;
+            // I don't need to validate this since it will have a value set at start
+            currentRecipe.FoodCategory = (FoodCategory)cboCategory.SelectedValue;
+            if (string.IsNullOrEmpty(txtDescription.Text))
+            {
+                MessageBox.Show("You must provide a description for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            currentRecipe.Description = txtDescription.Text;
+
+            if (currentRecipe.GetNumberOfIngredients() == 0)
+            {
+                MessageBox.Show("You must provide at least one ingredient for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+
+        }
+
     }
 }

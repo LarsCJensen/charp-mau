@@ -153,15 +153,18 @@ namespace Assignment4
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEditFinish
             // 
+            this.btnEditFinish.Enabled = false;
             this.btnEditFinish.Location = new System.Drawing.Point(480, 323);
             this.btnEditFinish.Name = "btnEditFinish";
             this.btnEditFinish.Size = new System.Drawing.Size(78, 23);
             this.btnEditFinish.TabIndex = 5;
             this.btnEditFinish.Text = "Edit Finish";
             this.btnEditFinish.UseVisualStyleBackColor = true;
+            this.btnEditFinish.Click += new System.EventHandler(this.btnEditFinish_Click);
             // 
             // btnClear
             // 
@@ -171,6 +174,7 @@ namespace Assignment4
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "Clear selection";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // label3
             // 
@@ -178,9 +182,9 @@ namespace Assignment4
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label3.Location = new System.Drawing.Point(397, 350);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(343, 15);
+            this.label3.Size = new System.Drawing.Size(346, 15);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Double clck on an item for ingrediants and cooking instructions";
+            this.label3.Text = "Double click on an item for ingrediants and cooking instructions";
             // 
             // FormMain
             // 

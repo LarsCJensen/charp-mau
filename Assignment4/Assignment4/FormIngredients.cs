@@ -13,27 +13,19 @@ namespace Assignment4
     public partial class FormIngredients : Form
     {
         private Recipe recipe;
-        public Recipe Recipe
-        {
-            get
-            {
-                return recipe;
-            }
-            set
-            {
-                recipe = value;
-            }
-        }
-
-        public FormIngredients()
+        public FormIngredients(Recipe currentRecipe)
         {
             InitializeComponent();
+            recipe = currentRecipe;
             InitializeGUI();
         }
 
         private void InitializeGUI ()
         {
-            // TODO Ändra FormIngredients.Text
+            for(int i = 0; i < recipe.GetNumberOfIngredients(); i++)
+            {
+                lbIngredients.Items.Add(recipe.Ingredients[i]);
+            }
         }
         private void btnOk_Click(object sender, EventArgs e)
         {
