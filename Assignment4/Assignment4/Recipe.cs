@@ -73,6 +73,7 @@ namespace Assignment4
         }
         public int GetNumberOfIngredients()
         {
+            // It will loop over all array indexes to check and not just stop at the first null value
             int noOfIngredients = 0;
             for (int i = 0; i < ingredients.Length; i++)
             {

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
+    /// <summary>
+    /// Class that have all recipes, as well as methods to add, delete, edit and get them. 
+    /// Also has helper method for getting number of recipes
+    /// </summary>
     public class RecipeManager
     {
         
@@ -14,6 +18,11 @@ namespace Assignment4
         {
             recipes = new Recipe[maxNumOfRecipes];
         }
+        /// <summary>
+        /// Add new recipe to recipes array at first empty index
+        /// </summary>
+        /// <param name="newRecipe">New recipe of type Recipe</param>
+        /// <returns>false if no vacant index can be found, else true</returns>
         public bool AddRecipe(Recipe newRecipe)
         {
             if(newRecipe==null)
@@ -29,12 +38,14 @@ namespace Assignment4
             recipes[emptyIndex] = newRecipe;
             return true;
         }
+        // Deletes recipe on a certain index and re-aranges the recipes
         public void DeleteRecipe(int recipeIndex)
         {
             recipes[recipeIndex] = null;
             ArrangeRecipes(recipeIndex);
         }
 
+        // Replaces edited recipe
         public void EditRecipe(int index, Recipe recipe)
         {
             recipes[index] = recipe;
@@ -42,6 +53,7 @@ namespace Assignment4
 
         public int GetNumberOfRecipes()
         {
+            // Even if the recipes array is organized each time, it still feels more save to go over all indexes and check if null.
             int noOfRecipes = 0;
             for(int i = 0; i < recipes.Length; i++)
             {
@@ -54,13 +66,11 @@ namespace Assignment4
         }
 
         public Recipe GetRecipe(int index)
-        {
-            
+        {            
             return recipes[index];
         }
 
-        
-
+        // Get the first empty index to place the new recipe in
         private int GetEmptyIndex()
         {
             int index = -1;

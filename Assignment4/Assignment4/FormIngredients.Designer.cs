@@ -133,6 +133,7 @@ namespace Assignment4
             // 
             // FormIngredients
             // 
+            this.AcceptButton = this.btnAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(432, 450);
@@ -142,6 +143,7 @@ namespace Assignment4
             this.Controls.Add(this.groupBox1);
             this.Name = "FormIngredients";
             this.Text = "Add ingredients";
+            this.Load += new System.EventHandler(this.FormIngredients_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
