@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BMICalculator.cs" />
     <Compile Include="BMRCalculator.cs" />
+    <Compile Include="BMRFactorsStruct.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

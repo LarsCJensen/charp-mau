@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿/*
+ * Lars Jensen
+ * 2021-10-31
+ * */
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment4
@@ -52,13 +50,27 @@ namespace Assignment4
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            txtIngredientName.Text = lbIngredients.SelectedItem.ToString();
-            lbIngredients.Items.RemoveAt(lbIngredients.SelectedIndex);
+            if (lbIngredients.SelectedItems.Count == 1)
+            {
+                txtIngredientName.Text = lbIngredients.SelectedItem.ToString();
+                lbIngredients.Items.RemoveAt(lbIngredients.SelectedIndex);
+            } else
+            {               
+               MessageBox.Show("You have to choose an ingredient to edit!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            lbIngredients.Items.RemoveAt(lbIngredients.SelectedIndex);
+            if (lbIngredients.SelectedItems.Count == 1)
+            {
+                lbIngredients.Items.RemoveAt(lbIngredients.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("You have to choose an ingredient to delete!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void FormIngredients_Load(object sender, EventArgs e)
@@ -67,5 +79,7 @@ namespace Assignment4
             // Added AddIngredient as Acceptbutton to make it faster for the user to input ingredients.
             txtIngredientName.Focus();
         }
+
+        
     }
 }

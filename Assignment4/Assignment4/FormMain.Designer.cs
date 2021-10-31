@@ -130,14 +130,14 @@ namespace Assignment4
             this.lvRecipes.Location = new System.Drawing.Point(372, 22);
             this.lvRecipes.MultiSelect = false;
             this.lvRecipes.Name = "lvRecipes";
-            this.lvRecipes.Size = new System.Drawing.Size(398, 295);
+            this.lvRecipes.Size = new System.Drawing.Size(399, 295);
             this.lvRecipes.TabIndex = 2;
             this.lvRecipes.UseCompatibleStateImageBehavior = false;
             this.lvRecipes.DoubleClick += new System.EventHandler(this.lvRecipes_DoubleClick);
             // 
             // btnEditBegin
             // 
-            this.btnEditBegin.Location = new System.Drawing.Point(385, 323);
+            this.btnEditBegin.Location = new System.Drawing.Point(372, 323);
             this.btnEditBegin.Name = "btnEditBegin";
             this.btnEditBegin.Size = new System.Drawing.Size(78, 23);
             this.btnEditBegin.TabIndex = 3;
@@ -158,7 +158,7 @@ namespace Assignment4
             // btnEditFinish
             // 
             this.btnEditFinish.Enabled = false;
-            this.btnEditFinish.Location = new System.Drawing.Point(480, 323);
+            this.btnEditFinish.Location = new System.Drawing.Point(472, 324);
             this.btnEditFinish.Name = "btnEditFinish";
             this.btnEditFinish.Size = new System.Drawing.Size(78, 23);
             this.btnEditFinish.TabIndex = 5;
@@ -168,7 +168,7 @@ namespace Assignment4
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(668, 324);
+            this.btnClear.Location = new System.Drawing.Point(678, 323);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(93, 23);
             this.btnClear.TabIndex = 6;
@@ -190,7 +190,7 @@ namespace Assignment4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(786, 451);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnEditFinish);

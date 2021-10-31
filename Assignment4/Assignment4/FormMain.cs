@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Lars Jensen
+ * 2021-10-31
+ * */
+
+using System;
 using System.Windows.Forms;
 
 namespace Assignment4
@@ -27,14 +25,15 @@ namespace Assignment4
         {
             txtNameOfRecipe.Text = "";            
             // Adds the FoodCategory enums to the combobox
-            cboCategory.DataSource = Enum.GetValues(typeof(FoodCategory));
+            cboCategory.DataSource = Enum.GetValues(typeof(FoodCategoryEnums));
             txtDescription.Text = "";
             // Show columns in listview
             lvRecipes.View = View.Details;
             // Using a listView with fullrow select set to true and multiselect false to avoid weirdness when edit/delete
+            // Adding columns, as it looks nicer. Although they perhaps should be automatically sized
             lvRecipes.Columns.Add("Name", 150, HorizontalAlignment.Left);
             lvRecipes.Columns.Add("Category", 100, HorizontalAlignment.Left);
-            lvRecipes.Columns.Add("Number of ingredients", -2, HorizontalAlignment.Right);            
+            lvRecipes.Columns.Add("Num of ingredients", 125, HorizontalAlignment.Center);            
         }
 
         // Add recipe
@@ -42,7 +41,7 @@ namespace Assignment4
         {
             if (ValidateInput())
             {
-                // PAss the current recipe to the Add method of class RecipeManager
+                // Pass the current recipe to the Add method of class RecipeManager
                 bool recipeAdded = recipeManager.AddRecipe(currentRecipe);
                 if(!recipeAdded)
                 {
@@ -67,12 +66,16 @@ namespace Assignment4
                 // Don't want the user to be able to add while editing
                 btnAddRecipe.Enabled = false;
                 btnEditBegin.Enabled = false;
+                btnDelete.Enabled = false;
                 btnEditFinish.Enabled = true;
                 // Get recipe of chosen index
                 currentRecipe = recipeManager.GetRecipe(lvRecipes.SelectedItems[0].Index);
                 txtNameOfRecipe.Text = currentRecipe.Name;
                 cboCategory.SelectedItem = currentRecipe.FoodCategory;
                 txtDescription.Text = currentRecipe.Description;
+            }else
+            {
+                MessageBox.Show("You have to choose a recipe to edit!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         // Edit finished
@@ -94,6 +97,7 @@ namespace Assignment4
                 btnAddRecipe.Enabled = true;
                 btnEditBegin.Enabled = true;
                 btnEditFinish.Enabled = false;
+                btnDelete.Enabled = true;
             }            
         }
         private void btnClear_Click(object sender, EventArgs e)
@@ -114,6 +118,9 @@ namespace Assignment4
                 lvRecipes.Items.RemoveAt(index);
                 // Delete the actual recipe
                 recipeManager.DeleteRecipe(index);                
+            } else
+            {
+                MessageBox.Show("You have to choose a recipe to delete!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -126,6 +133,7 @@ namespace Assignment4
             btnAddRecipe.Enabled = true;
             btnEditBegin.Enabled = true;
             btnEditFinish.Enabled = false;
+            btnDelete.Enabled = true;
         }
 
         // Add Ingredients 
@@ -145,10 +153,10 @@ namespace Assignment4
         
         // Adds the current recipe to the ListView
         private void AddRecipeToListView()
-        {
+        {            
             string[] row = { currentRecipe.Name, currentRecipe.FoodCategory.ToString(), currentRecipe.Ingredients.Length.ToString() };
             var listViewItem = new ListViewItem(row);
-            lvRecipes.Items.Add(listViewItem);
+            lvRecipes.Items.Add(listViewItem);            
         }
 
         // Event handler for double click
@@ -175,7 +183,7 @@ namespace Assignment4
             }
             currentRecipe.Name = txtNameOfRecipe.Text;
             // I don't need to validate this since it will have a value set at start
-            currentRecipe.FoodCategory = (FoodCategory)cboCategory.SelectedValue;
+            currentRecipe.FoodCategory = (FoodCategoryEnums)cboCategory.SelectedIndex;
             if (string.IsNullOrEmpty(txtDescription.Text))
             {
                 MessageBox.Show("You must provide a description for the recipe!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);

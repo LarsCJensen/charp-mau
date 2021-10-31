@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*
+ * Lars Jensen
+ * 2021-10-31
+ * */
 namespace Assignment4
 {   
 
@@ -28,8 +26,8 @@ namespace Assignment4
                 }
             }
         }
-        private FoodCategory foodCategory;
-        public FoodCategory FoodCategory
+        private FoodCategoryEnums foodCategory;
+        public FoodCategoryEnums FoodCategory
         {
             get
             {

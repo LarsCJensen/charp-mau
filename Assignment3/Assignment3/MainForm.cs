@@ -7,7 +7,7 @@
 
 using System;
 using System.Windows.Forms;
-using static Assignment3.BMRCalculator;
+using static Assignment3.BMRFactors;
 
 namespace Assignment3
 {
@@ -19,7 +19,8 @@ namespace Assignment3
         private SavingsCalculator savingCalc = new SavingsCalculator();
 
         private BMRCalculator bmrCalc = new BMRCalculator();
-
+        private BMRFactors bmrFactor = new BMRFactors();
+        
         /// <summary>
         /// Initialize method
         /// </summary>
@@ -360,23 +361,23 @@ namespace Assignment3
             if (optSedentary.Checked)
             {
                 // Using a struct for BMRFactors
-                bmrCalc.BMRFactor = BMRFactors.Sedentary;
+                bmrCalc.BMRFactor = bmrFactor.Sedentary;
             }
             else if (optLightly.Checked)
             {
-                bmrCalc.BMRFactor = BMRFactors.Lightly;
+                bmrCalc.BMRFactor = bmrFactor.Lightly;
             }
             else if (optModeratly.Checked)
             {
-                bmrCalc.BMRFactor = BMRFactors.Moderately;
+                bmrCalc.BMRFactor = bmrFactor.Moderately;
             }
             else if (optVery.Checked)
             {
-                bmrCalc.BMRFactor = BMRFactors.Very;
+                bmrCalc.BMRFactor = bmrFactor.Very;
             }
             else if (optExtra.Checked)
             {
-                bmrCalc.BMRFactor = BMRFactors.Extra;
+                bmrCalc.BMRFactor = bmrFactor.Extra;
             }
 
             lbBMRResults.Items.Add("BMR RESULTS FOR " + txtName.Text.ToUpper() + ":");
