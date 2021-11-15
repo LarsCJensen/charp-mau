@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment5.ContactFiles
+namespace Assignment5
 {
-    class Contact
+    public class Contact
     {
         /// <summary>
         /// Default constructor of class Contact
         /// </summary>
         public Contact() // THIS!!!
         {
-
+            // Required to provide: 
+            // 1. first name or last name
+            // 2 city AND country
         }
 
         public Contact(Contact toCopy)
@@ -35,10 +37,7 @@ namespace Assignment5.ContactFiles
             }
             set
             {
-                if (value != "")
-                {
-                    firstName = value;
-                }
+                firstName = value;
             }
         }
 
@@ -51,25 +50,22 @@ namespace Assignment5.ContactFiles
             }
             set
             {
-                if (value != "")
-                {
-                    lastName = value;
-                }
+                lastName = value;
             }
         }
 
-        private Address address;
+        private Address addressData;
         public Address AddressData
         {
             get
             {
-                return address;
+                return addressData;
             }
             set
             {
                 if(value != null)
                 {
-                    address = value;
+                    addressData = value;
                 }
             }
         }
@@ -103,6 +99,21 @@ namespace Assignment5.ContactFiles
                     phone = value;
                 }
             }
+        }
+        public bool ValidateData() 
+        {
+            // If data is valid according to rules:
+            // Required to provide: 
+            // 1. first name or last name
+            // 2 city AND country
+            if ((string.IsNullOrEmpty(firstName) && 
+                string.IsNullOrEmpty(lastName)) || 
+                (string.IsNullOrEmpty(addressData.City) || 
+                string.IsNullOrEmpty(addressData.Country)))
+            {
+                return false;
+            }
+            return true;            
         }
 
 

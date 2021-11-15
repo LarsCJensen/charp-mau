@@ -1,7 +1,7 @@
 ﻿
 namespace Assignment5
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,13 +29,86 @@ namespace Assignment5
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lvRegistry = new System.Windows.Forms.ListView();
+            this.lbDetails = new System.Windows.Forms.ListBox();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // lvRegistry
+            // 
+            this.lvRegistry.FullRowSelect = true;
+            this.lvRegistry.HideSelection = false;
+            this.lvRegistry.Location = new System.Drawing.Point(12, 39);
+            this.lvRegistry.MultiSelect = false;
+            this.lvRegistry.Name = "lvRegistry";
+            this.lvRegistry.Size = new System.Drawing.Size(510, 320);
+            this.lvRegistry.TabIndex = 0;
+            this.lvRegistry.UseCompatibleStateImageBehavior = false;
+            // 
+            // lbDetails
+            // 
+            this.lbDetails.FormattingEnabled = true;
+            this.lbDetails.ItemHeight = 15;
+            this.lbDetails.Location = new System.Drawing.Point(543, 39);
+            this.lbDetails.Name = "lbDetails";
+            this.lbDetails.Size = new System.Drawing.Size(210, 319);
+            this.lbDetails.TabIndex = 1;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(12, 376);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(95, 35);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(133, 376);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(95, 35);
+            this.btnEdit.TabIndex = 3;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(253, 376);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(95, 35);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lbDetails);
+            this.Controls.Add(this.lvRegistry);
+            this.Name = "MainForm";
+            this.Text = "Customer Registry By Lars Jensen";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListView lvRegistry;
+        private System.Windows.Forms.ListBox lbDetails;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 
