@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Assignment5.ContactFiles;
 // Using nuget package with all countries, codes because I wanted to try it out. 
-// I wrote my own function (GetCountries) to show that I know how
+// I wrote my own function (getCountries) to show that I know how
 using ISO3166;
 
 namespace Assignment5
@@ -38,8 +37,8 @@ namespace Assignment5
                 txtFirstName.Text = contact.FirstName;
                 txtLastName.Text = contact.LastName;
 
-                txtHomePhone.Text = contact.PhoneData.HomePhone;
-                txtCellPhone.Text = contact.PhoneData.CellPhone;
+                txtBusinessPhone.Text = contact.PhoneData.PrivatePhone;
+                txtPrivatePhone.Text = contact.PhoneData.BusinessPhone;
                 txtEmailBusiness.Text = contact.EmailData.EmailBusiness;
                 txtEmailPrivate.Text = contact.EmailData.EmailPrivate;
 
@@ -58,7 +57,7 @@ namespace Assignment5
             // Check if contact is an existing contact or a new one
             if (!(string.IsNullOrEmpty(contact.FirstName) && string.IsNullOrEmpty(contact.LastName)))
             {
-                this.Text = contact.FirstName + " " + contact.LastName;
+                this.Text = "Edit " + contact.FirstName + " " + contact.LastName;
             }
         }
 
@@ -67,11 +66,11 @@ namespace Assignment5
             contact.FirstName = txtFirstName.Text;
             contact.LastName = txtLastName.Text;
             // TODO Only pass values that are set, also validate them
-            if (txtHomePhone.Text != "")
+            if (txtBusinessPhone.Text != "")
             {
 
             }
-            contact.PhoneData = new Phone(txtHomePhone.Text, txtCellPhone.Text);
+            contact.PhoneData = new Phone(txtBusinessPhone.Text, txtPrivatePhone.Text);
 
             // Check if e-mail addresses are correctly formatted
             try
@@ -100,13 +99,14 @@ namespace Assignment5
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult response = MessageBox.Show("Do you want to leave the contact form without saving?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // If response is No, then stay at form
             if(response == DialogResult.No)
             {
                 this.DialogResult = DialogResult.None;
             }
         }
         /// <summary>
-        /// Returns array of countries to be used in combobox
+        /// Returns array of countries to be used in combobox from enums
         /// </summary>
         /// <returns></returns>
         private List<string> GetCountries()
@@ -115,15 +115,24 @@ namespace Assignment5
             foreach (Countries country in Enum.GetValues(typeof(Countries)))
             {
                 countriesList.Add(country.ToString().Replace("_", " "));
-            }
-            //int noOfCountries = countriesArray.Length;
-            //string[] countriesList = new string[noOfCountries];
-            //for(int i = 0; i < countriesList.Length; i++)
-            //{
-            //    countriesList[i] = countriesArray[i];
-            //}
+            }           
 
             return countriesList;
+        }
+
+        // Only used for testing
+        private void btnFillConcact_Click(object sender, EventArgs e)
+        {
+            txtFirstName.Text = "Test";
+            txtLastName.Text = "Testsson";
+            txtBusinessPhone.Text = "0708-9998882";
+            txtPrivatePhone.Text = "052-35124";
+            txtEmailBusiness.Text = "test@company.com";
+            txtEmailPrivate.Text = "personal@email.com";
+            txtStreet.Text = "Street 1";
+            txtCity.Text = "City 5";
+            txtZipCode.Text = "123 45";
+            cboCountry.Text = "Sweden";
         }
     }
 }

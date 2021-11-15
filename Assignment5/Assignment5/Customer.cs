@@ -23,21 +23,25 @@ namespace Assignment5
                 }
             }
         }
-        private Guid contactId;
-        public Guid ContactId
+        // Switched from Guid to an "own" id
+        //private Guid contactId;
+        //public Guid ContactId
+        //{
+        //    // Only allowed to get
+        //    get
+        //    {
+        //        return contactId;
+        //    }
+        //}
+        private static int idCounter = 1000;
+        private int customerId;
+        public int CustomerId
         {
             // Only allowed to get
             get
             {
-                return contactId;
+                return customerId;
             }
-         }
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Customer() 
-        {
-            // TODO Default values??
         }
 
         /// <summary>
@@ -46,9 +50,21 @@ namespace Assignment5
         public Customer(Contact newContact)
         {
             // Create a new Guid which will identify the customer
-            // TODO Generate ID - have counter
-            contactId = Guid.NewGuid();
+            // Not used, using "own" id calculator
+            //contactId = Guid.NewGuid();
+
+            customerId = getCustomerId();
             contact = newContact;
-        }        
+        }
+
+        /// <summary>
+        /// Perhaps overkill with a helper method for this, but it gives an abstraction in case we want to change how id's are set.
+        /// </summary>
+        /// <returns></returns>
+        private int getCustomerId()
+        {
+            idCounter = idCounter += 1;
+            return idCounter;
+        }
     }
 }

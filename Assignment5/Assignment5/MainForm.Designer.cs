@@ -46,14 +46,18 @@ namespace Assignment5
             this.lvRegistry.Size = new System.Drawing.Size(510, 320);
             this.lvRegistry.TabIndex = 0;
             this.lvRegistry.UseCompatibleStateImageBehavior = false;
+            this.lvRegistry.SelectedIndexChanged += new System.EventHandler(this.lvRegistry_SelectedIndexChanged);
             // 
             // lbDetails
             // 
+            this.lbDetails.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lbDetails.ForeColor = System.Drawing.Color.Blue;
             this.lbDetails.FormattingEnabled = true;
             this.lbDetails.ItemHeight = 15;
             this.lbDetails.Location = new System.Drawing.Point(543, 39);
             this.lbDetails.Name = "lbDetails";
-            this.lbDetails.Size = new System.Drawing.Size(210, 319);
+            this.lbDetails.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.lbDetails.Size = new System.Drawing.Size(245, 319);
             this.lbDetails.TabIndex = 1;
             // 
             // btnAdd

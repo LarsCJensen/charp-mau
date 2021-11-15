@@ -37,8 +37,8 @@ namespace Assignment5
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtEmailPrivate = new System.Windows.Forms.TextBox();
             this.txtEmailBusiness = new System.Windows.Forms.TextBox();
-            this.txtCellPhone = new System.Windows.Forms.TextBox();
-            this.txtHomePhone = new System.Windows.Forms.TextBox();
+            this.txtPrivatePhone = new System.Windows.Forms.TextBox();
+            this.txtBusinessPhone = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@ namespace Assignment5
             this.label9 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnFillConcact = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -108,8 +109,8 @@ namespace Assignment5
             // 
             this.groupBox2.Controls.Add(this.txtEmailPrivate);
             this.groupBox2.Controls.Add(this.txtEmailBusiness);
-            this.groupBox2.Controls.Add(this.txtCellPhone);
-            this.groupBox2.Controls.Add(this.txtHomePhone);
+            this.groupBox2.Controls.Add(this.txtPrivatePhone);
+            this.groupBox2.Controls.Add(this.txtBusinessPhone);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label3);
@@ -135,19 +136,19 @@ namespace Assignment5
             this.txtEmailBusiness.Size = new System.Drawing.Size(200, 23);
             this.txtEmailBusiness.TabIndex = 8;
             // 
-            // txtCellPhone
+            // txtPrivatePhone
             // 
-            this.txtCellPhone.Location = new System.Drawing.Point(106, 48);
-            this.txtCellPhone.Name = "txtCellPhone";
-            this.txtCellPhone.Size = new System.Drawing.Size(200, 23);
-            this.txtCellPhone.TabIndex = 7;
+            this.txtPrivatePhone.Location = new System.Drawing.Point(106, 48);
+            this.txtPrivatePhone.Name = "txtPrivatePhone";
+            this.txtPrivatePhone.Size = new System.Drawing.Size(200, 23);
+            this.txtPrivatePhone.TabIndex = 7;
             // 
-            // txtHomePhone
+            // txtBusinessPhone
             // 
-            this.txtHomePhone.Location = new System.Drawing.Point(106, 19);
-            this.txtHomePhone.Name = "txtHomePhone";
-            this.txtHomePhone.Size = new System.Drawing.Size(200, 23);
-            this.txtHomePhone.TabIndex = 6;
+            this.txtBusinessPhone.Location = new System.Drawing.Point(106, 19);
+            this.txtBusinessPhone.Name = "txtBusinessPhone";
+            this.txtBusinessPhone.Size = new System.Drawing.Size(200, 23);
+            this.txtBusinessPhone.TabIndex = 6;
             // 
             // label6
             // 
@@ -170,20 +171,20 @@ namespace Assignment5
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 51);
+            this.label3.Location = new System.Drawing.Point(20, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 15);
+            this.label3.Size = new System.Drawing.Size(80, 15);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Cell phone";
+            this.label3.Text = "Private phone";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(23, 22);
+            this.label4.Location = new System.Drawing.Point(11, 22);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 15);
+            this.label4.Size = new System.Drawing.Size(89, 15);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Home phone";
+            this.label4.Text = "Business phone";
             // 
             // groupBox3
             // 
@@ -290,11 +291,22 @@ namespace Assignment5
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnFillConcact
+            // 
+            this.btnFillConcact.Location = new System.Drawing.Point(163, 557);
+            this.btnFillConcact.Name = "btnFillConcact";
+            this.btnFillConcact.Size = new System.Drawing.Size(84, 26);
+            this.btnFillConcact.TabIndex = 5;
+            this.btnFillConcact.Text = "Fill Contact";
+            this.btnFillConcact.UseVisualStyleBackColor = true;
+            this.btnFillConcact.Click += new System.EventHandler(this.btnFillConcact_Click);
+            // 
             // ContactForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(405, 593);
+            this.Controls.Add(this.btnFillConcact);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox3);
@@ -323,8 +335,8 @@ namespace Assignment5
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtEmailPrivate;
         private System.Windows.Forms.TextBox txtEmailBusiness;
-        private System.Windows.Forms.TextBox txtCellPhone;
-        private System.Windows.Forms.TextBox txtHomePhone;
+        private System.Windows.Forms.TextBox txtPrivatePhone;
+        private System.Windows.Forms.TextBox txtBusinessPhone;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
@@ -340,5 +352,6 @@ namespace Assignment5
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnFillConcact;
     }
 }

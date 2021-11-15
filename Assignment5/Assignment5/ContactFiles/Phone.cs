@@ -8,54 +8,40 @@ namespace Assignment5
 {
     public class Phone
     {
-        private string homePhone;
-        public string HomePhone
+        private string businessPhone;
+        public string BusinessPhone
         {
             get
             {
-                return homePhone;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    homePhone = value;
-                }
-            }
-        }
-        private string cellPhone;
-        public string CellPhone
-        {
-            get
-            {
-                return cellPhone;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    cellPhone = value;
-                }
-            }
+                return businessPhone;
+            }            
         }
 
-        public Phone(): this("")
+        private string privatePhone;
+        public string PrivatePhone
         {
-            // Setting default values
-            homePhone = "";
-            cellPhone = "";
+            get
+            {
+                return privatePhone;
+            }            
+        }       
+        /// <summary>
+        /// As phone numbers aren't required we create a default constructor which passes values through chain calling
+        /// </summary>
+        public Phone(): this("")
+        {         
         }
 
         public Phone(string newPhone) : this(newPhone, "")
         {
             // TODO If newPhone starts with 07X...
-            homePhone = newPhone;
+            privatePhone = newPhone;
         }
 
         public Phone(string newHomePhone, string newCellPhone)
         {
-            homePhone = newHomePhone;
-            cellPhone = newCellPhone;            
+            privatePhone = newHomePhone;
+            businessPhone = newCellPhone;            
         }
     }
 }

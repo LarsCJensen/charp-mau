@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 // Using nuget package with all countries, codes etc
 using ISO3166;
 
-// Choosing not to have the "ContactFiles" folder added to the namespace
+// Choosing not to have the "ContactFiles" folder added to the namespace as it is too verbose IMO
 namespace Assignment5
 {
     public class Address
@@ -17,11 +17,7 @@ namespace Assignment5
             get
             {
                 return street;
-            }
-            set
-            {
-                street = value;
-            }
+            }            
         }
         private string city;
         public string City
@@ -29,11 +25,7 @@ namespace Assignment5
             get
             {
                 return city;
-            }
-            set
-            {
-                city = value;
-            }
+            }            
         }
 
         private string zipcode;
@@ -43,10 +35,6 @@ namespace Assignment5
             {
                 return zipcode;
             }
-            set
-            {
-                zipcode = value;
-            }
         }
         private string country;
         public string Country
@@ -55,26 +43,18 @@ namespace Assignment5
             {
                 return country;
             }
-            set
-            {
-                country = value;
-            }
         }
         
-        // No default Address since city and country is required
+        // No default constructor since city and country is required
         //public Address():
         //{
             
         //}
 
         public Address(string newCity, string newCountry) : this(newCity, newCountry, "Unknown Street")
-        {
-
-        }
+        {}
         public Address(string newCity, string newCountry, string newStreet) : this(newCity, newCountry, newStreet, "123 45")
-        {
-
-        }
+        {}
 
         public Address(string newCity, string newCountry, string newStreet, string newPostalCode)
         {

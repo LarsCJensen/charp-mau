@@ -25,22 +25,17 @@ namespace Assignment5
                 return emailPrivate;
             }
         }
-        public Email() : this("")
-        {
-            emailBusiness = "";
-        }
+        public Email() : this(""){}
 
-        public Email(string newEmail) : this(newEmail, "")
-        {
-            // TODO How to know which email to set?
-            if (newEmail != null && MailAddress.TryCreate(newEmail, out var mailAddress))
-            {
-                emailBusiness = mailAddress.ToString();
-            }
-        }
-
+        public Email(string newEmail) : this(newEmail, "") {}
+        /// <summary>
+        /// Create and validate email
+        /// </summary>
+        /// <param name="newEmailBusiness">Value for business e-mail</param>
+        /// <param name="newEmailPrivate">Value for private e-mail</param>
         public Email(string newEmailBusiness, string newEmailPrivate)
         {
+            // TryCreate will error if address is empty string.
             if (newEmailBusiness != "")
             {
                 // I want the e-mail addresses passed in to be correctly formatted
@@ -55,8 +50,10 @@ namespace Assignment5
                 }
             } else
             {
+                // But we allow e-mail to be empty string
                 emailBusiness = newEmailBusiness;
             }
+            // TryCreate will error if address is empty string.
             if (newEmailPrivate != "")
             {
                 if (MailAddress.TryCreate(newEmailPrivate, out var mailPrivate))
@@ -71,6 +68,7 @@ namespace Assignment5
             }
             else
             {
+                // But we allow e-mail to be empty string
                 emailPrivate = newEmailPrivate;
             }
         }

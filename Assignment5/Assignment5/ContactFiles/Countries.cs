@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment5.ContactFiles
+// Choosing not to have the "ContactFiles" folder added to the namespace as it is too verbose IMO
+namespace Assignment5
 {
     public enum Countries
     {
