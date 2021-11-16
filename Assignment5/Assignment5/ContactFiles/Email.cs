@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Mail;
 
 namespace Assignment5
 {
+    /// <summary>
+    /// Class which holds e-mail information
+    /// </summary>
     public class Email
     {
+        // Only allowed to get properties from outside of class
         private string emailBusiness;
         public string EmailBusiness
         {
@@ -25,17 +25,15 @@ namespace Assignment5
                 return emailPrivate;
             }
         }
-        public Email() : this(""){}
-
-        public Email(string newEmail) : this(newEmail, "") {}
         /// <summary>
         /// Create and validate email
         /// </summary>
         /// <param name="newEmailBusiness">Value for business e-mail</param>
         /// <param name="newEmailPrivate">Value for private e-mail</param>
+        // As the form always will pass in two values (albeit one or both could be empty) I will just use an overloaded constructor
         public Email(string newEmailBusiness, string newEmailPrivate)
         {
-            // TryCreate will error if address is empty string.
+            // TryCreate will error if address is empty string, but empty string is allowed
             if (newEmailBusiness != "")
             {
                 // I want the e-mail addresses passed in to be correctly formatted
@@ -53,7 +51,7 @@ namespace Assignment5
                 // But we allow e-mail to be empty string
                 emailBusiness = newEmailBusiness;
             }
-            // TryCreate will error if address is empty string.
+            // TryCreate will error if address is empty string, but empty string is allowed
             if (newEmailPrivate != "")
             {
                 if (MailAddress.TryCreate(newEmailPrivate, out var mailPrivate))
@@ -62,6 +60,7 @@ namespace Assignment5
                 }
                 else
                 {
+                    // I chose to throw an exception which is handled by the caller
                     throw new ArgumentException("Private e-mail not correctly formatted!");
                 }
 

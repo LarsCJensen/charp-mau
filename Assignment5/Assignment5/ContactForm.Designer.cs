@@ -314,6 +314,7 @@ namespace Assignment5
             this.Controls.Add(this.groupBox1);
             this.Name = "ContactForm";
             this.Text = "ContactForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ContactForm_FormClosing);
             this.Load += new System.EventHandler(this.ContactForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

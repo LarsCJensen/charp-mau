@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 // Using nuget package with all countries, codes because I wanted to try it out. 
-// I wrote my own function (getCountries) to show that I know how
+// I wrote my own function (getCountries) to show that I know how to write my own
 using ISO3166;
 
 namespace Assignment5
@@ -16,7 +10,7 @@ namespace Assignment5
     public partial class ContactForm : Form
     {
         private Contact contact;
-        private Country[] countries = ISO3166.Country.List;
+        private Country[] countries = Country.List;
         public ContactForm(Contact currentContact)
         {
             InitializeComponent();
@@ -27,18 +21,18 @@ namespace Assignment5
         private void InitializeGUI()
         {
             // My own function, but will use the nuget package instead as it is better
-            cboCountry.DataSource = GetCountries();
+            //cboCountry.DataSource = GetCountries();
             cboCountry.DataSource = countries;
             cboCountry.DisplayMember = "name";
             cboCountry.ValueMember = "name";
-            // Check if contact is an existing contact or a new one
-            if (!(string.IsNullOrEmpty(contact.FirstName) && string.IsNullOrEmpty(contact.LastName)))
+            
+            if (existingCustomer())
             {
                 txtFirstName.Text = contact.FirstName;
                 txtLastName.Text = contact.LastName;
 
-                txtBusinessPhone.Text = contact.PhoneData.PrivatePhone;
-                txtPrivatePhone.Text = contact.PhoneData.BusinessPhone;
+                txtBusinessPhone.Text = contact.PhoneData.BusinessPhone;
+                txtPrivatePhone.Text = contact.PhoneData.PrivatePhone; 
                 txtEmailBusiness.Text = contact.EmailData.EmailBusiness;
                 txtEmailPrivate.Text = contact.EmailData.EmailPrivate;
 
@@ -52,10 +46,9 @@ namespace Assignment5
 
         private void ContactForm_Load(object sender, EventArgs e)
         {
-            //if currentCustomer is given then change text of form
-            this.Text = "Add new customer";
-            // Check if contact is an existing contact or a new one
-            if (!(string.IsNullOrEmpty(contact.FirstName) && string.IsNullOrEmpty(contact.LastName)))
+            // If existing contact is passed to the form then change text of the form
+            this.Text = "Add new contact";
+            if (existingCustomer())
             {
                 this.Text = "Edit " + contact.FirstName + " " + contact.LastName;
             }
@@ -65,11 +58,7 @@ namespace Assignment5
         {
             contact.FirstName = txtFirstName.Text;
             contact.LastName = txtLastName.Text;
-            // TODO Only pass values that are set, also validate them
-            if (txtBusinessPhone.Text != "")
-            {
-
-            }
+            
             contact.PhoneData = new Phone(txtBusinessPhone.Text, txtPrivatePhone.Text);
 
             // Check if e-mail addresses are correctly formatted
@@ -84,12 +73,23 @@ namespace Assignment5
             }
 
 
-            // Hur ska vi göra här?
-            contact.AddressData = new Address(txtCity.Text, ((ISO3166.Country)cboCountry.SelectedItem).Name, txtStreet.Text, txtZipCode.Text);
+            // Because the assignment requires Address to be overloaded this weird if block is needed to target the correct constructor
+            if ((txtCity.Text != "" && cboCountry.SelectedValue.ToString() != "") && (txtStreet.Text == "" && txtZipCode.Text == ""))
+            {
+                // Only city and country is set
+                contact.AddressData = new Address(txtCity.Text, ((ISO3166.Country)cboCountry.SelectedItem).Name);
+            } else if ((txtCity.Text != "" && cboCountry.SelectedValue.ToString() != "" && txtStreet.Text != "") && txtZipCode.Text == "") {
+                // Only city and country and street is set
+                contact.AddressData = new Address(txtCity.Text, ((ISO3166.Country)cboCountry.SelectedItem).Name, txtStreet.Text);
+            }
+            else
+            {
+                // Set all fields and let validation fail if city and country is not set
+                contact.AddressData = new Address(txtCity.Text, ((ISO3166.Country)cboCountry.SelectedItem).Name, txtStreet.Text, txtZipCode.Text);
+            }                
 
             if (!contact.ValidateData())
             {
-
                 MessageBox.Show("You need to add information for First or last name and both city and country!", "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // Avoid dialog from closing if input is wrong
                 this.DialogResult = DialogResult.None;
@@ -98,17 +98,20 @@ namespace Assignment5
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult response = MessageBox.Show("Do you want to leave the contact form without saving?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            // If response is No, then stay at form
-            if(response == DialogResult.No)
-            {
-                this.DialogResult = DialogResult.None;
-            }
+            AskOnClose();
         }
-        /// <summary>
-        /// Returns array of countries to be used in combobox from enums
-        /// </summary>
-        /// <returns></returns>
+
+        // A bit crude check if contact is an existing contact or a new one, but since either FirstName or LastName is required than if both is null or empty then it's a new contact
+        private bool existingCustomer()
+        {
+            if (!(string.IsNullOrEmpty(contact.FirstName) && string.IsNullOrEmpty(contact.LastName)))
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        // Returns array of countries to be used in combobox from enums
         private List<string> GetCountries()
         {
             List<string> countriesList = new List<string>();
@@ -133,6 +136,22 @@ namespace Assignment5
             txtCity.Text = "City 5";
             txtZipCode.Text = "123 45";
             cboCountry.Text = "Sweden";
+        }
+
+        // Handle if you also close the form
+        private void ContactForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AskOnClose();
+        }
+        // Function to ask if user wants to close without saving.
+        private void AskOnClose()
+        {
+            DialogResult response = MessageBox.Show("Do you want to leave the contact form without saving?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // If response is No, then stay on the form
+            if (response == DialogResult.No)
+            {
+                this.DialogResult = DialogResult.None;
+            }
         }
     }
 }

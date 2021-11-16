@@ -6,28 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assignment5
 {
+    /// <summary>
+    /// Class which holds contact object
+    /// </summary>
     public class Contact
     {
-        /// <summary>
-        /// Default constructor of class Contact
-        /// </summary>
-        public Contact() // THIS!!!
-        {
-            // Required to provide: 
-            // 1. first name or last name
-            // 2 city AND country
-        }
-
-        public Contact(Contact toCopy)
-        {
-
-        }
-        public Contact(string firstName, string lastName, Address address, Phone phone, Email email)
-        {
-
-        }
-
-
         private string firstName;
         public string FirstName
         {
@@ -69,18 +52,18 @@ namespace Assignment5
                 }
             }
         }
-        private Email email;
+        private Email emailData;
         public Email EmailData
         {
             get
             {
-                return email;
+                return emailData;
             }
             set
             {
                 if (value != null)
                 {
-                    email = value;
+                    emailData = value;
                 }
             }
         }
@@ -100,6 +83,28 @@ namespace Assignment5
                 }
             }
         }
+
+        /// <summary>
+        /// Default constructor of class Contact
+        /// </summary>
+        public Contact()
+        {
+
+        }
+
+        
+        public Contact(Contact toCopy)
+        {
+            firstName = toCopy.FirstName;
+            lastName = toCopy.LastName;
+            addressData = toCopy.AddressData;
+            emailData = toCopy.EmailData;
+            PhoneData = toCopy.PhoneData;
+        }
+        /// <summary>
+        /// Validates contact data according to set of rules
+        /// </summary>
+        /// <returns></returns>
         public bool ValidateData() 
         {
             // If data is valid according to rules:

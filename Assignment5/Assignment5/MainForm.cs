@@ -1,11 +1,9 @@
-﻿using System;
+﻿/*
+ * 2021-11-16
+ * Lars Jensen
+ */
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment5
@@ -13,7 +11,6 @@ namespace Assignment5
     public partial class MainForm : Form
     {
         private CustomerManager customerManager = new CustomerManager();
-        //private Customer currentCustomer = new Customer();
         private Contact currentContact = new Contact();
         public MainForm()
         {
@@ -41,12 +38,13 @@ namespace Assignment5
             {
                 customerManager.AddCustomer(currentContact);
                 Customer currentCustomer = customerManager.GetCustomer(lvRegistry.Items.Count);
+                // This should not be possible, but adding the check anyway
                 if(currentCustomer != null) { 
                     string[] row = { currentCustomer.CustomerId.ToString(), currentContact.LastName.ToUpper() + ", " + currentContact.FirstName, currentContact.PhoneData.BusinessPhone.ToString(), currentContact.EmailData.EmailBusiness.ToString() };
                     var listViewItem = new ListViewItem(row);
                     lvRegistry.Items.Add(listViewItem);
 
-                    // Setting references to new objects
+                    // Resetting references to new objects
                     currentContact = new Contact();
                 }
                 else
@@ -91,8 +89,9 @@ namespace Assignment5
             if (lvRegistry.SelectedItems.Count == 1)
             {
                 // Get the index from the GUI
-                int index = lvRegistry.SelectedItems[0].Index;
+                int index = lvRegistry.SelectedItems[0].Index;                                
                 // Delete the row from the listview (instead of reloading all customers each time)
+                // I would probably add a try catch here as not to accidentally remove customer from GUI but not from list
                 lvRegistry.Items.RemoveAt(index);
                 // Delete the actual customer
                 customerManager.DeleteCustomer(index);
@@ -125,31 +124,56 @@ namespace Assignment5
                 }
             }
         }
-        /// <summary>
-        /// A helper function to create a collection to show details
-        /// </summary>
-        /// <param name="customer">The Contact to show information about</param>
-        /// <returns></returns>
+        // A helper function to create a collection to show details
         private List<string> getCustomerString(Customer customer)
         {            
             List<string> customerInfo = new List<string>();
             
             customerInfo.Add("----- CONTACT DETAILS -----");
             customerInfo.Add("");
-            customerInfo.Add(customer.Contact.FirstName + " " + customer.Contact.LastName);
+            // Using Trim() so the line won't have an ugly space if firstName is not set
+            customerInfo.Add((customer.Contact.FirstName + " " + customer.Contact.LastName).Trim());
             customerInfo.Add(customer.Contact.AddressData.Street);
-            customerInfo.Add(customer.Contact.AddressData.Zipcode + " " + customer.Contact.AddressData.City);
+            // Using Trim() so the line won't have an ugly space if Zipcode is not set
+            customerInfo.Add((customer.Contact.AddressData.Zipcode + " " + customer.Contact.AddressData.City).Trim());
             customerInfo.Add(customer.Contact.AddressData.Country);
             customerInfo.Add("");
             customerInfo.Add("E-mail(s)");
-            customerInfo.Add(" Private \t" + customer.Contact.EmailData.EmailPrivate);
             customerInfo.Add(" Business \t" + customer.Contact.EmailData.EmailBusiness);
+            customerInfo.Add(" Private \t" + customer.Contact.EmailData.EmailPrivate);
+
             customerInfo.Add("");
             customerInfo.Add("Phone number(s)");
-            customerInfo.Add(" Private \t" + customer.Contact.PhoneData.PrivatePhone);
             customerInfo.Add(" Business \t" + customer.Contact.PhoneData.BusinessPhone);
-            
+            customerInfo.Add(" Private \t" + customer.Contact.PhoneData.PrivatePhone);
+
             return customerInfo;
-        }   
+        }
+
+        // Wanted to add a way to copy an existing customer. Usually wanted in a CRM system.
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            if (lvRegistry.SelectedItems.Count == 1)
+            {
+                // Get customer of chosen index                
+                //Customer currentCustomer = customerManager.GetCustomer(lvRegistry.SelectedItems[0].Index);
+                Contact contactCopy = customerManager.CopyContact(lvRegistry.SelectedItems[0].Index);
+                customerManager.AddCustomer(contactCopy);
+                Customer newCustomer = customerManager.GetCustomer(lvRegistry.Items.Count);
+                DialogResult response = MessageBox.Show("Do you want to edit the copied customer now?", "Edit copied customer?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(response == DialogResult.Yes)
+                {
+                    ContactForm contactForm = new ContactForm(newCustomer.Contact);
+                    DialogResult dlgResult = contactForm.ShowDialog();
+                }
+                string[] row = { newCustomer.CustomerId.ToString(), newCustomer.Contact.LastName.ToUpper() + ", " + newCustomer.Contact.FirstName, newCustomer.Contact.PhoneData.BusinessPhone.ToString(), newCustomer.Contact.EmailData.EmailBusiness.ToString() };
+                var listViewItem = new ListViewItem(row);
+                lvRegistry.Items.Add(listViewItem);
+            }
+            else
+            {
+                MessageBox.Show("You have to choose a customer to copy!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }

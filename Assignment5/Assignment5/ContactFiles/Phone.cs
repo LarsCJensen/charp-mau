@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment5
+﻿namespace Assignment5
 {
+    /// <summary>
+    /// Class to hold phone information
+    /// </summary>
     public class Phone
     {
+        // Only allowed to get properties
         private string businessPhone;
         public string BusinessPhone
         {
@@ -26,22 +24,13 @@ namespace Assignment5
             }            
         }       
         /// <summary>
-        /// As phone numbers aren't required we create a default constructor which passes values through chain calling
-        /// </summary>
-        public Phone(): this("")
-        {         
-        }
-
-        public Phone(string newPhone) : this(newPhone, "")
-        {
-            // TODO If newPhone starts with 07X...
-            privatePhone = newPhone;
-        }
-
-        public Phone(string newHomePhone, string newCellPhone)
-        {
-            privatePhone = newHomePhone;
-            businessPhone = newCellPhone;            
+        /// As phone numbers are passed in from the form through two text boxes we just have one constructor which takes two values
+        /// </summary>        
+        // I thought about having multiple constructors but it didn't make sense
+        public Phone(string newBusinessPhone, string newPrivatePhone)
+        {            
+            businessPhone = newBusinessPhone;
+            privatePhone = newPrivatePhone;
         }
     }
 }

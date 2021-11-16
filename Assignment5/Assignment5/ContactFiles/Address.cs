@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-// Using nuget package with all countries, codes etc
-using ISO3166;
-
-// Choosing not to have the "ContactFiles" folder added to the namespace as it is too verbose IMO
+﻿// Choosing not to have the "ContactFiles" folder added to the namespace as it is too verbose IMO
 namespace Assignment5
 {
+    /// <summary>
+    /// Class which holds address information
+    /// </summary>
     public class Address
     {
         private string street;
@@ -50,10 +45,10 @@ namespace Assignment5
         //{
             
         //}
-
-        public Address(string newCity, string newCountry) : this(newCity, newCountry, "Unknown Street")
+        // This overload and chain example is a bit strange, but it works. 
+        public Address(string newCity, string newCountry) : this(newCity, newCountry, "")
         {}
-        public Address(string newCity, string newCountry, string newStreet) : this(newCity, newCountry, newStreet, "123 45")
+        public Address(string newCity, string newCountry, string newStreet) : this(newCity, newCountry, newStreet, "")
         {}
 
         public Address(string newCity, string newCountry, string newStreet, string newPostalCode)

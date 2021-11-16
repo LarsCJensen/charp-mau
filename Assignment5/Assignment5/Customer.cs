@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Assignment5
 {
+    /// <summary>
+    /// This class holds id and contact information. Id is calculated and incremented by 1.
+    /// </summary>
     public class Customer
     {
         private Contact contact;
@@ -49,8 +52,7 @@ namespace Assignment5
         /// </summary>
         public Customer(Contact newContact)
         {
-            // Create a new Guid which will identify the customer
-            // Not used, using "own" id calculator
+            // Create a new Guid which will identify the customer (Not used, using "own" id calculator)
             //contactId = Guid.NewGuid();
 
             customerId = getCustomerId();
