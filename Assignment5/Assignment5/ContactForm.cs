@@ -41,7 +41,6 @@ namespace Assignment5
                 txtZipCode.Text = contact.AddressData.Zipcode;
                 cboCountry.Text = contact.AddressData.Country;
             }
-
         }
 
         private void ContactForm_Load(object sender, EventArgs e)
@@ -71,7 +70,6 @@ namespace Assignment5
                 MessageBox.Show(ex.Message, "Invalid input!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.DialogResult = DialogResult.None;
             }
-
 
             // Because the assignment requires Address to be overloaded this weird if block is needed to target the correct constructor
             if ((txtCity.Text != "" && cboCountry.SelectedValue.ToString() != "") && (txtStreet.Text == "" && txtZipCode.Text == ""))
@@ -141,7 +139,11 @@ namespace Assignment5
         // Handle if you also close the form
         private void ContactForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AskOnClose();
+            if(e.CloseReason != CloseReason.None || e.Cancel == true)
+            {
+                AskOnClose();
+            }
+            
         }
         // Function to ask if user wants to close without saving.
         private void AskOnClose()
