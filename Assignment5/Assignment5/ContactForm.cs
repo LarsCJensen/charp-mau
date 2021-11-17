@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-// Using nuget package with all countries, codes because I wanted to try it out. 
-// I wrote my own function (getCountries) to show that I know how to write my own
+// Using nuget package with all countries, codes because I wanted to try it out. I don't feel that it is "cheating", but instead a way to learn more stuff about C#
+// I did write my own function (getCountries) to show that I know how to write my own
 using ISO3166;
 
 namespace Assignment5

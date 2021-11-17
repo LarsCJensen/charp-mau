@@ -27,7 +27,7 @@ namespace Assignment5
         /// <summary>
         /// Edit customer
         /// </summary>
-        /// <param name="editedCustomer">customer information to replace with</param>
+        /// <param name="editedCustomer">Customer information to replace with</param>
         /// <param name="index">Index of customer</param>
         public void EditCustomer(Customer editedCustomer, int index)
         {
@@ -36,7 +36,7 @@ namespace Assignment5
         /// <summary>
         /// Delete customer at index
         /// </summary>
-        /// <param name="index">index of customer to delete</param>
+        /// <param name="index">Index of customer to delete</param>
         public void DeleteCustomer(int index)
         {
             customers.RemoveAt(index);

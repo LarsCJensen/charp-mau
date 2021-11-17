@@ -293,12 +293,13 @@ namespace Assignment5
             // 
             // btnFillConcact
             // 
-            this.btnFillConcact.Location = new System.Drawing.Point(163, 557);
+            this.btnFillConcact.Location = new System.Drawing.Point(138, 555);
             this.btnFillConcact.Name = "btnFillConcact";
-            this.btnFillConcact.Size = new System.Drawing.Size(84, 26);
+            this.btnFillConcact.Size = new System.Drawing.Size(136, 26);
             this.btnFillConcact.TabIndex = 5;
-            this.btnFillConcact.Text = "Fill Contact";
+            this.btnFillConcact.Text = "Fill Contact (for test)";
             this.btnFillConcact.UseVisualStyleBackColor = true;
+            this.btnFillConcact.Visible = false;
             this.btnFillConcact.Click += new System.EventHandler(this.btnFillConcact_Click);
             // 
             // ContactForm

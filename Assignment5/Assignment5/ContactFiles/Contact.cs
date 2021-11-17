@@ -92,7 +92,7 @@ namespace Assignment5
 
         }
 
-        
+        // Overloaded constructor for copying.
         public Contact(Contact toCopy)
         {
             firstName = toCopy.FirstName;

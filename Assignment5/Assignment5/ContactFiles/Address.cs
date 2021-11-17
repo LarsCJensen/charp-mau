@@ -39,13 +39,17 @@ namespace Assignment5
                 return country;
             }
         }
-        
+
         // No default constructor since city and country is required
         //public Address():
-        //{
-            
+        //{          
         //}
-        // This overload and chain example is a bit strange, but it works. 
+
+        /// <summary>
+        /// Overloads and chain for address. City and Country is required
+        /// </summary>
+        /// <param name="newCity"></param>
+        /// <param name="newCountry"></param>
         public Address(string newCity, string newCountry) : this(newCity, newCountry, "")
         {}
         public Address(string newCity, string newCountry, string newStreet) : this(newCity, newCountry, newStreet, "")

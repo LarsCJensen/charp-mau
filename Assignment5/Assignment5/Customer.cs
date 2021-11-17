@@ -36,6 +36,7 @@ namespace Assignment5
         //        return contactId;
         //    }
         //}
+        // Needs to be static so it is increased
         private static int idCounter = 1000;
         private int customerId;
         public int CustomerId

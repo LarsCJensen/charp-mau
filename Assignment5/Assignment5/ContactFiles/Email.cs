@@ -63,7 +63,6 @@ namespace Assignment5
                     // I chose to throw an exception which is handled by the caller
                     throw new ArgumentException("Private e-mail not correctly formatted!");
                 }
-
             }
             else
             {

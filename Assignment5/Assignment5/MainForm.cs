@@ -25,7 +25,7 @@ namespace Assignment5
             // Using a listView with fullrow select set to true and multiselect false to avoid weirdness when edit/delete
             // Adding columns, as it looks nicer. Although they perhaps should be automatically sized
             lvRegistry.Columns.Add("ID", 50, HorizontalAlignment.Left);
-            lvRegistry.Columns.Add("Name (Surname, first name)", -2, HorizontalAlignment.Left);
+            lvRegistry.Columns.Add("Name (SURNAME, First name)", -2, HorizontalAlignment.Left);
             lvRegistry.Columns.Add("Business phone", -2, HorizontalAlignment.Left);
             lvRegistry.Columns.Add("Business e-mail", 150, HorizontalAlignment.Left);
         }
