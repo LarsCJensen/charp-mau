@@ -15,9 +15,8 @@ namespace Assignment6
     public partial class MainForm : Form
     {
         private TodoManager todoManager = new TodoManager();
-        private Todo currentTodo = new Todo();
-        private System.Timers.Timer timer = new System.Timers.Timer();
-        private DateTime time = DateTime.Now;
+        private Todo currentTodo = new Todo();        
+        private DateTime time;
         private static String delimiter = ";";
         public MainForm()
         {
@@ -29,11 +28,13 @@ namespace Assignment6
         {
             // Also set this through GUI
             dtpDate.Format = DateTimePickerFormat.Custom;
-            dtpDate.CustomFormat = "yyyy-MM-dd   HH:mm";
+            dtpDate.CustomFormat = "yyyy-MM-dd HH:mm";
             txtTitle.Text = "";
             dtpDate.Value = DateTime.Now;
 
             cboPriority.DataSource = GetPriorities();
+            // Clear items and colums
+            lvTodo.Clear();
             // Show columns in listview
             lvTodo.View = View.Details;
             // Using a listView with fullrow select set to true and multiselect false to avoid weirdness when edit/delete
@@ -118,7 +119,7 @@ namespace Assignment6
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Reset program as startup
+            InitializeGUI();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -149,11 +150,7 @@ namespace Assignment6
                         var listViewItem = new ListViewItem(row);
                         // TODO change color of listitem
                         //listViewItem.BackColor = Color.Red;
-                        lvTodo.Items.Add(listViewItem);
-
-                        // Resetting references to new objects
-                        currentTodo = new Todo();
-                        ResetGUI();
+                        lvTodo.Items.Add(listViewItem);                        
                     }
                     else
                     {
@@ -170,7 +167,10 @@ namespace Assignment6
                     btnEdit.Enabled = true;
                     btnDelete.Enabled = true;
                     btnAdd.Text = "Add";
-;                }
+;               }
+                // Resetting references to new objects
+                currentTodo = new Todo();
+                ResetGUI();
 
             }            
         }
@@ -269,25 +269,34 @@ namespace Assignment6
             toolTip.ReshowDelay = 500;
             // Force the ToolTip text to be displayed whether or not the form is active.
             toolTip.ShowAlways = true;
-            
+
             // Timer
-            timer.Elapsed += new ElapsedEventHandler(UpdateTime);
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            time = DateTime.Now;
             timer.Interval = 1000;
-            timer.Enabled = true;
+            timer.Tick += new EventHandler(UpdateTime);            
+            timer.Start();
 
 
             // Set up the ToolTip text for the Button and Checkbox.            
             toolTip.SetToolTip(this.dtpDate, "Click to open calendar for date, write time here");
         }
-        private void UpdateTime(object source, ElapsedEventArgs e)
+        private void UpdateTime(object sender, EventArgs e)
         {
-            //lblTimeDisplay.Text = time.TimeOfDay.ToString();
+            lblTimeDisplay.Text = (DateTime.Now-time).ToString("hh\\:mm\\:ss");
+            Application.DoEvents();
         }        
 
         private Tuple<string, string, string> GetValuesFromRow(string row)
         {
             string[] rowValues = row.Split(delimiter);
             return Tuple.Create(rowValues[0], rowValues[1],rowValues[2]);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutTodo about = new AboutTodo();
+            about.ShowDialog();
         }
     }
 }

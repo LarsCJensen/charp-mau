@@ -4,6 +4,15 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Assignment6</AssemblyName>
+    <PackageId>Assignment6</PackageId>
+    <ApplicationIcon />
+    <Win32Resource />
+    <Authors>Lars Jensen</Authors>
+    <Company>larscjensen INC</Company>
+    <Product>Todo Magic</Product>
+    <Description>Get your todo's in order with the Todo Magic software!</Description>
+    <Copyright>Lars Jensen</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
