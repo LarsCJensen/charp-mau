@@ -42,7 +42,7 @@ namespace Assignment6
             lvTodo.Columns.Add("Date", 75, HorizontalAlignment.Left);
             lvTodo.Columns.Add("Hour", 50, HorizontalAlignment.Left);
             lvTodo.Columns.Add("Priority", 100, HorizontalAlignment.Left);
-            lvTodo.Columns.Add("Title", 250, HorizontalAlignment.Left);
+            lvTodo.Columns.Add("Title", 350, HorizontalAlignment.Left);
 
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
