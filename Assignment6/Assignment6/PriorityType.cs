@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * 2021-12-02
+ * Lars Jensen
+ */
 
 namespace Assignment6
 {

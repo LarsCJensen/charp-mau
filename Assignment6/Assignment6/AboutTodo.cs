@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
+﻿/*
+ * 2021-12-02
+ * Lars Jensen
+ */
+
+using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment6
@@ -101,6 +101,5 @@ namespace Assignment6
             }
         }
         #endregion
-
     }
 }

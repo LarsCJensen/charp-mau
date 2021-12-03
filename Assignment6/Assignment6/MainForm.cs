@@ -1,13 +1,11 @@
-﻿using System;
+﻿/*
+ * 2021-12-02
+ * Lars Jensen
+ */
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 using System.IO;
 
 namespace Assignment6
@@ -44,20 +42,24 @@ namespace Assignment6
             lvTodo.Columns.Add("Priority", 100, HorizontalAlignment.Left);
             lvTodo.Columns.Add("Title", 350, HorizontalAlignment.Left);
 
+            // lvTodo is sorted by date, as it makes sense
+
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             lblTimeDisplay.Text = "00:00:00";
         }
+        // Get priorities from Enum
         private List<string> GetPriorities()
         {
             List<string> prioList = new List<string>();
             foreach(PriorityType prio in Enum.GetValues(typeof(PriorityType)))
             {
+                // Beautify the list
                 prioList.Add(prio.ToString().Replace("_", " "));
             }
             return prioList;
         }
-
+        // Save file
         private void saveDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Open FileDIalog to save file
@@ -76,7 +78,7 @@ namespace Assignment6
                 }
             }
         }
-
+        // Load saved file
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Open FileDIalog to save file
@@ -85,6 +87,7 @@ namespace Assignment6
             loadFile.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             if (loadFile.ShowDialog() == DialogResult.OK && loadFile.FileName != "")
             {
+                InitializeGUI();
                 // Using "using" to close the file handle at end of scope
                 using (StreamReader reader = new StreamReader(loadFile.FileName))
                 {
@@ -93,7 +96,7 @@ namespace Assignment6
                         // Load rows and create todo:
                         string line = reader.ReadLine();
                         Tuple<string, string, string> todoItems = GetValuesFromRow(line);
-                        // More verbose way to program. Easier to follow
+                        // More verbose way to program, but easier to follow
                         DateTime date = DateTime.Parse(todoItems.Item1);
                         string priority = todoItems.Item2;
                         string title = todoItems.Item3;
@@ -109,22 +112,25 @@ namespace Assignment6
                                 todo.Title.ToString()
                             };
                             var listViewItem = new ListViewItem(row);
-                            // TODO change color of listitem
-                            //listViewItem.BackColor = Color.Red;
+                            // If loaded todos are older than now, make them disabled
+                            if(todo.TodoDate < DateTime.Now)
+                            {
+                                listViewItem.ForeColor = Color.DarkGray;
+                            }
                             lvTodo.Items.Add(listViewItem);
                         }
                     }
                 }
             }
         }
+        // Reset program
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitializeGUI();
         }
-
+        // Add or save edit of todo
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Check if e-mail addresses are correctly formatted
             currentTodo.Title = txtTitle.Text;
             currentTodo.TodoDate = dtpDate.Value;
             currentTodo.Priority = cboPriority.SelectedItem.ToString();
@@ -148,12 +154,11 @@ namespace Assignment6
                         newTodo.Title.ToString()
                     };
                         var listViewItem = new ListViewItem(row);
-                        // TODO change color of listitem
-                        //listViewItem.BackColor = Color.Red;
                         lvTodo.Items.Add(listViewItem);                        
                     }
                     else
                     {
+                        // Should not happen
                         MessageBox.Show("Could not get todo!", "Invalid index!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -168,7 +173,7 @@ namespace Assignment6
                     btnDelete.Enabled = true;
                     btnAdd.Text = "Add";
 ;               }
-                // Resetting references to new objects
+                // Resetting references to new objects and GUI
                 currentTodo = new Todo();
                 ResetGUI();
 
@@ -189,12 +194,8 @@ namespace Assignment6
                     cboPriority.SelectedItem = currentTodo.Priority;
                     btnEdit.Enabled = false;
                     btnDelete.Enabled = false;
-                    btnAdd.Text = "Save Edit";
-                    //// TODO Here we let currentTodo = edit. When add = editTodo
-                    //todoManager.EditTodo(currentTodo, lvTodo.SelectedItems[0].Index);
-                    //string[] row = { currentTodo.TodoDate.ToString("yyyy-MM-dd"), currentTodo.TodoDate.ToString("HH:mm"), currentTodo.Title.ToString(), currentTodo.Priority.ToString() };
-                    //var listViewItem = new ListViewItem(row);
-                    //lvTodo.Items[lvTodo.SelectedItems[0].Index] = listViewItem;                    
+                    // Change Add to Edit to use the same process as when adding
+                    btnAdd.Text = "Save Edit";                    
                 }
                 else
                 {
@@ -207,24 +208,25 @@ namespace Assignment6
                 MessageBox.Show("You have to choose a todo to edit!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        // Delete Todo
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (lvTodo.SelectedItems.Count == 1)
             {
                 // Get the index from the GUI
                 int index = lvTodo.SelectedItems[0].Index;
-                // Delete the row from the listview (instead of reloading all customers each time)
-                // I would probably add a try catch here as not to accidentally remove customer from GUI but not from list
+                // Delete the row from the listview
+                // I would probably add a try catch here as not to accidentally remove item from GUI but not from list
                 lvTodo.Items.RemoveAt(index);
-                // Delete the actual customer
+                // Delete the actual todo
                 todoManager.DeleteTodo(index);
             }
             else
             {
-                MessageBox.Show("You have to choose a customer to delete!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You have to choose a todo to delete!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
+        // On close form
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {            
             DialogResult response = MessageBox.Show("Do you want to exit the program?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -246,11 +248,17 @@ namespace Assignment6
         // When item is selected, activate Edit and Delete
         private void lvTodo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lvTodo.SelectedItems.Count > 0)
+            // If you load todos older than now then they are greyed out.
+            // If those are chosen, you can only delete them.
+            if (lvTodo.SelectedItems.Count > 0 && lvTodo.SelectedItems[0].ForeColor != Color.DarkGray)
             {
                 btnEdit.Enabled = true;
                 btnDelete.Enabled = true;
-            }
+            }else if(lvTodo.SelectedItems.Count > 0 && lvTodo.SelectedItems[0].ForeColor == Color.DarkGray)
+            {
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = true;
+            }           
             else
             {
                 btnEdit.Enabled = false;
@@ -270,29 +278,31 @@ namespace Assignment6
             // Force the ToolTip text to be displayed whether or not the form is active.
             toolTip.ShowAlways = true;
 
-            // Timer
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
-            time = DateTime.Now;
-            timer.Interval = 1000;
-            timer.Tick += new EventHandler(UpdateTime);            
-            timer.Start();
-
-
             // Set up the ToolTip text for the Button and Checkbox.            
             toolTip.SetToolTip(this.dtpDate, "Click to open calendar for date, write time here");
+
+            // Timer
+            Timer timer = new Timer();
+            time = DateTime.Now;
+            timer.Interval = 1000;
+            // Call each second
+            timer.Tick += new EventHandler(UpdateTime);            
+            timer.Start();
         }
+        // Update time each second
         private void UpdateTime(object sender, EventArgs e)
         {
             lblTimeDisplay.Text = (DateTime.Now-time).ToString("hh\\:mm\\:ss");
+            // So program doesn't hang.
             Application.DoEvents();
         }        
-
+        // Helper function to read row from file
         private Tuple<string, string, string> GetValuesFromRow(string row)
         {
             string[] rowValues = row.Split(delimiter);
             return Tuple.Create(rowValues[0], rowValues[1],rowValues[2]);
         }
-
+        // Open About dialog
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutTodo about = new AboutTodo();
