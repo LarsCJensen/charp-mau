@@ -47,6 +47,11 @@ namespace Assignment6
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             lblTimeDisplay.Text = "00:00:00";
+
+            // Clear all todos
+            todoManager.ClearTodos();
+            // Reset id counter
+            currentTodo.ResetTodoID();
         }
         // Get priorities from Enum
         private List<string> GetPriorities()
@@ -101,8 +106,7 @@ namespace Assignment6
                         string priority = todoItems.Item2;
                         string title = todoItems.Item3;
                         
-                        todoManager.AddTodo(date, priority, title);
-                        Todo todo = todoManager.GetTodo(lvTodo.Items.Count);
+                        Todo todo = todoManager.AddTodo(date, priority, title);
                         if (todo != null)
                         {
                             string[] row = {
@@ -112,8 +116,9 @@ namespace Assignment6
                                 todo.Title.ToString()
                             };
                             var listViewItem = new ListViewItem(row);
+                            listViewItem.Tag = todo.TodoId;
                             // If loaded todos are older than now, make them disabled
-                            if(todo.TodoDate < DateTime.Now)
+                            if (todo.TodoDate < DateTime.Now)
                             {
                                 listViewItem.ForeColor = Color.DarkGray;
                             }
@@ -144,7 +149,7 @@ namespace Assignment6
                 if ((sender as Button).Text == "Add")
                 {
                     todoManager.AddTodo(currentTodo);
-                    Todo newTodo = todoManager.GetTodo(lvTodo.Items.Count);
+                    Todo newTodo = todoManager.GetTodo(currentTodo.TodoId);
                     if (newTodo != null)
                     {
                         string[] row = {
@@ -154,6 +159,7 @@ namespace Assignment6
                         newTodo.Title.ToString()
                     };
                         var listViewItem = new ListViewItem(row);
+                        listViewItem.Tag = newTodo.TodoId;
                         lvTodo.Items.Add(listViewItem);                        
                     }
                     else
@@ -164,10 +170,16 @@ namespace Assignment6
                 }
                 // If we edit an existing todo
                 else if ((sender as Button).Text == "Save Edit")
-                {
-                    todoManager.EditTodo(currentTodo, lvTodo.SelectedItems[0].Index);
-                    string[] row = { currentTodo.TodoDate.ToString("yyyy-MM-dd"), currentTodo.TodoDate.ToString("HH:mm"), currentTodo.Priority.ToString(), currentTodo.Title.ToString()  };
+                {                    
+                    todoManager.EditTodo(currentTodo, currentTodo.TodoId);
+                    string[] row = { 
+                        currentTodo.TodoDate.ToString("yyyy-MM-dd"), 
+                        currentTodo.TodoDate.ToString("HH:mm"), 
+                        currentTodo.Priority.ToString(), 
+                        currentTodo.Title.ToString()  
+                    };
                     var listViewItem = new ListViewItem(row);
+                    listViewItem.Tag = currentTodo.TodoId;
                     lvTodo.Items[lvTodo.SelectedItems[0].Index] = listViewItem;
                     btnEdit.Enabled = true;
                     btnDelete.Enabled = true;
@@ -185,7 +197,7 @@ namespace Assignment6
             if (lvTodo.SelectedItems.Count == 1)
             {
                 // Get customer of chosen index                
-                Todo currentTodo = todoManager.GetTodo(lvTodo.SelectedItems[0].Index);
+                currentTodo = todoManager.GetTodo((int)lvTodo.SelectedItems[0].Tag);
                 if (currentTodo != null)
                 {
                     // Pass in customer object and it's index to update it.
@@ -243,6 +255,8 @@ namespace Assignment6
             txtTitle.Text = "";
             dtpDate.Value = DateTime.Now;
             cboPriority.SelectedIndex = 0;
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
         }
 
         // When item is selected, activate Edit and Delete
