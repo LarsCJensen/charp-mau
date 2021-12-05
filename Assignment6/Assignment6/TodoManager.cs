@@ -55,9 +55,13 @@ namespace Assignment6
         /// Delete todo
         /// </summary>
         /// <param name="todoIndex">Index of todo being deleted</param>
-        public void DeleteTodo(int todoIndex) 
+        public void DeleteTodo(int todoId)
         {
-            todos.RemoveAt(todoIndex);
+            int todoIndex = todos.FindIndex(item => item.TodoId == todoId);
+            if (todoIndex >= 0 && todoIndex <= todos.Count - 1)
+            {
+                todos.RemoveAt(todoIndex);
+            }
         }
         /// <summary>
         /// Get todo from selected index

@@ -49,9 +49,7 @@ namespace Assignment6
             lblTimeDisplay.Text = "00:00:00";
 
             // Clear all todos
-            todoManager.ClearTodos();
-            // Reset id counter
-            currentTodo.ResetTodoID();
+            todoManager.ClearTodos();            
         }
         // Get priorities from Enum
         private List<string> GetPriorities()
@@ -127,10 +125,14 @@ namespace Assignment6
                     }
                 }
             }
+            // To create a new reference with correct id
+            currentTodo = new Todo();
         }
         // Reset program
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Reset id counter
+            currentTodo.ResetTodoID();
             InitializeGUI();
         }
         // Add or save edit of todo
@@ -149,24 +151,24 @@ namespace Assignment6
                 if ((sender as Button).Text == "Add")
                 {
                     todoManager.AddTodo(currentTodo);
-                    Todo newTodo = todoManager.GetTodo(currentTodo.TodoId);
-                    if (newTodo != null)
+                    //Todo newTodo = todoManager.GetTodo(currentTodo.TodoId);
+                    if (currentTodo != null)
                     {
                         string[] row = {
-                        newTodo.TodoDate.ToString("yyyy-MM-dd"),
-                        newTodo.TodoDate.ToString("HH:mm"),
-                        newTodo.Priority.ToString(),
-                        newTodo.Title.ToString()
+                        currentTodo.TodoDate.ToString("yyyy-MM-dd"),
+                        currentTodo.TodoDate.ToString("HH:mm"),
+                        currentTodo.Priority.ToString(),
+                        currentTodo.Title.ToString()
                     };
                         var listViewItem = new ListViewItem(row);
-                        listViewItem.Tag = newTodo.TodoId;
+                        listViewItem.Tag = currentTodo.TodoId;
                         lvTodo.Items.Add(listViewItem);                        
                     }
                     else
                     {
                         // Should not happen
                         MessageBox.Show("Could not get todo!", "Invalid index!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    }                    
                 }
                 // If we edit an existing todo
                 else if ((sender as Button).Text == "Save Edit")
@@ -184,11 +186,11 @@ namespace Assignment6
                     btnEdit.Enabled = true;
                     btnDelete.Enabled = true;
                     btnAdd.Text = "Add";
-;               }
+               }
                 // Resetting references to new objects and GUI
+                // This will "forsake" id:s however, since we can edit an existing todo. Not that big of a deal
                 currentTodo = new Todo();
                 ResetGUI();
-
             }            
         }
 
@@ -200,6 +202,8 @@ namespace Assignment6
                 currentTodo = todoManager.GetTodo((int)lvTodo.SelectedItems[0].Tag);
                 if (currentTodo != null)
                 {
+                    // Disable listView
+                    lvTodo.Enabled = false;
                     // Pass in customer object and it's index to update it.
                     txtTitle.Text = currentTodo.Title;
                     dtpDate.Value = currentTodo.TodoDate;
@@ -225,13 +229,23 @@ namespace Assignment6
         {
             if (lvTodo.SelectedItems.Count == 1)
             {
-                // Get the index from the GUI
-                int index = lvTodo.SelectedItems[0].Index;
-                // Delete the row from the listview
-                // I would probably add a try catch here as not to accidentally remove item from GUI but not from list
-                lvTodo.Items.RemoveAt(index);
-                // Delete the actual todo
-                todoManager.DeleteTodo(index);
+                // Get selected todo
+                currentTodo = todoManager.GetTodo((int)lvTodo.SelectedItems[0].Tag);
+                if (currentTodo != null) { 
+                    // Get the index from the GUI
+                    int index = lvTodo.SelectedItems[0].Index;
+                    // Delete the row from the listview
+                    // I would probably add a try catch here as not to accidentally remove item from GUI but not from list
+                    lvTodo.Items.RemoveAt(index);
+                    // Delete the actual todo
+                    todoManager.DeleteTodo(currentTodo.TodoId);
+                    currentTodo = new Todo();
+                }
+                else
+                {
+                    // Should not be able to happen, but still
+                    MessageBox.Show("Could not get todo!", "Invalid index!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }            
             }
             else
             {
@@ -255,6 +269,7 @@ namespace Assignment6
             txtTitle.Text = "";
             dtpDate.Value = DateTime.Now;
             cboPriority.SelectedIndex = 0;
+            lvTodo.Enabled = true;
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
         }
