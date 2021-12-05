@@ -61,7 +61,9 @@ namespace Assignment6
         /// <summary>
         /// Default constructor
         /// </summary>
-        public Todo() { }
+        public Todo() {
+            todoId = getTodoId();
+        }
 
         /// <summary>
         /// Overloaded constructor for adding todo
@@ -88,6 +90,14 @@ namespace Assignment6
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Reset idCounter upon new
+        /// </summary>
+        public void ResetTodoID()
+        {
+            idCounter = 1000;
         }
 
         /// <summary>

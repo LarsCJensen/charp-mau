@@ -28,43 +28,61 @@ namespace Assignment6
         /// <param name="todoDate">Date/Time of todo</param>
         /// <param name="priority">Priority of todo</param>
         /// <param name="title">Title of todo</param>
-        public void AddTodo(DateTime todoDate, string priority, string title)
+        public Todo AddTodo(DateTime todoDate, string priority, string title)
         {
             Todo newTodo = new Todo();
             newTodo.Title = title;
             newTodo.TodoDate = todoDate;
             newTodo.Priority = priority;
             todos.Add(newTodo);
+            return newTodo;
         }
         /// <summary>
         /// Edit todo
         /// </summary>
         /// <param name="editedTodo">Edited todo</param>
         /// <param name="todoIndex">Index of todo being edited</param>
-        public void EditTodo(Todo editedTodo, int todoIndex) 
+        public void EditTodo(Todo editedTodo, int todoId) 
         {
-            todos[todoIndex] = editedTodo;
+            int todoIndex = todos.FindIndex(item => item.TodoId == todoId);
+            if (todoIndex >= 0 && todoIndex <= todos.Count - 1)
+            {
+                todos[todoIndex] = editedTodo;
+            }
+            
         }
         /// <summary>
         /// Delete todo
         /// </summary>
         /// <param name="todoIndex">Index of todo being deleted</param>
-        public void DeleteTodo(int todoIndex) 
+        public void DeleteTodo(int todoId)
         {
-            todos.RemoveAt(todoIndex);
+            int todoIndex = todos.FindIndex(item => item.TodoId == todoId);
+            if (todoIndex >= 0 && todoIndex <= todos.Count - 1)
+            {
+                todos.RemoveAt(todoIndex);
+            }
         }
         /// <summary>
         /// Get todo from selected index
         /// </summary>
         /// <param name="todoIndex">Index of todo to get</param>
         /// <returns></returns>
-        public Todo GetTodo(int todoIndex)
+        public Todo GetTodo(int todoId)
         {
+            int todoIndex = todos.FindIndex(item => item.TodoId == todoId);
             if (todoIndex >= 0 && todoIndex <= todos.Count - 1)
             {
                 return todos[todoIndex];
             }
             return null;
+        }
+        /// <summary>
+        /// Reset todos upon new
+        /// </summary>
+        public void ClearTodos()
+        {
+            todos.Clear();
         }
     }
 }
