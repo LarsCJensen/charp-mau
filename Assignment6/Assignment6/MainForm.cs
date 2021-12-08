@@ -254,12 +254,11 @@ namespace Assignment6
         }
         // On close form
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {            
-            DialogResult response = MessageBox.Show("Do you want to exit the program?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            // If response is No, then cancel exit
+        {
+            DialogResult response = CloseForm();
             if (response == DialogResult.No)
             {
-                e.Cancel=true;
+                e.Cancel = true;
             }
         }
 
@@ -336,6 +335,19 @@ namespace Assignment6
         {
             AboutTodo about = new AboutTodo();
             about.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {            
+            Application.Exit();        
+        }
+
+        private DialogResult CloseForm()
+        {
+            DialogResult response = MessageBox.Show("Do you want to exit the program?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            // If response is No, then cancel exit
+            return response;
+            
         }
     }
 }

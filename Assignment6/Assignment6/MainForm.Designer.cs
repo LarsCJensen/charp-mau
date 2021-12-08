@@ -52,7 +52,6 @@ namespace Assignment6
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.lblTimeDisplay = new System.Windows.Forms.Label();
-            this.loadDataToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -76,8 +75,7 @@ namespace Assignment6
             this.saveDataToolStripMenuItem,
             this.loadDataToolStripMenuItem,
             this.toolStripSeparator2,
-            this.exitToolStripMenuItem,
-            this.loadDataToolStripMenuItem1});
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -122,6 +120,7 @@ namespace Assignment6
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -253,12 +252,6 @@ namespace Assignment6
             this.lblTimeDisplay.TabIndex = 11;
             this.lblTimeDisplay.Text = "Time";
             // 
-            // loadDataToolStripMenuItem1
-            // 
-            this.loadDataToolStripMenuItem1.Name = "loadDataToolStripMenuItem1";
-            this.loadDataToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.loadDataToolStripMenuItem1.Text = "Load data";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -314,7 +307,6 @@ namespace Assignment6
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Label lblTimeDisplay;
-        private System.Windows.Forms.ToolStripMenuItem loadDataToolStripMenuItem1;
     }
 }
 
