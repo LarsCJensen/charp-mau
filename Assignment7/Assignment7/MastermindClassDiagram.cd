@@ -29,12 +29,9 @@
   <Class Name="Assignment7.MastermindItem" Collapsed="true">
     <Position X="7.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MastermindItem.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Enums" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Assignment7.MastermindRow" Collapsed="true">
     <Position X="4.5" Y="2.75" Width="1.5" />
@@ -49,17 +46,14 @@
   <Class Name="Assignment7.MastermindResult" Collapsed="true">
     <Position X="7.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MastermindResult.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Enums" />
-    </ShowAsAssociation>
   </Class>
-  <Enum Name="Assignment7.Enums" Collapsed="true">
+  <Enum Name="Assignment7.Colors" Collapsed="true">
     <Position X="10.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAgAQIAAAAAAAABAAgAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Enums.cs</FileName>
     </TypeIdentifier>
   </Enum>

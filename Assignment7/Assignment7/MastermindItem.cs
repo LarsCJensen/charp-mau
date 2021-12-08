@@ -8,12 +8,12 @@ namespace Assignment7
     public class MastermindItem
     {
 
-        public Enums Enums
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        //public Enums Enums
+        //{
+        //    get => default;
+        //    set
+        //    {
+        //    }
+        //}
     }
 }

@@ -5,7 +5,13 @@ using System.Text;
 
 namespace Assignment7
 {
-    public enum Enums
+    public enum Colors
     {
+        WHITE,
+        BLUE,
+        GREEN,
+        BLACK,
+        RED,
+        YELLOW,            
     }
 }
