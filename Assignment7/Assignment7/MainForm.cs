@@ -14,6 +14,7 @@ namespace Assignment7
     {
         private MastermindManager mastermindManager = new MastermindManager();
         private MastermindRow mastermindRow = new MastermindRow();
+        private MastermindRow correctRow;
         private int row = 10;
         public MainForm()
         {
@@ -25,11 +26,10 @@ namespace Assignment7
         private void InitializeGUI()
         {
             tlpContainer.Controls.Clear();
+            GenerateRandomRow();
             AddGuessRowToTLP();
+            AddResultRowToTLP();
             //HandlePictureBoxes(this);
-
-
-
         }
 
         // Recursively bind click event to all picture boxes and reset them to default
@@ -124,28 +124,42 @@ namespace Assignment7
                 newPictureBox.Click += pb_Click;
             } else
             {
-                newPictureBox = new PictureBox() { BackColor = Color.White, Size = new Size(15, 15), Enabled=false };
+                newPictureBox = new PictureBox() { BackColor = Color.DimGray, Size = new Size(15, 15), Enabled=false, Anchor = AnchorStyles.None };
             }
             
             return newPictureBox;
         }
 
-        //private void AddResultRowToTLP()
-        //{
-        //    TableLayoutPanel newPanel = new TableLayoutPanel();
-        //    newPanel.ColumnCount = 4;
-        //    newPanel.RowCount = 1;
-        //    newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-        //    newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-        //    newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-        //    newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
-        //    newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            
-        //    newPanel.Controls.Add(new Label() { Text = "1" }, 0, 0);
-        //    newPanel.Controls.Add(new Label() { Text = "2" }, 1, 0);
-        //    newPanel.Controls.Add(new Label() { Text = "3" }, 2, 0);
-        //    newPanel.Controls.Add(new Label() { Text = "4" }, 3, 0);
-        //    tlpContainer.Controls.Add(newPanel, 1, row);
-        //}
+        private void AddResultRowToTLP()
+        {
+            TableLayoutPanel newPanel = new TableLayoutPanel();
+            newPanel.ColumnCount = 2;
+            newPanel.RowCount = 2;
+            newPanel.Size = new Size(68, 44);
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+
+            for (int i = 0; i < 2; i++)
+            {
+                PictureBox pictureBox = GetNewPictureBox(false);
+                newPanel.Controls.Add(pictureBox, i, 0);
+            }            
+            for (int i = 0; i < 2; i++)
+            {
+                PictureBox pictureBox = GetNewPictureBox(false);
+                newPanel.Controls.Add(pictureBox, i, 1);
+            }
+            tlpContainer.Controls.Add(newPanel, 1, row);
+        }
+
+        private void GenerateRandomRow()
+        {
+            MastermindRow correctRow = mastermindManager.GetRandomRow();
+
+        }
     }
 }

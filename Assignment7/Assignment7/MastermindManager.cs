@@ -27,5 +27,10 @@ namespace Assignment7
         {
 
         }
+
+        public MastermindRow GetRandomRow()
+        {
+            return null;
+        }
     }
 }
