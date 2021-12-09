@@ -18,7 +18,7 @@
   <Class Name="Assignment7.MastermindManager" Collapsed="true">
     <Position X="4.5" Y="1" Width="1.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAgAAAABAAAAAAAAAAAAABA=</HashCode>
       <FileName>MastermindManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -36,12 +36,9 @@
   <Class Name="Assignment7.MastermindRow" Collapsed="true">
     <Position X="4.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MastermindRow.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="MastermindItem" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Assignment7.MastermindResult" Collapsed="true">
     <Position X="7.25" Y="1" Width="1.5" />

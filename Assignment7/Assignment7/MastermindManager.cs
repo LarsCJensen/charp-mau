@@ -7,6 +7,7 @@ namespace Assignment7
 {
     public class MastermindManager
     {
+        private List<MastermindRow> guesses = new List<MastermindRow>();
         public MastermindResult MastermindResult
         {
             get => default;
@@ -21,6 +22,10 @@ namespace Assignment7
             set
             {
             }
+        }
+        public void Guess(MastermindRow guess)
+        {
+
         }
     }
 }

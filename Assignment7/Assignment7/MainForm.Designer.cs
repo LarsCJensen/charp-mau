@@ -48,7 +48,8 @@ namespace Assignment7
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.gbResult = new System.Windows.Forms.GroupBox();
+            this.btnAddGuess = new System.Windows.Forms.Button();
+            this.btnResetGuess = new System.Windows.Forms.Button();
             this.tlpContainer.SuspendLayout();
             this.tlpRow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb3)).BeginInit();
@@ -100,6 +101,7 @@ namespace Assignment7
             // tlpRow1
             // 
             this.tlpRow1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tlpRow1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tlpRow1.ColumnCount = 4;
             this.tlpRow1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpRow1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -121,7 +123,7 @@ namespace Assignment7
             // 
             this.pb3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pb3.BackColor = System.Drawing.Color.Gainsboro;
-            this.pb3.Location = new System.Drawing.Point(161, 9);
+            this.pb3.Location = new System.Drawing.Point(160, 9);
             this.pb3.Name = "pb3";
             this.pb3.Size = new System.Drawing.Size(37, 27);
             this.pb3.TabIndex = 4;
@@ -131,7 +133,7 @@ namespace Assignment7
             // 
             this.pb4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pb4.BackColor = System.Drawing.Color.Gainsboro;
-            this.pb4.Location = new System.Drawing.Point(234, 9);
+            this.pb4.Location = new System.Drawing.Point(232, 9);
             this.pb4.Name = "pb4";
             this.pb4.Size = new System.Drawing.Size(37, 27);
             this.pb4.TabIndex = 3;
@@ -141,7 +143,7 @@ namespace Assignment7
             // 
             this.pb1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pb1.BackColor = System.Drawing.Color.Gainsboro;
-            this.pb1.Location = new System.Drawing.Point(17, 9);
+            this.pb1.Location = new System.Drawing.Point(18, 9);
             this.pb1.Name = "pb1";
             this.pb1.Size = new System.Drawing.Size(37, 27);
             this.pb1.TabIndex = 2;
@@ -312,23 +314,32 @@ namespace Assignment7
             this.pictureBox7.TabIndex = 2;
             this.pictureBox7.TabStop = false;
             // 
-            // gbResult
+            // btnAddGuess
             // 
-            this.gbResult.BackColor = System.Drawing.Color.Black;
-            this.gbResult.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.gbResult.Location = new System.Drawing.Point(35, 34);
-            this.gbResult.Name = "gbResult";
-            this.gbResult.Size = new System.Drawing.Size(375, 37);
-            this.gbResult.TabIndex = 1;
-            this.gbResult.TabStop = false;
-            this.gbResult.Text = "Guess What?";
+            this.btnAddGuess.Location = new System.Drawing.Point(57, 604);
+            this.btnAddGuess.Name = "btnAddGuess";
+            this.btnAddGuess.Size = new System.Drawing.Size(85, 25);
+            this.btnAddGuess.TabIndex = 2;
+            this.btnAddGuess.Text = "Guess";
+            this.btnAddGuess.UseVisualStyleBackColor = true;
+            this.btnAddGuess.Click += new System.EventHandler(this.btnAddGuess_Click);
+            // 
+            // btnResetGuess
+            // 
+            this.btnResetGuess.Location = new System.Drawing.Point(158, 604);
+            this.btnResetGuess.Name = "btnResetGuess";
+            this.btnResetGuess.Size = new System.Drawing.Size(85, 25);
+            this.btnResetGuess.TabIndex = 3;
+            this.btnResetGuess.Text = "Reset";
+            this.btnResetGuess.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 636);
-            this.Controls.Add(this.gbResult);
+            this.Controls.Add(this.btnResetGuess);
+            this.Controls.Add(this.btnAddGuess);
             this.Controls.Add(this.tlpContainer);
             this.Name = "MainForm";
             this.Text = "Mastermind by Lars Jensen";
@@ -376,7 +387,8 @@ namespace Assignment7
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.GroupBox gbResult;
+        private System.Windows.Forms.Button btnAddGuess;
+        private System.Windows.Forms.Button btnResetGuess;
     }
 }
 

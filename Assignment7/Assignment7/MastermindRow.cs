@@ -7,12 +7,13 @@ namespace Assignment7
 {
     public class MastermindRow
     {
-        public MastermindItem MastermindItem
+        public MastermindRow()
         {
-            get => default;
-            set
-            {
-            }
+
+        }
+        public MastermindRow(MastermindRow guess)
+        {
+
         }
     }
 }
