@@ -7,7 +7,18 @@ namespace Assignment7
 {
     public class MastermindItem
     {
-
+        private Colors color;
+        public Colors Color
+        {
+            get
+            {
+                return color;
+            }
+            set
+            {
+                color = value;
+            }
+        }
         //public Enums Enums
         //{
         //    get => default;
@@ -15,5 +26,9 @@ namespace Assignment7
         //    {
         //    }
         //}
+        public MastermindItem()
+        {
+            // Default constructor
+        }
     }
 }

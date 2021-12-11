@@ -13,9 +13,8 @@ namespace Assignment7
     public partial class MainForm : Form
     {
         private MastermindManager mastermindManager = new MastermindManager();
-        private MastermindRow mastermindRow = new MastermindRow();
-        private MastermindRow correctRow;
         private int row = 10;
+        private Dictionary<Colors, Color> colorsDict = new Dictionary<Colors, Color>();        
         public MainForm()
         {
             InitializeComponent();
@@ -25,10 +24,15 @@ namespace Assignment7
 
         private void InitializeGUI()
         {
+            // TODO Refactor
+            FillColorDict();
+
             tlpContainer.Controls.Clear();
             GenerateRandomRow();
             AddGuessRowToTLP();
+            AddCorrectRowToTLP();
             AddResultRowToTLP();
+            
             //HandlePictureBoxes(this);
         }
 
@@ -89,7 +93,7 @@ namespace Assignment7
         private void btnAddGuess_Click(object sender, EventArgs e)
         {
             // Create guess
-
+            lblMastermind.Visible = false;
         }
 
         private void AddGuessRowToTLP()
@@ -108,11 +112,37 @@ namespace Assignment7
 
             for(int i = 0; i < 4;i++)
             {
-                PictureBox pictureBox = GetNewPictureBox();
+                PictureBox pictureBox = GetNewPictureBox();                
                 newPanel.Controls.Add(pictureBox, i, 0);
                 
             }
+            
             tlpContainer.Controls.Add(newPanel, 0, row);
+        }
+        // TODO Refactor
+        private void AddCorrectRowToTLP()
+        {
+            TableLayoutPanel newPanel = new TableLayoutPanel();
+            newPanel.ColumnCount = 4;
+            newPanel.RowCount = 1;
+            //TODO REMOVE
+            //newPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
+            newPanel.Size = new Size(365, 50);
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));            
+            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+            for (int i = 0; i < 4; i++)
+            {
+                PictureBox pictureBox = GetNewPictureBox();
+                pictureBox.BackColor = colorsDict[mastermindManager.CorrectRow.Item1.Color];
+                newPanel.Controls.Add(pictureBox, i, 0);
+            }
+            tlpContainer.SetColumnSpan(newPanel, 2);
+            tlpContainer.Controls.Add(newPanel, 0, 0);
+
         }
 
         private PictureBox GetNewPictureBox(bool guess=true)
@@ -154,12 +184,21 @@ namespace Assignment7
                 newPanel.Controls.Add(pictureBox, i, 1);
             }
             tlpContainer.Controls.Add(newPanel, 1, row);
+            row--;
         }
 
         private void GenerateRandomRow()
         {
-            MastermindRow correctRow = mastermindManager.GetRandomRow();
-
+            mastermindManager.GenerateRandomRow();
+        }
+        private void FillColorDict()
+        {
+            colorsDict.Add(Colors.BLACK, Color.Black);
+            colorsDict.Add(Colors.BLUE, Color.Blue);
+            colorsDict.Add(Colors.GREEN, Color.Green);
+            colorsDict.Add(Colors.RED, Color.Red);
+            colorsDict.Add(Colors.WHITE, Color.White);
+            colorsDict.Add(Colors.YELLOW, Color.Yellow);
         }
     }
 }

@@ -40,16 +40,12 @@ namespace Assignment7
             this.pbResult3 = new System.Windows.Forms.PictureBox();
             this.pbResult2 = new System.Windows.Forms.PictureBox();
             this.pbResult1 = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.btnAddGuess = new System.Windows.Forms.Button();
             this.btnResetGuess = new System.Windows.Forms.Button();
+            this.lblMastermind = new System.Windows.Forms.Label();
             this.tlpContainer.SuspendLayout();
             this.tlpRow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb3)).BeginInit();
@@ -61,11 +57,6 @@ namespace Assignment7
             ((System.ComponentModel.ISupportInitialize)(this.pbResult3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult1)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
@@ -80,7 +71,6 @@ namespace Assignment7
             this.tlpContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tlpContainer.Controls.Add(this.tlpRow1, 0, 10);
             this.tlpContainer.Controls.Add(this.tlpRow1Col2, 1, 10);
-            this.tlpContainer.Controls.Add(this.tableLayoutPanel1, 0, 0);
             this.tlpContainer.Location = new System.Drawing.Point(35, 29);
             this.tlpContainer.Name = "tlpContainer";
             this.tlpContainer.RowCount = 11;
@@ -115,7 +105,7 @@ namespace Assignment7
             this.tlpRow1.Name = "tlpRow1";
             this.tlpRow1.RowCount = 1;
             this.tlpRow1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRow1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tlpRow1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tlpRow1.Size = new System.Drawing.Size(289, 45);
             this.tlpRow1.TabIndex = 2;
             // 
@@ -220,66 +210,6 @@ namespace Assignment7
             this.pbResult1.TabIndex = 0;
             this.pbResult1.TabStop = false;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tlpContainer.SetColumnSpan(this.tableLayoutPanel1, 2);
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox5, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 5);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(365, 38);
-            this.tableLayoutPanel1.TabIndex = 5;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox3.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBox3.Location = new System.Drawing.Point(209, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(37, 31);
-            this.pictureBox3.TabIndex = 5;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBox2.Location = new System.Drawing.Point(300, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(37, 31);
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox4.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBox4.Location = new System.Drawing.Point(27, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(37, 31);
-            this.pictureBox4.TabIndex = 2;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox5.BackColor = System.Drawing.Color.Gainsboro;
-            this.pictureBox5.Location = new System.Drawing.Point(118, 3);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(37, 31);
-            this.pictureBox5.TabIndex = 1;
-            this.pictureBox5.TabStop = false;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -333,11 +263,24 @@ namespace Assignment7
             this.btnResetGuess.Text = "Reset";
             this.btnResetGuess.UseVisualStyleBackColor = true;
             // 
+            // lblMastermind
+            // 
+            this.lblMastermind.AutoSize = true;
+            this.lblMastermind.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblMastermind.Font = new System.Drawing.Font("Segoe UI", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblMastermind.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblMastermind.Location = new System.Drawing.Point(40, 29);
+            this.lblMastermind.Name = "lblMastermind";
+            this.lblMastermind.Size = new System.Drawing.Size(366, 46);
+            this.lblMastermind.TabIndex = 4;
+            this.lblMastermind.Text = "Are you a Mastermind?";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 636);
+            this.Controls.Add(this.lblMastermind);
             this.Controls.Add(this.btnResetGuess);
             this.Controls.Add(this.btnAddGuess);
             this.Controls.Add(this.tlpContainer);
@@ -354,15 +297,11 @@ namespace Assignment7
             ((System.ComponentModel.ISupportInitialize)(this.pbResult3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbResult1)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -374,11 +313,6 @@ namespace Assignment7
         private System.Windows.Forms.PictureBox pb3;
         private System.Windows.Forms.PictureBox pb4;
         private System.Windows.Forms.PictureBox pb1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.TableLayoutPanel tlpRow1Col2;
         private System.Windows.Forms.PictureBox pbResult4;
         private System.Windows.Forms.PictureBox pbResult3;
@@ -389,6 +323,7 @@ namespace Assignment7
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Button btnAddGuess;
         private System.Windows.Forms.Button btnResetGuess;
+        private System.Windows.Forms.Label lblMastermind;
     }
 }
 
