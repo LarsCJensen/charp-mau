@@ -7,6 +7,7 @@ namespace Assignment7
 {
     public class MastermindRow
     {
+        // TODO Can this be made generic?? List<MastermindItems>!!
         private MastermindItem item1;
         public MastermindItem Item1
         {
@@ -39,7 +40,7 @@ namespace Assignment7
                 return item4;
             }
         }
-        public MastermindRow(MastermindItem[] listOfItems)
+        public MastermindRow(List<MastermindItem> listOfItems)
         {
             item1 = listOfItems[0];
             item2 = listOfItems[1];

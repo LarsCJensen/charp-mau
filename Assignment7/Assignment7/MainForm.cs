@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace Assignment7
 {
     public partial class MainForm : Form
-    {
-        private MastermindManager mastermindManager = new MastermindManager();
+    {        
+        // TODO Make dynamic
+        private MastermindManager mastermindManager = new MastermindManager(10);
         private int row = 10;
-        private Dictionary<Colors, Color> colorsDict = new Dictionary<Colors, Color>();        
+        private Dictionary<Colors, Color> colorsEnumToColorDict = new Dictionary<Colors, Color>();
+        private Dictionary<Color, Colors> colorToColorsEnumDict = new Dictionary<Color, Colors>();
         public MainForm()
         {
             InitializeComponent();
@@ -25,13 +28,13 @@ namespace Assignment7
         private void InitializeGUI()
         {
             // TODO Refactor
-            FillColorDict();
+            FillColorDicts();
 
             tlpContainer.Controls.Clear();
             GenerateRandomRow();
             AddGuessRowToTLP();
             AddCorrectRowToTLP();
-            AddResultRowToTLP();
+            AddGuessResultRowToTLP();
             
             //HandlePictureBoxes(this);
         }
@@ -93,7 +96,22 @@ namespace Assignment7
         private void btnAddGuess_Click(object sender, EventArgs e)
         {
             // Create guess
-            lblMastermind.Visible = false;
+            // TODO s
+            Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
+            if (ValidateGuess(rowControls))
+            {
+                List<MastermindItem> guess = GetMastermindItemsFromControls(rowControls);
+                // TODO Refactor - validate before GetMastermindItems??
+                MastermindRow guessRow = new MastermindRow(guess);
+                List<GuessResult> result = mastermindManager.Guess(guessRow);                
+
+                lblMastermind.Visible = false;
+                row--;
+            }
+            else
+            {
+                MessageBox.Show("You need to choose a color for all items!", "Guess again!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         private void AddGuessRowToTLP()
@@ -134,13 +152,24 @@ namespace Assignment7
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));            
             newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
 
+            // Getting properties for Row
+            Type rowType = mastermindManager.CorrectRow.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(rowType.GetProperties());
+
             for (int i = 0; i < 4; i++)
             {
+                // Dynamically get the correct item property based on index order
+                MastermindItem item = (MastermindItem)props[i].GetValue(mastermindManager.CorrectRow);
                 PictureBox pictureBox = GetNewPictureBox();
-                pictureBox.BackColor = colorsDict[mastermindManager.CorrectRow.Item1.Color];
+                //TODO Ta bort
+                //pictureBox.BackColor = colorsDict[mastermindManager.CorrectRow.Item1.Color];
+                // Get correct color based on enum key.
+                pictureBox.BackColor = colorsEnumToColorDict[item.Color];
                 newPanel.Controls.Add(pictureBox, i, 0);
             }
+            // TODO Does this even work?
             tlpContainer.SetColumnSpan(newPanel, 2);
+            
             tlpContainer.Controls.Add(newPanel, 0, 0);
 
         }
@@ -160,7 +189,7 @@ namespace Assignment7
             return newPictureBox;
         }
 
-        private void AddResultRowToTLP()
+        private void AddGuessResultRowToTLP()
         {
             TableLayoutPanel newPanel = new TableLayoutPanel();
             newPanel.ColumnCount = 2;
@@ -183,22 +212,60 @@ namespace Assignment7
                 PictureBox pictureBox = GetNewPictureBox(false);
                 newPanel.Controls.Add(pictureBox, i, 1);
             }
-            tlpContainer.Controls.Add(newPanel, 1, row);
-            row--;
+            tlpContainer.Controls.Add(newPanel, 1, row);            
         }
 
         private void GenerateRandomRow()
         {
             mastermindManager.GenerateRandomRow();
         }
-        private void FillColorDict()
+        private void FillColorDicts()
         {
-            colorsDict.Add(Colors.BLACK, Color.Black);
-            colorsDict.Add(Colors.BLUE, Color.Blue);
-            colorsDict.Add(Colors.GREEN, Color.Green);
-            colorsDict.Add(Colors.RED, Color.Red);
-            colorsDict.Add(Colors.WHITE, Color.White);
-            colorsDict.Add(Colors.YELLOW, Color.Yellow);
+            colorsEnumToColorDict.Add(Colors.BLACK, Color.Black);
+            colorsEnumToColorDict.Add(Colors.BLUE, Color.Blue);
+            colorsEnumToColorDict.Add(Colors.GREEN, Color.Green);
+            colorsEnumToColorDict.Add(Colors.RED, Color.Red);
+            colorsEnumToColorDict.Add(Colors.WHITE, Color.White);
+            colorsEnumToColorDict.Add(Colors.YELLOW, Color.Yellow);
+
+            colorToColorsEnumDict.Add(Color.Black, Colors.BLACK);
+            colorToColorsEnumDict.Add(Color.Blue, Colors.BLUE);
+            colorToColorsEnumDict.Add(Color.Green, Colors.GREEN);
+            colorToColorsEnumDict.Add(Color.Red, Colors.RED);
+            colorToColorsEnumDict.Add(Color.White, Colors.WHITE);
+            colorToColorsEnumDict.Add(Color.Yellow, Colors.YELLOW);
+        }
+        // Helper function to get list of MastermindItems based on controls
+        private List<MastermindItem> GetMastermindItemsFromControls(Control.ControlCollection controls)
+        {
+            List<MastermindItem> listOfItems = new List<MastermindItem>();
+            if (ValidateGuess(controls))
+            {                
+                for (int i = 0; i < controls.Count; i++)
+                {
+                    MastermindItem item = new MastermindItem();
+                    item.Color = colorToColorsEnumDict[controls[i].BackColor];
+                    listOfItems.Add(item);
+                }                
+            } else
+            {
+                MessageBox.Show("You need to choose a color for all items!", "Guess again!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return listOfItems;
+
+        }
+        // Make sure that player has entered a valid guess
+        private bool ValidateGuess(Control.ControlCollection controls)
+        {
+            for (int i = 0; i < controls.Count; i++)
+            {
+                if (!colorToColorsEnumDict.ContainsKey(controls[i].BackColor))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

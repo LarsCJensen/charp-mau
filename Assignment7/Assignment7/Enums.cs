@@ -14,4 +14,12 @@ namespace Assignment7
         RED,
         YELLOW,            
     }
+
+    public enum GuessResult
+    {
+        INCORRECT,        
+        RIGHT_COLOR,
+        RIGHT_COLOR_AND_PLACE,
+    }
+
 }
