@@ -22,4 +22,11 @@ namespace Assignment7
         RIGHT_COLOR_AND_PLACE,
     }
 
+    public enum GameMode
+    {
+        EASY,
+        MEDIUM,
+        HARD,
+    }
+
 }

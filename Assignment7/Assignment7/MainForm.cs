@@ -13,23 +13,22 @@ namespace Assignment7
 {
     public partial class MainForm : Form
     {        
-        // TODO Make dynamic
-        private MastermindManager mastermindManager = new MastermindManager(10);
+        // TODO Make dynamic regarding number of guesses and Gamemode
+        private MastermindManager mastermindManager = new MastermindManager(10, GameMode.MEDIUM);
         private int row = 10;
         private Dictionary<Colors, Color> colorsEnumToColorDict = new Dictionary<Colors, Color>();
         private Dictionary<Color, Colors> colorToColorsEnumDict = new Dictionary<Color, Colors>();
         public MainForm()
         {
             InitializeComponent();
+            // TODO Refactor
+            FillColorDicts();
             InitializeGUI();
         }
 
 
         private void InitializeGUI()
         {
-            // TODO Refactor
-            FillColorDicts();
-
             tlpContainer.Controls.Clear();
             GenerateRandomRow();
             AddGuessRowToTLP();
@@ -91,19 +90,28 @@ namespace Assignment7
             }
         }
 
+        // TODO Refactor
         private void btnAddGuess_Click(object sender, EventArgs e)
-        {
-            // Create guess
-            // TODO s
+        {            
             Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
             if (ValidateGuess(rowControls))
             {
+                // TODO check sloppy loops without squirly-brackets
                 foreach (Control control in rowControls)
+                {
                     control.Enabled = false;
+                }                    
                 List<MastermindItem> guess = GetMastermindItemsFromControls(rowControls);
                 // TODO Refactor - validate before GetMastermindItems??
                 MastermindRow guessRow = new MastermindRow(guess);
                 List<GuessResult> result = mastermindManager.Guess(guessRow);
+                // Sort results by "correctness" to prevent it being too easy
+                if(mastermindManager.GameMode != GameMode.EASY)
+                {
+                    // Sort results descending to show the "best guess" first
+                    // This will change the list order, but it doesn't matter
+                    result.Sort((a, b) => b.CompareTo(a));
+                }
                 // Show result in result controls
                 AddGuessResultRowToTLP(result);
 
@@ -111,10 +119,28 @@ namespace Assignment7
                 if (result.Distinct().Count() == 1 && result[0] == GuessResult.RIGHT_COLOR_AND_PLACE)
                 {
                     lblMastermind.Visible = false;
+                    DialogResult playAgain = MessageBox.Show("WIIIIIN!!! \nWanna play a new game?", "You won!", MessageBoxButtons.YesNo);
+                    if(playAgain == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                    InitializeGUI();
+
                 } else
                 {
                     row--;
-                    AddGuessRowToTLP();                    
+                    if(row == 0)
+                    {
+                        DialogResult playAgain = MessageBox.Show("LOOOOOSER!!! \nWanna play a new game?", "You're no Mastermind!!", MessageBoxButtons.YesNo);
+                        if (playAgain == DialogResult.No)
+                        {
+                            Application.Exit();
+                        }
+                    } else
+                    {
+                        AddGuessRowToTLP();
+                    }
+                    
                 }
             }
             else
@@ -287,6 +313,12 @@ namespace Assignment7
                 default:
                     return Color.Gainsboro;
             }
+        }
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            AboutMastermind about = new AboutMastermind();
+            about.ShowDialog();            
         }
     }
 }

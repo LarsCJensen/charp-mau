@@ -26,9 +26,19 @@ namespace Assignment7
                 return guessesLeft;
             }
         }
-        public MastermindManager(int numberOfGuesses)
+        private GameMode gameMode;
+        public GameMode GameMode
+        {
+            get
+            {
+                return gameMode;
+            }
+        }
+
+        public MastermindManager(int numberOfGuesses, GameMode gameModeToSet)
         {
             guessesLeft = numberOfGuesses;
+            gameMode = gameModeToSet;
         }
         
         public List<GuessResult> Guess(MastermindRow guess)
