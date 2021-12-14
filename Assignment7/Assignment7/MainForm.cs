@@ -33,9 +33,7 @@ namespace Assignment7
             tlpContainer.Controls.Clear();
             GenerateRandomRow();
             AddGuessRowToTLP();
-            AddCorrectRowToTLP();
-            AddGuessResultRowToTLP();
-            
+            AddCorrectRowToTLP();            
             //HandlePictureBoxes(this);
         }
 
@@ -100,13 +98,24 @@ namespace Assignment7
             Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
             if (ValidateGuess(rowControls))
             {
+                foreach (Control control in rowControls)
+                    control.Enabled = false;
                 List<MastermindItem> guess = GetMastermindItemsFromControls(rowControls);
                 // TODO Refactor - validate before GetMastermindItems??
                 MastermindRow guessRow = new MastermindRow(guess);
-                List<GuessResult> result = mastermindManager.Guess(guessRow);                
+                List<GuessResult> result = mastermindManager.Guess(guessRow);
+                // Show result in result controls
+                AddGuessResultRowToTLP(result);
 
-                lblMastermind.Visible = false;
-                row--;
+                // TODO Refactor
+                if (result.Distinct().Count() == 1 && result[0] == GuessResult.RIGHT_COLOR_AND_PLACE)
+                {
+                    lblMastermind.Visible = false;
+                } else
+                {
+                    row--;
+                    AddGuessRowToTLP();                    
+                }
             }
             else
             {
@@ -137,6 +146,34 @@ namespace Assignment7
             
             tlpContainer.Controls.Add(newPanel, 0, row);
         }
+        private void AddGuessResultRowToTLP(List<GuessResult> result)
+        {
+            // TODO create helper function?
+            TableLayoutPanel newPanel = new TableLayoutPanel();
+            newPanel.ColumnCount = 2;
+            newPanel.RowCount = 2;
+            newPanel.Size = new Size(68, 44);
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
+
+            for (int i = 0; i < 2; i++)
+            {
+                PictureBox pictureBox = GetNewPictureBox(false);
+                pictureBox.BackColor = GetColorFromResult(result[i]);
+                newPanel.Controls.Add(pictureBox, i, 0);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                PictureBox pictureBox = GetNewPictureBox(false);
+                pictureBox.BackColor = GetColorFromResult(result[2+i]);
+                newPanel.Controls.Add(pictureBox, i, 1);
+            }
+            tlpContainer.Controls.Add(newPanel, 1, row);
+        }
         // TODO Refactor
         private void AddCorrectRowToTLP()
         {
@@ -145,7 +182,7 @@ namespace Assignment7
             newPanel.RowCount = 1;
             //TODO REMOVE
             //newPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
-            newPanel.Size = new Size(365, 50);
+            newPanel.Size = new Size(289, 45);
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
@@ -166,10 +203,7 @@ namespace Assignment7
                 // Get correct color based on enum key.
                 pictureBox.BackColor = colorsEnumToColorDict[item.Color];
                 newPanel.Controls.Add(pictureBox, i, 0);
-            }
-            // TODO Does this even work?
-            tlpContainer.SetColumnSpan(newPanel, 2);
-            
+            }            
             tlpContainer.Controls.Add(newPanel, 0, 0);
 
         }
@@ -187,33 +221,7 @@ namespace Assignment7
             }
             
             return newPictureBox;
-        }
-
-        private void AddGuessResultRowToTLP()
-        {
-            TableLayoutPanel newPanel = new TableLayoutPanel();
-            newPanel.ColumnCount = 2;
-            newPanel.RowCount = 2;
-            newPanel.Size = new Size(68, 44);
-            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-
-            for (int i = 0; i < 2; i++)
-            {
-                PictureBox pictureBox = GetNewPictureBox(false);
-                newPanel.Controls.Add(pictureBox, i, 0);
-            }            
-            for (int i = 0; i < 2; i++)
-            {
-                PictureBox pictureBox = GetNewPictureBox(false);
-                newPanel.Controls.Add(pictureBox, i, 1);
-            }
-            tlpContainer.Controls.Add(newPanel, 1, row);            
-        }
+        }        
 
         private void GenerateRandomRow()
         {
@@ -266,6 +274,19 @@ namespace Assignment7
                 }
             }
             return true;
+        }
+        
+        private Color GetColorFromResult(GuessResult result)
+        {
+            switch(result)
+            {
+                case GuessResult.RIGHT_COLOR_AND_PLACE:
+                    return Color.Black;
+                case GuessResult.RIGHT_COLOR:
+                    return Color.White;
+                default:
+                    return Color.Gainsboro;
+            }
         }
     }
 }

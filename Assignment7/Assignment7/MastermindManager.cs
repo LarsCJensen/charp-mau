@@ -91,24 +91,42 @@ namespace Assignment7
 
             for (int i = 0; i < 4; i++)
             {
-                // If right color is in the right place
-                if ((MastermindItem)props[i].GetValue(guess) == (MastermindItem)props[i].GetValue(CorrectRow))
-                {
-                    answer.Add(GuessResult.RIGHT_COLOR_AND_PLACE);
-                    continue;
-                } else if ((MastermindItem)props[i].GetValue(guess) == (MastermindItem)props[0].GetValue(CorrectRow) 
-                    || (MastermindItem)props[i].GetValue(guess) == (MastermindItem)props[1].GetValue(CorrectRow) 
-                    || (MastermindItem)props[i].GetValue(guess) == (MastermindItem)props[2].GetValue(CorrectRow)
-                    || (MastermindItem)props[i].GetValue(guess) == (MastermindItem)props[3].GetValue(CorrectRow)
-                    )
-                {
-                    answer.Add(GuessResult.RIGHT_COLOR);
-                } else
-                {
-                    answer.Add(GuessResult.INCORRECT);
-                }
+                MastermindItem guessItem = (MastermindItem)props[i].GetValue(guess);
+                answer.Add(CompareGuessWithCorrectRow(guessItem, i, props));                
             }
             return answer;
+        }
+        /// <summary>
+        /// Compare Guess with correctRow
+        /// </summary>
+        /// <param name="guessItem"></param>
+        /// <param name="index"></param>
+        /// <param name="props"></param>
+        /// <returns></returns>
+        /// 
+        // TODO REfactor if needed
+        private GuessResult CompareGuessWithCorrectRow(MastermindItem guessItem, int index, IList<PropertyInfo> props)
+        {
+            MastermindItem correctRowVal = (MastermindItem)props[index].GetValue(CorrectRow);
+
+            // If guess is right color on the right place
+            if (guessItem.Color == correctRowVal.Color)
+            {
+                return GuessResult.RIGHT_COLOR_AND_PLACE;
+            }
+
+            // If color is used in other indexes
+            for (int i = 0; i < props.Count; i++)
+            {
+                if (i == index)
+                    continue;
+                // Compare guess with all other guesses
+                MastermindItem correctRowItem  = (MastermindItem)props[i].GetValue(CorrectRow);
+                if (guessItem.Color == correctRowItem.Color)
+                    return GuessResult.RIGHT_COLOR;
+            }
+            
+            return GuessResult.INCORRECT;
 
         }
     }
