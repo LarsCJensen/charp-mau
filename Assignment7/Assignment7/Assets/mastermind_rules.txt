@@ -1,0 +1,25 @@
+﻿Mastermind - HOW TO PLAY
+
+Your mission is to guess the correct row of colors, which is hidden behind the black label. On each guess you will get information about:
+
+1. Number of right colors in the right place (black)
+2. Number of right colors in the wrong place (white)
+3. Wrong color (crossed)
+
+You have 10 guesses to get it right!
+
+Game modes:
+
+Easy:
+NOT IMPLEMENTED YET
+The result will target the position, so you will know which color is correct and in the right place etc.
+
+Medium:
+Choose on of 6 clors
+
+Hard:
+NOT IMPLEMENTED YET
+Colors can exist more than once in the correct row.
+
+Read more here:
+https://en.wikipedia.org/wiki/Mastermind_(board_game)

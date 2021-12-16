@@ -18,6 +18,8 @@ namespace Assignment7
         private int row = 10;
         private Dictionary<Colors, Color> colorsEnumToColorDict = new Dictionary<Colors, Color>();
         private Dictionary<Color, Colors> colorToColorsEnumDict = new Dictionary<Color, Colors>();
+        private DateTime time;
+
         public MainForm()
         {
             InitializeComponent();
@@ -30,10 +32,9 @@ namespace Assignment7
         private void InitializeGUI()
         {
             tlpContainer.Controls.Clear();
-            GenerateRandomRow();
+            mastermindManager.GenerateRandomRow();
             AddGuessRowToTLP();
             AddCorrectRowToTLP();            
-            //HandlePictureBoxes(this);
         }
 
         // Recursively bind click event to all picture boxes and reset them to default
@@ -52,8 +53,10 @@ namespace Assignment7
                 }
             }
         }
+        // Method which is triggered upon click of color box
         private void pb_Click(object sender, EventArgs e)
         {
+            // TODO If not hard then one color can only be used once
             ChangeColor(sender);
         }
         private void ChangeColor(object sender)
@@ -86,7 +89,6 @@ namespace Assignment7
                     pictureBox.BackColor = Color.White;
                     pictureBox.Tag = Colors.WHITE;
                     break;
-
             }
         }
 
@@ -119,8 +121,8 @@ namespace Assignment7
                 if (result.Distinct().Count() == 1 && result[0] == GuessResult.RIGHT_COLOR_AND_PLACE)
                 {
                     lblMastermind.Visible = false;
-                    DialogResult playAgain = MessageBox.Show("WIIIIIN!!! \nWanna play a new game?", "You won!", MessageBoxButtons.YesNo);
-                    if(playAgain == DialogResult.No)
+                    DialogResult playAgain = MessageBox.Show("WIIIIIN!!!\n\nYou succeeded in " + (10-row).ToString() + " guesses!\n\nWanna play a new game?", "You are a true Mastermind!", MessageBoxButtons.YesNo);
+                    if (playAgain == DialogResult.No)
                     {
                         Application.Exit();
                     }
@@ -131,7 +133,7 @@ namespace Assignment7
                     row--;
                     if(row == 0)
                     {
-                        DialogResult playAgain = MessageBox.Show("LOOOOOSER!!! \nWanna play a new game?", "You're no Mastermind!!", MessageBoxButtons.YesNo);
+                        DialogResult playAgain = MessageBox.Show("LOOOOOSER!!!\n\nWanna play a new game?", "You are NO Mastermind!", MessageBoxButtons.YesNo);
                         if (playAgain == DialogResult.No)
                         {
                             Application.Exit();
@@ -139,8 +141,7 @@ namespace Assignment7
                     } else
                     {
                         AddGuessRowToTLP();
-                    }
-                    
+                    }                    
                 }
             }
             else
@@ -148,7 +149,6 @@ namespace Assignment7
                 MessageBox.Show("You need to choose a color for all items!", "Guess again!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }            
         }
-
         private void AddGuessRowToTLP()
         {
             TableLayoutPanel newPanel = new TableLayoutPanel();
@@ -190,12 +190,16 @@ namespace Assignment7
             {
                 PictureBox pictureBox = GetNewPictureBox(false);
                 pictureBox.BackColor = GetColorFromResult(result[i]);
+                if (pictureBox.BackColor == Color.Gainsboro)
+                    pictureBox.Image = pictureBox.ErrorImage;
                 newPanel.Controls.Add(pictureBox, i, 0);
             }
             for (int i = 0; i < 2; i++)
             {
                 PictureBox pictureBox = GetNewPictureBox(false);
                 pictureBox.BackColor = GetColorFromResult(result[2+i]);
+                if (pictureBox.BackColor == Color.Gainsboro)
+                    pictureBox.Image = pictureBox.ErrorImage;
                 newPanel.Controls.Add(pictureBox, i, 1);
             }
             tlpContainer.Controls.Add(newPanel, 1, row);
@@ -206,8 +210,6 @@ namespace Assignment7
             TableLayoutPanel newPanel = new TableLayoutPanel();
             newPanel.ColumnCount = 4;
             newPanel.RowCount = 1;
-            //TODO REMOVE
-            //newPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
             newPanel.Size = new Size(289, 45);
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
@@ -231,7 +233,6 @@ namespace Assignment7
                 newPanel.Controls.Add(pictureBox, i, 0);
             }            
             tlpContainer.Controls.Add(newPanel, 0, 0);
-
         }
 
         private PictureBox GetNewPictureBox(bool guess=true)
@@ -248,11 +249,7 @@ namespace Assignment7
             
             return newPictureBox;
         }        
-
-        private void GenerateRandomRow()
-        {
-            mastermindManager.GenerateRandomRow();
-        }
+        // Map enum to color
         private void FillColorDicts()
         {
             colorsEnumToColorDict.Add(Colors.BLACK, Color.Black);
@@ -319,6 +316,55 @@ namespace Assignment7
         {
             AboutMastermind about = new AboutMastermind();
             about.ShowDialog();            
+        }
+
+        private void rulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RulesMastermind rules = new RulesMastermind();
+            rules.ShowDialog();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            DialogResult showRules = MessageBox.Show("Do you want to see the rules?", "Mastermind rules?", MessageBoxButtons.YesNo);
+            if (showRules == DialogResult.Yes)
+            {
+                RulesMastermind mastermindRules = new RulesMastermind();
+                mastermindRules.Show();
+            }
+            // Chose to have timer in form show as it is more user friendly
+            Timer timer = new Timer();
+            time = DateTime.Now;
+            timer.Interval = 1000;
+            // Call each second
+            timer.Tick += new EventHandler(UpdateTime);
+            timer.Start();
+        }
+
+        private void btnResetGuess_Click(object sender, EventArgs e)
+        {
+            Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
+            foreach (Control control in rowControls)
+            {
+                control.BackColor = Color.Gainsboro;
+            }            
+        }
+        // Update time each second
+        private void UpdateTime(object sender, EventArgs e)
+        {
+            lblTimer.Text = (DateTime.Now - time).ToString("hh\\:mm\\:ss");
+            // So program doesn't hang.
+            Application.DoEvents();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult response = MessageBox.Show("Are you sure you want to quit?", "Quit?", MessageBoxButtons.YesNo);
+            if(response == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            
         }
     }
 }
