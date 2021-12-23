@@ -15,7 +15,7 @@ NOT IMPLEMENTED YET
 The result will target the position, so you will know which color is correct and in the right place etc.
 
 Medium:
-Choose on of 6 clors
+Choose one of 6 colors to find the correct sequence. Each color is only used once. The result will not show which position that is correct.
 
 Hard:
 NOT IMPLEMENTED YET

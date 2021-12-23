@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace Assignment7
 {
+    /// <summary>
+    /// Class which holds and manages MastermindRows
+    /// </summary>
     public class MastermindManager
     {
         private List<MastermindRow> guesses = new List<MastermindRow>();
@@ -34,31 +37,42 @@ namespace Assignment7
                 return gameMode;
             }
         }
-
+        /// <summary>
+        ///  Constructor
+        /// </summary>
+        /// <param name="numberOfGuesses">Parameter for number of guesses</param>
+        /// <param name="gameModeToSet">Parameter for game mode (easy, medium, hard)</param>
         public MastermindManager(int numberOfGuesses, GameMode gameModeToSet)
         {
             guessesLeft = numberOfGuesses;
             gameMode = gameModeToSet;
         }
-        
+        /// <summary>
+        /// Method to add a guess and to get the result
+        /// </summary>
+        /// <param name="guess">The MastermindRow to guess</param>
+        /// <returns></returns>
         public List<GuessResult> Guess(MastermindRow guess)
         {
             // TODO Behöver jag adda ett guess till en array?
             guesses.Add(guess);
-            List<GuessResult> answer = new List<GuessResult>();
-            answer = GetAnswer(guess);            
+            List<GuessResult> answer = GetAnswer(guess);            
             guessesLeft--;
             return answer;
-        }
-
-        
-        public void GenerateRandomRow()
-        {
-            
-            List<MastermindItem> randomItems = new List<MastermindItem>();
-            randomItems = getRandomItems();
+        }        
+        /// <summary>
+        /// Method to generate a random sequence which is the row to guess
+        /// </summary>
+        public void GenerateRandomRow()        {   
+             
+            List<MastermindItem> randomItems = getRandomItems();
             correctRow = new MastermindRow(randomItems);            
         }
+        /// <summary>
+        /// Helper method to get random MastermindItems
+        /// </summary>
+        /// <param name="onlyUnique">For hard mode colors can exist multiple times</param>
+        /// <returns></returns>
         private List<MastermindItem> getRandomItems(bool onlyUnique=true)
         {
             List<MastermindItem> listOfItems = new List<MastermindItem>();
@@ -87,11 +101,22 @@ namespace Assignment7
             }
             return listOfItems;
         }
+        /// <summary>
+        /// Helper method to generate a random number
+        /// </summary>
+        /// <param name="start">Start number</param>
+        /// <param name="end">End number</param>
+        /// <returns></returns>
         private int getRandomNumber(int start, int end)
         {
             return new Random().Next(start, end);
         }
 
+        /// <summary>
+        /// Helper method to get answer for a guess
+        /// </summary>
+        /// <param name="guess">Guess to get result for</param>
+        /// <returns></returns>
         // TODO should I pass guess here or just go with index?
         private List<GuessResult> GetAnswer(MastermindRow guess)
         {
@@ -109,12 +134,13 @@ namespace Assignment7
         /// <summary>
         /// Compare Guess with correctRow
         /// </summary>
-        /// <param name="guessItem"></param>
-        /// <param name="index"></param>
-        /// <param name="props"></param>
+        /// <param name="guessItem">MastermindItem to compare result with</param>
+        /// <param name="index">Which index the item is located at</param>
+        /// <param name="props">Properties to get color of item</param>
         /// <returns></returns>
         /// 
-        // TODO REfactor if needed
+        // TODO Refactor if needed
+        // TODO Is props needed?
         private GuessResult CompareGuessWithCorrectRow(MastermindItem guessItem, int index, IList<PropertyInfo> props)
         {
             MastermindItem correctRowVal = (MastermindItem)props[index].GetValue(CorrectRow);
@@ -137,7 +163,6 @@ namespace Assignment7
             }
             
             return GuessResult.INCORRECT;
-
         }
     }
 }

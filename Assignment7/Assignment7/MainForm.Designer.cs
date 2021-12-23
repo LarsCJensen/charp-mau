@@ -29,6 +29,7 @@ namespace Assignment7
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tlpContainer = new System.Windows.Forms.TableLayoutPanel();
             this.tlpRow1 = new System.Windows.Forms.TableLayoutPanel();
             this.pb3 = new System.Windows.Forms.PictureBox();
@@ -64,6 +65,7 @@ namespace Assignment7
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lblTimer = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tlpContainer.SuspendLayout();
             this.tlpRow1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb3)).BeginInit();
@@ -83,7 +85,7 @@ namespace Assignment7
             // 
             // tlpContainer
             // 
-            this.tlpContainer.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tlpContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.tlpContainer.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tlpContainer.ColumnCount = 2;
             this.tlpContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -109,7 +111,7 @@ namespace Assignment7
             // 
             // tlpRow1
             // 
-            this.tlpRow1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.tlpRow1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.tlpRow1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tlpRow1.ColumnCount = 4;
             this.tlpRow1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -131,7 +133,7 @@ namespace Assignment7
             // pb3
             // 
             this.pb3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pb3.BackColor = System.Drawing.Color.Gainsboro;
+            this.pb3.BackColor = System.Drawing.Color.Gray;
             this.pb3.Location = new System.Drawing.Point(160, 9);
             this.pb3.Name = "pb3";
             this.pb3.Size = new System.Drawing.Size(37, 27);
@@ -141,7 +143,7 @@ namespace Assignment7
             // pb4
             // 
             this.pb4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pb4.BackColor = System.Drawing.Color.Gainsboro;
+            this.pb4.BackColor = System.Drawing.Color.Gray;
             this.pb4.Location = new System.Drawing.Point(232, 9);
             this.pb4.Name = "pb4";
             this.pb4.Size = new System.Drawing.Size(37, 27);
@@ -151,7 +153,7 @@ namespace Assignment7
             // pb1
             // 
             this.pb1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pb1.BackColor = System.Drawing.Color.Gainsboro;
+            this.pb1.BackColor = System.Drawing.Color.Gray;
             this.pb1.Location = new System.Drawing.Point(18, 9);
             this.pb1.Name = "pb1";
             this.pb1.Size = new System.Drawing.Size(37, 27);
@@ -161,7 +163,7 @@ namespace Assignment7
             // pb2
             // 
             this.pb2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pb2.BackColor = System.Drawing.Color.Gainsboro;
+            this.pb2.BackColor = System.Drawing.Color.Gray;
             this.pb2.Location = new System.Drawing.Point(89, 9);
             this.pb2.Name = "pb2";
             this.pb2.Size = new System.Drawing.Size(37, 27);
@@ -319,14 +321,15 @@ namespace Assignment7
             // 
             this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             this.newGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.newGameToolStripMenuItem.Text = "New game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -486,6 +489,7 @@ namespace Assignment7
             this.Controls.Add(this.tlpContainer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mastermind by Lars Jensen";
@@ -548,6 +552,7 @@ namespace Assignment7
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

@@ -7,6 +7,9 @@ namespace Assignment7
 {
     public class MastermindRow
     {
+        /// <summary>
+        /// Class which holds a Mastermind row, which is equal to a guess
+        /// </summary>
         // TODO Can this be made generic?? List<MastermindItems>!!
         private MastermindItem item1;
         public MastermindItem Item1
@@ -40,18 +43,16 @@ namespace Assignment7
                 return item4;
             }
         }
+        /// <summary>
+        /// Constructor 
+        /// </summary>
+        /// <param name="listOfItems"></param>
         public MastermindRow(List<MastermindItem> listOfItems)
         {
             item1 = listOfItems[0];
             item2 = listOfItems[1];
             item3 = listOfItems[2];
             item4 = listOfItems[3];
-
-        }
-        //TODO Ta bort
-        //public MastermindRow(MastermindRow guess)
-        //{
-
-        //}        
+        }        
     }
 }

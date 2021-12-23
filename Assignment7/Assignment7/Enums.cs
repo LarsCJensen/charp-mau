@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Assignment7
 {
+    /// <summary>
+    /// Enum for colors which can be chosen
+    /// </summary>
     public enum Colors
     {
         WHITE,
@@ -15,6 +18,9 @@ namespace Assignment7
         YELLOW,            
     }
 
+    /// <summary>
+    /// Enum for guess result
+    /// </summary>
     public enum GuessResult
     {
         INCORRECT,        
@@ -22,6 +28,9 @@ namespace Assignment7
         RIGHT_COLOR_AND_PLACE,
     }
 
+    /// <summary>
+    /// Enum for game modes
+    /// </summary>
     public enum GameMode
     {
         EASY,

@@ -18,6 +18,7 @@ namespace Assignment7
         private int row = 10;
         private Dictionary<Colors, Color> colorsEnumToColorDict = new Dictionary<Colors, Color>();
         private Dictionary<Color, Colors> colorToColorsEnumDict = new Dictionary<Color, Colors>();
+        private Timer timer = new Timer();
         private DateTime time;
 
         public MainForm()
@@ -32,33 +33,15 @@ namespace Assignment7
         private void InitializeGUI()
         {
             tlpContainer.Controls.Clear();
-            mastermindManager.GenerateRandomRow();
-            AddGuessRowToTLP();
-            AddCorrectRowToTLP();            
-        }
-
-        // Recursively bind click event to all picture boxes and reset them to default
-        private void HandlePictureBoxes(Control parent)
-        {
-            foreach (Control c in parent.Controls)
-            {
-                if (c.GetType() == typeof(PictureBox) && c.Enabled == true) // Disabled picture boxes are for result
-                {
-                    c.BackColor = Color.Gainsboro;
-                    c.Tag = null;
-                    c.Click += pb_Click;
-                } else
-                {
-                    HandlePictureBoxes(c);
-                }
-            }
+            btnAddGuess.Enabled = false;
+            btnResetGuess.Enabled = false;
         }
         // Method which is triggered upon click of color box
         private void pb_Click(object sender, EventArgs e)
         {
-            // TODO If not hard then one color can only be used once
+            // TODO If not hard mode then one color can only be used once
             ChangeColor(sender);
-        }
+        }        
         private void ChangeColor(object sender)
         {
             var pictureBox = sender as PictureBox;
@@ -98,7 +81,6 @@ namespace Assignment7
             Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
             if (ValidateGuess(rowControls))
             {
-                // TODO check sloppy loops without squirly-brackets
                 foreach (Control control in rowControls)
                 {
                     control.Enabled = false;
@@ -121,12 +103,12 @@ namespace Assignment7
                 if (result.Distinct().Count() == 1 && result[0] == GuessResult.RIGHT_COLOR_AND_PLACE)
                 {
                     lblMastermind.Visible = false;
-                    DialogResult playAgain = MessageBox.Show("WIIIIIN!!!\n\nYou succeeded in " + (10-row).ToString() + " guesses!\n\nWanna play a new game?", "You are a true Mastermind!", MessageBoxButtons.YesNo);
+                    DialogResult playAgain = MessageBox.Show("WIIIIIN!!!\n\nYou succeeded in " + (10-(row-1)).ToString() + " guesses!\n\nWanna play a new game?", "You are a true Mastermind!", MessageBoxButtons.YesNo);
                     if (playAgain == DialogResult.No)
                     {
                         Application.Exit();
                     }
-                    InitializeGUI();
+                    StartNewGame();
 
                 } else
                 {
@@ -137,6 +119,9 @@ namespace Assignment7
                         if (playAgain == DialogResult.No)
                         {
                             Application.Exit();
+                        } else
+                        {
+                            StartNewGame();
                         }
                     } else
                     {
@@ -154,8 +139,6 @@ namespace Assignment7
             TableLayoutPanel newPanel = new TableLayoutPanel();
             newPanel.ColumnCount = 4;
             newPanel.RowCount = 1;
-            //TODO REMOVE
-            //newPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Outset;
             newPanel.Size = new Size(289, 45);
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
             newPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33F));
@@ -165,9 +148,10 @@ namespace Assignment7
 
             for(int i = 0; i < 4;i++)
             {
-                PictureBox pictureBox = GetNewPictureBox();                
-                newPanel.Controls.Add(pictureBox, i, 0);
-                
+                PictureBox pictureBox = GetNewPictureBox();
+                string toolTipText = "Click the box to choose color";
+                toolTip1.SetToolTip(pictureBox, toolTipText);
+                newPanel.Controls.Add(pictureBox, i, 0);                
             }
             
             tlpContainer.Controls.Add(newPanel, 0, row);
@@ -187,23 +171,45 @@ namespace Assignment7
             newPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
 
             for (int i = 0; i < 2; i++)
-            {
+            {                
                 PictureBox pictureBox = GetNewPictureBox(false);
                 pictureBox.BackColor = GetColorFromResult(result[i]);
-                if (pictureBox.BackColor == Color.Gainsboro)
+                string toolTipText = "Click the box to choose color";
+                toolTip1.SetToolTip(pictureBox, toolTipText);
+
+                // If the guess is wrong then add error image to illustrate it
+                if (pictureBox.BackColor == Color.Gray)
                     pictureBox.Image = pictureBox.ErrorImage;
+                                
                 newPanel.Controls.Add(pictureBox, i, 0);
             }
             for (int i = 0; i < 2; i++)
             {
                 PictureBox pictureBox = GetNewPictureBox(false);
                 pictureBox.BackColor = GetColorFromResult(result[2+i]);
-                if (pictureBox.BackColor == Color.Gainsboro)
+                string toolTipText = "Click the box to choose color";
+                toolTip1.SetToolTip(pictureBox, toolTipText);
+
+                if (pictureBox.BackColor == Color.Gray)
                     pictureBox.Image = pictureBox.ErrorImage;
-                newPanel.Controls.Add(pictureBox, i, 1);
+
+                newPanel.Controls.Add(pictureBox, i, 1);                
             }
-            tlpContainer.Controls.Add(newPanel, 1, row);
+            string panelToolTipText = "Black means right color in the right place" + Environment.NewLine + "White means right color in the wrong place" + Environment.NewLine + "Crossed box means wrong color";
+            toolTip1.SetToolTip(newPanel, panelToolTipText);
+
+            tlpContainer.Controls.Add(newPanel, 1, row);            
         }
+        // Helper function to get Tooltip from background color
+        private string GetToolTip(Color color)
+        {
+            if (color == Color.Black)
+                return "Right color in the right place!";
+            if (color == Color.White)
+                return "Right color in the wrong place!";
+            return "Wrong color!";
+        }
+
         // TODO Refactor
         private void AddCorrectRowToTLP()
         {
@@ -226,8 +232,6 @@ namespace Assignment7
                 // Dynamically get the correct item property based on index order
                 MastermindItem item = (MastermindItem)props[i].GetValue(mastermindManager.CorrectRow);
                 PictureBox pictureBox = GetNewPictureBox();
-                //TODO Ta bort
-                //pictureBox.BackColor = colorsDict[mastermindManager.CorrectRow.Item1.Color];
                 // Get correct color based on enum key.
                 pictureBox.BackColor = colorsEnumToColorDict[item.Color];
                 newPanel.Controls.Add(pictureBox, i, 0);
@@ -240,15 +244,15 @@ namespace Assignment7
             PictureBox newPictureBox;
             if (guess)
             {
-                newPictureBox = new PictureBox() { BackColor = Color.Gainsboro, Size = new Size(35, 35), Enabled=true, Anchor=AnchorStyles.None};
+                newPictureBox = new PictureBox() { BackColor = Color.Gray, Size = new Size(35, 35), Enabled=true, Anchor=AnchorStyles.None};
                 newPictureBox.Click += pb_Click;
             } else
             {
-                newPictureBox = new PictureBox() { BackColor = Color.DimGray, Size = new Size(15, 15), Enabled=false, Anchor = AnchorStyles.None };
+                newPictureBox = new PictureBox() { BackColor = Color.DimGray, Size = new Size(15, 15), Enabled=false, Anchor = AnchorStyles.None };                
             }
             
             return newPictureBox;
-        }        
+        }
         // Map enum to color
         private void FillColorDicts()
         {
@@ -308,7 +312,7 @@ namespace Assignment7
                 case GuessResult.RIGHT_COLOR:
                     return Color.White;
                 default:
-                    return Color.Gainsboro;
+                    return Color.Gray;
             }
         }
 
@@ -325,20 +329,22 @@ namespace Assignment7
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
-        {
+        {            
             DialogResult showRules = MessageBox.Show("Do you want to see the rules?", "Mastermind rules?", MessageBoxButtons.YesNo);
             if (showRules == DialogResult.Yes)
             {
                 RulesMastermind mastermindRules = new RulesMastermind();
                 mastermindRules.Show();
+            } else
+            {
+                DialogResult doYouWantToPlay = MessageBox.Show("Are you ready to play?", "Are you a mastermind?", MessageBoxButtons.YesNo);
+                if (doYouWantToPlay != DialogResult.Yes)
+                {
+                    MessageBox.Show("Come back when you are ready!", "Return to become a Mastermind!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Application.Exit();
+                }
+                StartNewGame();
             }
-            // Chose to have timer in form show as it is more user friendly
-            Timer timer = new Timer();
-            time = DateTime.Now;
-            timer.Interval = 1000;
-            // Call each second
-            timer.Tick += new EventHandler(UpdateTime);
-            timer.Start();
         }
 
         private void btnResetGuess_Click(object sender, EventArgs e)
@@ -346,7 +352,7 @@ namespace Assignment7
             Control.ControlCollection rowControls = tlpContainer.GetControlFromPosition(0, row).Controls;
             foreach (Control control in rowControls)
             {
-                control.BackColor = Color.Gainsboro;
+                control.BackColor = Color.Gray;
             }            
         }
         // Update time each second
@@ -365,6 +371,43 @@ namespace Assignment7
                 Application.Exit();
             }
             
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(row < 10)
+            {
+                DialogResult response = MessageBox.Show("Are you sure you want to start a new game?", "Quit?", MessageBoxButtons.YesNo);
+                if (response == DialogResult.Yes)
+                {
+                    StartNewGame();
+                }
+            } else
+            {
+                StartNewGame();
+            }           
+            
+        }
+
+        private void StartNewGame()
+        {
+            InitializeGUI();
+            mastermindManager = new MastermindManager(10, GameMode.MEDIUM);
+            mastermindManager.GenerateRandomRow();
+            row = 10;
+            AddGuessRowToTLP();
+            AddCorrectRowToTLP();
+            btnAddGuess.Enabled = true;
+            btnResetGuess.Enabled = true;
+
+
+            // Chose to have timer in form show as it is more user friendly
+            time = DateTime.Now;
+            timer.Interval = 1000;
+            // Call each second
+            timer.Tick += new EventHandler(UpdateTime);
+
+            timer.Start();
         }
     }
 }
