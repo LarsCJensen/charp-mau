@@ -21,6 +21,7 @@ namespace Assignment7
         }
         private void InitializeGUI()
         {
+            // Fetch rules from textfile in the assets folder
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Assets\mastermind_rules.txt");            
             txtRules.Text = File.ReadAllText(path);                
             txtRules.SelectionLength = 0;
@@ -30,6 +31,5 @@ namespace Assignment7
         {
             ActiveForm.Close();
         }
-
     }
 }

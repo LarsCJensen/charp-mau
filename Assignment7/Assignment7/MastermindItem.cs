@@ -7,6 +7,9 @@ namespace Assignment7
 {
     public class MastermindItem
     {
+        /// <summary>
+        /// Class to handle MastermindItem which only has one property
+        /// </summary>
         private Colors color;
         public Colors Color
         {
@@ -18,17 +21,6 @@ namespace Assignment7
             {
                 color = value;
             }
-        }
-        //public Enums Enums
-        //{
-        //    get => default;
-        //    set
-        //    {
-        //    }
-        //}
-        public MastermindItem()
-        {
-            // Default constructor
         }
     }
 }

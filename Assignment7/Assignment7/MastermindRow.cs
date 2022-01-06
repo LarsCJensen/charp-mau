@@ -10,7 +10,7 @@ namespace Assignment7
         /// <summary>
         /// Class which holds a Mastermind row, which is equal to a guess
         /// </summary>
-        // TODO Can this be made generic?? List<MastermindItems>!!
+        // FUTURE Can this be made generic? List<MastermindItems>!
         private MastermindItem item1;
         public MastermindItem Item1
         {
@@ -46,7 +46,7 @@ namespace Assignment7
         /// <summary>
         /// Constructor 
         /// </summary>
-        /// <param name="listOfItems"></param>
+        /// <param name="listOfItems">List of MastermindItems which represents the guess</param>
         public MastermindRow(List<MastermindItem> listOfItems)
         {
             item1 = listOfItems[0];

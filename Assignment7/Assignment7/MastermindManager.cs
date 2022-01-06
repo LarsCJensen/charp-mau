@@ -54,7 +54,6 @@ namespace Assignment7
         /// <returns></returns>
         public List<GuessResult> Guess(MastermindRow guess)
         {
-            // TODO Behöver jag adda ett guess till en array?
             guesses.Add(guess);
             List<GuessResult> answer = GetAnswer(guess);            
             guessesLeft--;
@@ -80,7 +79,7 @@ namespace Assignment7
             for(int i = 0; i < 4; i++)
             {
                 int randomNumber;
-                // TODO Refactor
+                // If not hard mode, then only pick unique colors. Picked colors are added to list
                 if(onlyUnique)
                 {
                     while (true)
@@ -117,7 +116,6 @@ namespace Assignment7
         /// </summary>
         /// <param name="guess">Guess to get result for</param>
         /// <returns></returns>
-        // TODO should I pass guess here or just go with index?
         private List<GuessResult> GetAnswer(MastermindRow guess)
         {
             List<GuessResult> answer = new List<GuessResult>();
@@ -127,7 +125,7 @@ namespace Assignment7
             for (int i = 0; i < 4; i++)
             {
                 MastermindItem guessItem = (MastermindItem)props[i].GetValue(guess);
-                answer.Add(CompareGuessWithCorrectRow(guessItem, i, props));                
+                answer.Add(CompareItemWithCorrectRow(guessItem, i, props));                
             }
             return answer;
         }
@@ -139,9 +137,7 @@ namespace Assignment7
         /// <param name="props">Properties to get color of item</param>
         /// <returns></returns>
         /// 
-        // TODO Refactor if needed
-        // TODO Is props needed?
-        private GuessResult CompareGuessWithCorrectRow(MastermindItem guessItem, int index, IList<PropertyInfo> props)
+        private GuessResult CompareItemWithCorrectRow(MastermindItem guessItem, int index, IList<PropertyInfo> props)
         {
             MastermindItem correctRowVal = (MastermindItem)props[index].GetValue(CorrectRow);
 
@@ -154,6 +150,7 @@ namespace Assignment7
             // If color is used in other indexes
             for (int i = 0; i < props.Count; i++)
             {
+                // Skip the same index. It is eather RIGHT_COLOR_AND_PLACE or default INCORRECT
                 if (i == index)
                     continue;
                 // Compare guess with all other guesses
